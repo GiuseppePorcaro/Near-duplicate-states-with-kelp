@@ -2,7 +2,6 @@ package com.tool;
 
 import it.uniroma2.sag.kelp.data.representation.structure.StructureElement;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureElementSimilarityI;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,36 +11,33 @@ public class AllAttributesJaccardSimilarity implements StructureElementSimilarit
     @Override
     public float sim(StructureElement sx, StructureElement sd) {
 
-        //Se i nodi li rappresento come insiemi di tag e attributo=valore, allora qui uso un qualche tipo di indice di similitudine tra insiemi. Poi si vedono i casi particolari.
-
-        //FARE DEBUG E VEDERE PERCHè IL VALORE DEL KERNEL RIMANE A 0
-
         String tagSx = getTag(sx.getTextFromData());
         String tagSd = getTag(sd.getTextFromData());
 
         if(!tagSx.equalsIgnoreCase(tagSd.toLowerCase())){
-            return 0;
+            return 0f;
         }
 
         Set<String> attributesSx = getAttributes(sx.getTextFromData());
         Set<String> attributeSd = getAttributes(sd.getTextFromData());
+        int sxSize = attributesSx.size();
+        int sdSize = attributeSd.size();
 
-        Set<String> union = new HashSet<>(attributesSx);
-        Set<String> intersection = new HashSet<>(attributesSx);
-        intersection.retainAll(attributeSd);
-        union.addAll(attributeSd);
-
-        attributesSx.retainAll(attributeSd);
-        float intersectionCardinality = intersection.size();
-        float unionCardinality = union.size();
-
-        if(unionCardinality == 0){
-            return 1;
+        if(sxSize == 0 && sdSize == 0){
+            return 1f;
         }
 
-        System.out.println(tagSx + " " +tagSd + "\t"+attributesSx+"\t"+attributeSd+"\t - "+intersectionCardinality + ", "+unionCardinality + ", "+intersectionCardinality/unionCardinality);
+        if(sxSize == 0 || sdSize == 0){
+            return 0f;
+        }
 
-        return intersectionCardinality/unionCardinality;
+        Set<String> union = new HashSet<>(attributesSx);
+        union.addAll(attributeSd);
+        int intersectionCardinality = (sxSize+sdSize) - union.size();
+
+        //System.out.println(tagSx + " " +tagSd + "\t"+attributesSx+"\t"+attributeSd+"\t - "+intersectionCardinality + ", "+unionCardinality + ", "+intersectionCardinality/unionCardinality);
+
+        return 1f *intersectionCardinality/union.size();
     }
 
     private Set<String> getAttributes(String data){
@@ -65,5 +61,4 @@ public class AllAttributesJaccardSimilarity implements StructureElementSimilarit
         return token[0];
 
     }
-
 }

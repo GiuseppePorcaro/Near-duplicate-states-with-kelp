@@ -2,19 +2,25 @@ package com.tool;
 
 import com.tool.Trees.FullTree;
 import com.tool.Trees.Tree;
+import com.tool.Trees.TreeFactory;
 import com.tool.Trees.TreeNoScript;
 import it.uniroma2.sag.kelp.data.representation.structure.StructureElement;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureElementSimilarityI;
 import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
 import it.uniroma2.sag.kelp.data.representation.tree.node.TreeNode;
+import it.uniroma2.sag.kelp.kernel.DirectKernel;
 import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
+import it.uniroma2.sag.kelp.kernel.tree.deltamatrix.DeltaMatrix;
+import it.uniroma2.sag.kelp.kernel.tree.deltamatrix.StaticDeltaMatrix;
 import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.*;
 
-public class MainClass {
+public class
+
+MainClass {
 
     private static int id = 0;
 
@@ -27,38 +33,42 @@ public class MainClass {
         *
         * */
 
-        float LAMBDA = 0;
-        float MU = 0;
-        float terminalFactor = 0;
-        float similarityThreshold = 0;
+        float LAMBDA = 0.4f;
+        float MU = 0.4f;
+        float terminalFactor = 1;
+
+        //potrei ignorare i nodi che hanno uno score al di sotto del 0.2 (?)
+        float similarityThreshold = 0.01f;
         StructureElementSimilarityI nodeSimilarity = new AllAttributesJaccardSimilarity();
         String representationIdentifier = null;
 
-        SmoothedPartialTreeKernel smoothedPartialTreeKernel = new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,nodeSimilarity,representationIdentifier);
+        DirectKernel<TreeRepresentation> smoothedPartialTreeKernel = new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,nodeSimilarity,representationIdentifier);
 
-        Tree treeA = new FullTree("src/main/resources/testDOMA.html");
-        Tree treeANoScript = new TreeNoScript("src/main/resources/testDOMA.html");
-        Tree treeBNoScript = new TreeNoScript("src/main/resources/testDOMB.html");
+        Tree treeANoScript = TreeFactory.createTree("src/main/resources/testDOMC.html","noScript");
+        Tree treeBNoScript = TreeFactory.createTree("src/main/resources/testDOMB.html","noScript");
+        Tree treeCNoScript = TreeFactory.createTree("src/main/resources/testDOMA.html","noScript");
+
+        if(treeANoScript == null || treeCNoScript == null){
+            System.out.println("Type of tree not defined");
+            return;
+        }
 
         //TreeRepresentation kelpTreeA = popolateTree(treeA);
         TreeRepresentation kelpTreeANoScript = popolateTree(treeANoScript);
-        TreeRepresentation kelpTreeBNoScript = popolateTree(treeBNoScript);
+        TreeRepresentation kelpTreeBNoScript = popolateTree(treeCNoScript);
 
-
-        //Set<String> attributeSd = getAttributes(sd.getTextFromData());
-
-        /*for(TreeNode n: kelpTreeANoScript.getAllNodes()){
-            StructureElement s = n.getContent();
-            Set<String> attributesSx = getAttributes(s.getTextFromData());
-            System.out.println(getTag(s.getTextFromData())+" - "+attributesSx);
-        }*/
 
         //printTree(kelpTreeANoScript);
 
         //Popolare queste due rappresentazioni con gli StructureElement
-        float kernel = smoothedPartialTreeKernel.kernelComputation(kelpTreeBNoScript,kelpTreeANoScript);
+        float kernel = smoothedPartialTreeKernel.kernelComputation(kelpTreeANoScript,kelpTreeANoScript);
+        //StaticDeltaMatrix deltaMatrix = (StaticDeltaMatrix) smoothedPartialTreeKernel.getDeltaMatrix();
+
 
         System.out.println("Valore kernel: "+kernel);
+
+
+
     }
 
     public static TreeRepresentation popolateTree(Tree tree){
@@ -93,33 +103,17 @@ public class MainClass {
         return newNode;
     }
 
-    private static Set<String> getAttributes(String data){
-
-        Set<String> attrValues = new HashSet<>();
-        String token [] = data.split("#");
-
-
-        for(int i = 1 ; i < token.length; i++){
-            if(token[i] != ""){
-                attrValues.add(token[i]);
-            }
-        }
-        return attrValues;
-    }
-
-    private static String getTag(String data){
-
-        String token [] = data.split("#");
-
-        return token[0];
-
-    }
-
     private static void printTree(TreeRepresentation kelpTreeANoScript) {
         for(TreeNode n: kelpTreeANoScript.getAllNodes()){
             StructureElement s = n.getContent();
             System.out.println(s.getTextFromData());
         }
+
+        /*for(TreeNode n: kelpTreeANoScript.getAllNodes()){
+            StructureElement s = n.getContent();
+            Set<String> attributesSx = getAttributes(s.getTextFromData());
+            System.out.println(getTag(s.getTextFromData())+" - "+attributesSx);
+        }*/
     }
 
 }
