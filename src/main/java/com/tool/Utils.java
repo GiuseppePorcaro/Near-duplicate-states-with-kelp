@@ -3,6 +3,8 @@ package com.tool;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Utils {
 
@@ -19,5 +21,49 @@ public class Utils {
             System.out.println(e);
         }
         return contentBuilder.toString();
+    }
+
+    public static String getId(Set<String> attributes){
+
+        for(String attrValue: attributes){
+            String token[] = attrValue.split("=");
+            String attr = token[0];
+            if(attr.equalsIgnoreCase("id")){
+                return token[1];
+            }
+        }return null;
+    }
+
+    public static Set<String> getAttributes(String data){
+
+        Set<String> attrValues = new HashSet<>();
+        String token [] = data.split("#");
+
+
+        for(int i = 1 ; i < token.length; i++){
+            if(token[i] != ""){
+                attrValues.add(token[i]);
+            }
+        }
+        return attrValues;
+    }
+
+    public static Set<String> getChildrenData(String data){
+        Set<String> childrenData = new HashSet<>();
+        String token[] = data.split("##");
+
+        for(String s: token){
+            childrenData = getAttributes(s);
+        }
+        return childrenData;
+
+    }
+
+    public static String getTag(String data){
+
+        String token [] = data.split("#");
+
+        return token[0];
+
     }
 }

@@ -1,22 +1,24 @@
 package com.tool;
 
-import com.tool.Trees.FullTree;
 import com.tool.Trees.Tree;
 import com.tool.Trees.TreeFactory;
-import com.tool.Trees.TreeNoScript;
+import com.tool.similarity.AllAttributesDiceSorensenSimilarity;
+import com.tool.similarity.AllAttributesJaccardSimilarity;
 import it.uniroma2.sag.kelp.data.representation.structure.StructureElement;
+import it.uniroma2.sag.kelp.data.representation.structure.similarity.ExactMatchingStructureElementSimilarity;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureElementSimilarityI;
 import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
 import it.uniroma2.sag.kelp.data.representation.tree.node.TreeNode;
 import it.uniroma2.sag.kelp.kernel.DirectKernel;
 import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
-import it.uniroma2.sag.kelp.kernel.tree.deltamatrix.DeltaMatrix;
-import it.uniroma2.sag.kelp.kernel.tree.deltamatrix.StaticDeltaMatrix;
 import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.*;
+
+import static com.tool.Utils.getAttributes;
+import static com.tool.Utils.getTag;
 
 public class
 
@@ -27,9 +29,14 @@ MainClass {
     public static void main(String args[]){
 
         /*
-        *1)Ottenere rappresentazione di un DOM
-        *2)Capire quale funzione dello smoothedpartialTreeKernel usare per valutare la similitudine tra due alberi
-        *3)Creare la funzione di similitudine
+        *
+        * 1)Probabilmente l'indice di jaccard è già un kernel
+        * 2)Vedere se con una similarità predefinita si hanno valori simili - > (Danno valori molto molto vicini)
+        * 3)Vedere se il kernel ottenuto dipende dalla lunghezza del dom: anche se due dom sono identici, se sono più lunghi hanno un kernel di valore
+        * più alto
+        * 4)Vedere come funziona un tree kernel in generale
+        * 5)Vedere se il kernel è la somma delle similitudini delle coppie di nodi
+        *
         *
         * */
 
@@ -39,47 +46,48 @@ MainClass {
 
         //potrei ignorare i nodi che hanno uno score al di sotto del 0.2 (?)
         float similarityThreshold = 0.01f;
-        StructureElementSimilarityI nodeSimilarity = new AllAttributesJaccardSimilarity();
+        StructureElementSimilarityI jaccardSimilarity = new AllAttributesJaccardSimilarity();
+        StructureElementSimilarityI DiceSorensen = new AllAttributesDiceSorensenSimilarity();
+        StructureElementSimilarityI predSimilarity = new ExactMatchingStructureElementSimilarity();
         String representationIdentifier = null;
 
-        DirectKernel<TreeRepresentation> smoothedPartialTreeKernel = new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,nodeSimilarity,representationIdentifier);
+        DirectKernel<TreeRepresentation> smoothedPartialTreeKernel = new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,jaccardSimilarity,representationIdentifier);
 
-        Tree treeANoScript = TreeFactory.createTree("src/main/resources/testDOMC.html","noScript");
-        Tree treeBNoScript = TreeFactory.createTree("src/main/resources/testDOMB.html","noScript");
-        Tree treeCNoScript = TreeFactory.createTree("src/main/resources/testDOMA.html","noScript");
+        Tree treeANoScript = TreeFactory.createTree("src/main/resources/testDOMA.html","noScript");
+        Tree treeBNoScript = TreeFactory.createTree("src/main/resources/testDOMA.html","noScript");
 
-        if(treeANoScript == null || treeCNoScript == null){
+
+        if(treeANoScript == null || treeBNoScript == null){
             System.out.println("Type of tree not defined");
             return;
         }
 
         //TreeRepresentation kelpTreeA = popolateTree(treeA);
-        TreeRepresentation kelpTreeANoScript = popolateTree(treeANoScript);
-        TreeRepresentation kelpTreeBNoScript = popolateTree(treeCNoScript);
+        TreeRepresentation kelpTreeANoScript = popolateTree(treeANoScript,false);
+        TreeRepresentation kelpTreeBNoScript = popolateTree(treeBNoScript,false);
 
 
         //printTree(kelpTreeANoScript);
 
         //Popolare queste due rappresentazioni con gli StructureElement
-        float kernel = smoothedPartialTreeKernel.kernelComputation(kelpTreeANoScript,kelpTreeANoScript);
+        float kernel = smoothedPartialTreeKernel.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
         //StaticDeltaMatrix deltaMatrix = (StaticDeltaMatrix) smoothedPartialTreeKernel.getDeltaMatrix();
 
 
         System.out.println("Valore kernel: "+kernel);
 
 
-
     }
 
-    public static TreeRepresentation popolateTree(Tree tree){
+    public static TreeRepresentation popolateTree(Tree tree, boolean considerChildren){
 
         TreeNode root = null;
-        root = traverseTree(tree.getParsedDOM(),root,0);
+        root = traverseTree(tree.getParsedDOM(),root,0,considerChildren);
 
         return new TreeRepresentation(root);
     }
 
-    public static TreeNode traverseTree(Element element, TreeNode father, int prof) {
+    public static TreeNode traverseTree(Element element, TreeNode father, int prof,  boolean considerChildren) {
 
         Map<String, String> nodeAttributes = new HashMap<>();
         for(Attribute attribute: element.attributes()){
@@ -96,10 +104,13 @@ MainClass {
         ArrayList<TreeNode> newNodeChildren = new ArrayList<>();
         Elements children = element.children();
         for (Element child : children) {
-            TreeNode childNode = traverseTree(child,newNode,prof);
+            TreeNode childNode = traverseTree(child,newNode,prof,considerChildren);
             newNodeChildren.add(childNode);
         }
         newNode.setChildren(newNodeChildren);
+        content.addAdditionalInformation("children",newNodeChildren);
+        content.addAdditionalInformation("considerChildren",considerChildren);
+
         return newNode;
     }
 
