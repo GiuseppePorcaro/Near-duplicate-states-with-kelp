@@ -88,13 +88,16 @@ public class AllAttributesJaccardSimilarity implements StructureElementSimilarit
             float childrenSim = 0.0f;
             for(TreeNode t1: childrenSx){
                 t1.getContent().addAdditionalInformation("considerChildren",false);
+                float singleSim = 0f;
                 for(TreeNode t2:childrenSd){
-                    childrenSim = childrenSim + sim(t1.getContent(),t2.getContent());
+                    singleSim = singleSim + sim(t1.getContent(),t2.getContent());
                 }
+                singleSim = singleSim / childrenSd.size();
+                childrenSim = childrenSim + singleSim;
                 t1.getContent().addAdditionalInformation("considerChildren",true);
             }
 
-            childrenSim = childrenSim / (childrenSx.size() + childrenSd.size());
+            childrenSim = childrenSim / (childrenSx.size());
             sim = (sim + childrenSim )/ 2;
             System.out.println("Attributes: "+childrenSx+" - "+childrenSd+" Sizes: "+childrenSx.size()+" - "+childrenSd.size()+" - ChildrenSim: "+childrenSim);
         }

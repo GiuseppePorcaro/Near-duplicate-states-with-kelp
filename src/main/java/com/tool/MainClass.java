@@ -63,8 +63,8 @@ MainClass {
         }
 
         //TreeRepresentation kelpTreeA = popolateTree(treeA);
-        TreeRepresentation kelpTreeANoScript = popolateTree(treeANoScript,false);
-        TreeRepresentation kelpTreeBNoScript = popolateTree(treeBNoScript,false);
+        TreeRepresentation kelpTreeANoScript = popolateTree(treeANoScript,true);
+        TreeRepresentation kelpTreeBNoScript = popolateTree(treeBNoScript,true);
 
 
         //printTree(kelpTreeANoScript);
