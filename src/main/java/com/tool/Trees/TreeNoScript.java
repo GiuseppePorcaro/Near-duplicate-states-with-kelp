@@ -10,6 +10,7 @@ public class TreeNoScript extends Tree{
     public TreeNoScript(String path){
         stringDOM = Utils.getTestDOM(path);
         parseDOM(stringDOM);
+
     }
 
     @Override

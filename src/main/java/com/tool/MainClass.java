@@ -4,6 +4,7 @@ import com.tool.Trees.Tree;
 import com.tool.Trees.TreeFactory;
 import com.tool.similarity.AllAttributesDiceSorensenSimilarity;
 import com.tool.similarity.AllAttributesJaccardSimilarity;
+import com.tool.similarity.ChildrenBasedJaccardSimilarity;
 import it.uniroma2.sag.kelp.data.representation.structure.StructureElement;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.ExactMatchingStructureElementSimilarity;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureElementSimilarityI;
@@ -47,14 +48,15 @@ MainClass {
         //potrei ignorare i nodi che hanno uno score al di sotto del 0.2 (?)
         float similarityThreshold = 0.01f;
         StructureElementSimilarityI jaccardSimilarity = new AllAttributesJaccardSimilarity();
-        StructureElementSimilarityI DiceSorensen = new AllAttributesDiceSorensenSimilarity();
+        StructureElementSimilarityI diceSorensen = new AllAttributesDiceSorensenSimilarity();
+        StructureElementSimilarityI childrenBasedJaccardSimilarity = new ChildrenBasedJaccardSimilarity();
         StructureElementSimilarityI predSimilarity = new ExactMatchingStructureElementSimilarity();
         String representationIdentifier = null;
 
-        DirectKernel<TreeRepresentation> smoothedPartialTreeKernel = new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,jaccardSimilarity,representationIdentifier);
+        DirectKernel<TreeRepresentation> smoothedPartialTreeKernel = new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,childrenBasedJaccardSimilarity,representationIdentifier);
 
-        Tree treeANoScript = TreeFactory.createTree("src/main/resources/testDOMA.html","noScript");
-        Tree treeBNoScript = TreeFactory.createTree("src/main/resources/testDOMA.html","noScript");
+        Tree treeANoScript = TreeFactory.createTree("src/main/resources/testChildrenA.html","noScript");
+        Tree treeBNoScript = TreeFactory.createTree("src/main/resources/testChildrenB.html","noScript");
 
 
         if(treeANoScript == null || treeBNoScript == null){

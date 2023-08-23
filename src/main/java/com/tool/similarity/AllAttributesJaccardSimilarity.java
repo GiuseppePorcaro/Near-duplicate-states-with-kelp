@@ -35,10 +35,11 @@ public class AllAttributesJaccardSimilarity implements StructureElementSimilarit
         String tagSx = Utils.getTag(sx.getTextFromData());
         String tagSd = Utils.getTag(sd.getTextFromData());
 
-        System.out.println("Tags: "+tagSx+" - "+tagSd);
+        //System.out.println("Tags: "+tagSx+" - "+tagSd);
 
+        /*tag diversi -> nodi diversi*/
         if(!tagSx.equalsIgnoreCase(tagSd.toLowerCase())){
-            System.out.println("Sim: 0\n");
+            //System.out.println("Sim: 0\n");
             return 0f;
         }
 
@@ -47,11 +48,12 @@ public class AllAttributesJaccardSimilarity implements StructureElementSimilarit
         String idSx = getId(attributesSx);
         String idSd = getId(attributeSd);
 
-        System.out.println("Ids: "+idSx+" - "+idSd);
+        //System.out.println("Ids: "+idSx+" - "+idSd);
 
+        /*Stesso id -> stesso nodo*/
         if( idSx != null && idSd != null ){
             if(idSx.equals(idSd)){
-                System.out.println("Sim: 1\n");
+                //System.out.println("Sim: 1\n");
                 return 1f;
             }
         }
@@ -60,12 +62,12 @@ public class AllAttributesJaccardSimilarity implements StructureElementSimilarit
         int sdSize = attributeSd.size();
 
         if(sxSize == 0 && sdSize == 0){
-            System.out.println("Sim: 1\n");
+            //System.out.println("Sim: 1\n");
             return 1f;
         }
 
         if(sxSize == 0 || sdSize == 0){
-            System.out.println("Sim: 0\n");
+            //System.out.println("Sim: 0\n");
             return 0f;
         }
 
@@ -73,36 +75,12 @@ public class AllAttributesJaccardSimilarity implements StructureElementSimilarit
         union.addAll(attributeSd);
         int intersectionCardinality = (sxSize+sdSize) - union.size();
 
-        System.out.println("Attributes: "+attributesSx+" - "+attributeSd+" Sizes: "+attributesSx.size()+" - "+attributeSd.size()+ " - inters: "+intersectionCardinality+" - union: "+union.size());
+        //System.out.println("Attributes: "+attributesSx+" - "+attributeSd+" Sizes: "+attributesSx.size()+" - "+attributeSd.size()+ " - inters: "+intersectionCardinality+" - union: "+union.size());
 
         float sim = 1f * intersectionCardinality/union.size();
         //float sim = 1f * intersectionCardinality+1/union.size()+1; //Considero anche il tag nell'insieme
 
-        /*Under testing*/
-        boolean considerChildresSx = (boolean) sx.getAdditionalInformation("considerChildren");
-        boolean considerChildresSd = (boolean) sd.getAdditionalInformation("considerChildren");
-        if(considerChildresSx && considerChildresSd){
-            ArrayList<TreeNode> childrenSx = (ArrayList<TreeNode>)  sx.getAdditionalInformation("children");
-            ArrayList<TreeNode> childrenSd = (ArrayList<TreeNode>)  sd.getAdditionalInformation("children");
-
-            float childrenSim = 0.0f;
-            for(TreeNode t1: childrenSx){
-                t1.getContent().addAdditionalInformation("considerChildren",false);
-                float singleSim = 0f;
-                for(TreeNode t2:childrenSd){
-                    singleSim = singleSim + sim(t1.getContent(),t2.getContent());
-                }
-                singleSim = singleSim / childrenSd.size();
-                childrenSim = childrenSim + singleSim;
-                t1.getContent().addAdditionalInformation("considerChildren",true);
-            }
-
-            childrenSim = childrenSim / (childrenSx.size());
-            sim = (sim + childrenSim )/ 2;
-            System.out.println("Attributes: "+childrenSx+" - "+childrenSd+" Sizes: "+childrenSx.size()+" - "+childrenSd.size()+" - ChildrenSim: "+childrenSim);
-        }
-
-        System.out.println("Sim: "+sim+"\n");
+        //System.out.println("Sim: "+sim+"\n");
         return sim;
     }
 
