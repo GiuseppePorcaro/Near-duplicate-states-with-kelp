@@ -29,67 +29,50 @@ MainClass {
 
     public static void main(String args[]){
 
-        /*
-        *
-        * 1)Probabilmente l'indice di jaccard è già un kernel
-        * 2)Vedere se con una similarità predefinita si hanno valori simili - > (Danno valori molto molto vicini)
-        * 3)Vedere se il kernel ottenuto dipende dalla lunghezza del dom: anche se due dom sono identici, se sono più lunghi hanno un kernel di valore
-        * più alto
-        * 4)Vedere come funziona un tree kernel in generale
-        * 5)Vedere se il kernel è la somma delle similitudini delle coppie di nodi
-        *
-        *
-        * */
-
         float LAMBDA = 0.4f;
         float MU = 0.4f;
         float terminalFactor = 1;
-
-        //potrei ignorare i nodi che hanno uno score al di sotto del 0.2 (?)
         float similarityThreshold = 0.01f;
+        String representationIdentifier = null; //????
+
         StructureElementSimilarityI jaccardSimilarity = new AllAttributesJaccardSimilarity();
         StructureElementSimilarityI diceSorensen = new AllAttributesDiceSorensenSimilarity();
         StructureElementSimilarityI childrenBasedJaccardSimilarity = new ChildrenBasedJaccardSimilarity();
-        StructureElementSimilarityI predSimilarity = new ExactMatchingStructureElementSimilarity();
-        String representationIdentifier = null;
+        StructureElementSimilarityI kelpStandardSimilarity = new ExactMatchingStructureElementSimilarity();
 
-        DirectKernel<TreeRepresentation> smoothedPartialTreeKernel = new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,childrenBasedJaccardSimilarity,representationIdentifier);
+
+        DirectKernel<TreeRepresentation> smoothedPartialTreeKernelOnNodeAttributes = new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,jaccardSimilarity,representationIdentifier);
+        DirectKernel<TreeRepresentation> smoothedPartialTreeKernelOnNodeChildren = new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,childrenBasedJaccardSimilaritya,representationIdentifier);
+
+
 
         Tree treeANoScript = TreeFactory.createTree("src/main/resources/testChildrenA.html","noScript");
         Tree treeBNoScript = TreeFactory.createTree("src/main/resources/testChildrenB.html","noScript");
-
 
         if(treeANoScript == null || treeBNoScript == null){
             System.out.println("Type of tree not defined");
             return;
         }
+        TreeRepresentation kelpTreeANoScript = popolateTree(treeANoScript);
+        TreeRepresentation kelpTreeBNoScript = popolateTree(treeBNoScript);
 
-        //TreeRepresentation kelpTreeA = popolateTree(treeA);
-        TreeRepresentation kelpTreeANoScript = popolateTree(treeANoScript,true);
-        TreeRepresentation kelpTreeBNoScript = popolateTree(treeBNoScript,true);
-
-
-        //printTree(kelpTreeANoScript);
-
-        //Popolare queste due rappresentazioni con gli StructureElement
-        float kernel = smoothedPartialTreeKernel.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
-        //StaticDeltaMatrix deltaMatrix = (StaticDeltaMatrix) smoothedPartialTreeKernel.getDeltaMatrix();
+        float kernelOnAttributes = smoothedPartialTreeKernelOnNodeAttributes.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
+        float kernelOnChildren = smoothedPartialTreeKernelOnNodeChildren.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
 
 
-        System.out.println("Valore kernel: "+kernel);
-
+        System.out.println("Kernel: ("+kernelOnAttributes+","+kernelOnChildren+")");
 
     }
 
-    public static TreeRepresentation popolateTree(Tree tree, boolean considerChildren){
+    public static TreeRepresentation popolateTree(Tree tree){
 
         TreeNode root = null;
-        root = traverseTree(tree.getParsedDOM(),root,0,considerChildren);
+        root = traverseTree(tree.getParsedDOM(),root);
 
         return new TreeRepresentation(root);
     }
 
-    public static TreeNode traverseTree(Element element, TreeNode father, int prof,  boolean considerChildren) {
+    public static TreeNode traverseTree(Element element, TreeNode father) {
 
         Map<String, String> nodeAttributes = new HashMap<>();
         for(Attribute attribute: element.attributes()){
@@ -98,7 +81,6 @@ MainClass {
         StructureElement content = new MyStructureElement(element.tagName(),nodeAttributes);
 
         //System.out.println(element.tagName()+" - "+nodeAttributes+"\t\t\t\tprof: "+prof);
-        prof++;
 
         TreeNode newNode = new TreeNode(id,content,father);
         id++;
@@ -106,12 +88,11 @@ MainClass {
         ArrayList<TreeNode> newNodeChildren = new ArrayList<>();
         Elements children = element.children();
         for (Element child : children) {
-            TreeNode childNode = traverseTree(child,newNode,prof,considerChildren);
+            TreeNode childNode = traverseTree(child,newNode);
             newNodeChildren.add(childNode);
         }
         newNode.setChildren(newNodeChildren);
         content.addAdditionalInformation("children",newNodeChildren);
-        content.addAdditionalInformation("considerChildren",considerChildren);
 
         return newNode;
     }

@@ -24,7 +24,7 @@ public class ChildrenBasedJaccardSimilarity implements StructureElementSimilarit
             return 0f;
         }
 
-        System.out.println("Tags: "+tagSx+" - "+tagSd);
+        //System.out.println("Tags: "+tagSx+" - "+tagSd);
 
         ArrayList<TreeNode> childrenSx = (ArrayList<TreeNode>)  sx.getAdditionalInformation("children");
         ArrayList<TreeNode> childrenSd = (ArrayList<TreeNode>)  sd.getAdditionalInformation("children");
@@ -34,7 +34,7 @@ public class ChildrenBasedJaccardSimilarity implements StructureElementSimilarit
 
         /*Stesso tag ma diversi attributi -> nodi identici*/
         if(childrenSxSet.size() == 0 && childrenSdSet.size() == 0){
-            System.out.println("Sim: 1\n");
+            //System.out.println("Sim: 1\n");
             return 1f;
         }
 
@@ -44,8 +44,8 @@ public class ChildrenBasedJaccardSimilarity implements StructureElementSimilarit
 
         float sim = 1f * intersectionCardinality/union.size();
 
-        System.out.println("Children: "+childrenSxSet+" -- "+childrenSdSet+"\nIntersection: "+intersectionCardinality+" - union: "+union.size());
-        System.out.println("Sim: "+sim+"\n");
+        //System.out.println("Children: "+childrenSxSet+" -- "+childrenSdSet+"\nIntersection: "+intersectionCardinality+" - union: "+union.size());
+        //System.out.println("Sim: "+sim+"\n");
 
         return sim;
     }
