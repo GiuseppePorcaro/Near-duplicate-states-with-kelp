@@ -1,16 +1,22 @@
 package com.tool.similarity;
 
-import com.sun.source.tree.Tree;
 import com.tool.Utils;
 import it.uniroma2.sag.kelp.data.representation.structure.StructureElement;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureElementSimilarityI;
 import it.uniroma2.sag.kelp.data.representation.tree.node.TreeNode;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.tool.Utils.getId;
+/*
+ *
+ * Calculate the similarity between two nodes built ad hoc to represent an HTML DOM node, using the Jaccard similarity index on
+ * set built with nodes children.
+ * If the nodes have different tags, they are different (similarity 0).
+ * If they have the same tag but no children, then similarity is 1.
+ * If they have the same tag and they have children, Jaccard similarity is calculated on the sets formed by the children of the nodes.
+ *
+ * */
 
 public class ChildrenBasedJaccardSimilarity implements StructureElementSimilarityI {
     @Override

@@ -3,10 +3,8 @@ package com.tool.similarity;
 import com.tool.Utils;
 import it.uniroma2.sag.kelp.data.representation.structure.StructureElement;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureElementSimilarityI;
-
 import java.util.HashSet;
 import java.util.Set;
-
 import static com.tool.Utils.getAttributes;
 import static com.tool.Utils.getId;
 

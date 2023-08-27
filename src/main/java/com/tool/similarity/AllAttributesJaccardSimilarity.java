@@ -1,12 +1,8 @@
 package com.tool.similarity;
 
-import com.tool.MyStructureElement;
 import com.tool.Utils;
 import it.uniroma2.sag.kelp.data.representation.structure.StructureElement;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureElementSimilarityI;
-import it.uniroma2.sag.kelp.data.representation.tree.node.TreeNode;
-
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,10 +16,6 @@ import static com.tool.Utils.*;
 * If they have the same tag but no attributes, then similarity is 1.
 * If they have the same tag but one of the two has no attributes, similarity is 0.
 * If they have the same tag and they have attributes, Jaccard similarity is calculated on the sets formed by the attributes of the nodes.
-*
-* Additionally, it's possible to also consider the children of the nodes.
-* In such cases, Jaccard is also calculated on sets composed of the children of the nodes,
-* and the arithmetic mean is taken between the two calculated similarities.
 *
 * */
 

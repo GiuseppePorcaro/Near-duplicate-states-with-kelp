@@ -14,7 +14,4 @@ public abstract class Tree {
         return parsedDOM;
     }
 
-    public String getStringDOM() {
-        return stringDOM;
-    }
 }
