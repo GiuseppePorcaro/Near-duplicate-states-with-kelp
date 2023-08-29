@@ -12,6 +12,7 @@ import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
 import it.uniroma2.sag.kelp.data.representation.tree.node.TreeNode;
 import it.uniroma2.sag.kelp.kernel.DirectKernel;
 import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
+import it.uniroma2.sag.kelp.kernel.tree.deltamatrix.DeltaMatrix;
 import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -42,6 +43,7 @@ public class SimilarityTool {
 
         this.kernel = new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,similarity,representationIdentifier);
         this.kernelNormalized = new NormalizationKernel<>(kernel);
+
     }
 
     public float computeKernelNotNormalized(String pathHtml1, String pathHtml2,String treeType) throws Exception {
@@ -147,8 +149,10 @@ public class SimilarityTool {
         NormalizationKernel<TreeRepresentation> kernelStandardNormalized = new NormalizationKernel<>(new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,kelpStandardSimilarity,representationIdentifier));
 
 
-        Tree treeANoScript = TreeFactory.createTree("src/main/resources/testDOMA.html","noScript");
-        Tree treeBNoScript = TreeFactory.createTree("src/main/resources/testDOMB.html","noScript");
+        Tree treeANoScript = TreeFactory.createTree("F:\\Università\\Libri_università\\Magistrale\\Tesi_magistrale\\Web_Test_Generation\\Crawls_complete\\GroundTruthModels\\addressbook\\crawl-addressbook-60min\\doms\\index.html","treeForCrawl");
+        Tree treeBNoScript = TreeFactory.createTree("F:\\Università\\Libri_università\\Magistrale\\Tesi_magistrale\\Web_Test_Generation\\Crawls_complete\\GroundTruthModels\\addressbook\\crawl-addressbook-60min\\doms\\state10.html","treeForCrawl");
+
+        System.out.println(treeANoScript.getParsedDOM());
 
         if(treeANoScript == null || treeBNoScript == null){
             System.out.println("Type of tree not defined");
@@ -156,6 +160,7 @@ public class SimilarityTool {
         }
         TreeRepresentation kelpTreeANoScript = popolateTree(treeANoScript);
         TreeRepresentation kelpTreeBNoScript = popolateTree(treeBNoScript);
+
 
 
         float kernelAttrNotNormalized = kernelAttributeNotNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);

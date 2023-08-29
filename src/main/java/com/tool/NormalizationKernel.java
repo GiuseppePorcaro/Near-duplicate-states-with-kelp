@@ -2,6 +2,7 @@ package com.tool;
 
 import it.uniroma2.sag.kelp.data.representation.Representation;
 import it.uniroma2.sag.kelp.kernel.DirectKernel;
+import it.uniroma2.sag.kelp.kernel.tree.deltamatrix.DeltaMatrix;
 
 public class NormalizationKernel<T extends Representation> {
 
@@ -23,5 +24,9 @@ public class NormalizationKernel<T extends Representation> {
         float kernelAB= baseKernel.kernelComputation(treeA, treeB);
 
         return (float)(kernelAB/(Math.sqrt(kernelA*kernelB)));
+    }
+
+    public void clearDeltaMatrix(){
+
     }
 }

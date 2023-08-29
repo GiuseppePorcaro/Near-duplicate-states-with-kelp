@@ -11,13 +11,13 @@ import java.sql.*;
 
 public class DatasetManager {
 
-    private String folderPath = "/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels";
+    private String folderPath = "F:\\Università\\Libri_università\\Magistrale\\Tesi_magistrale\\Web_Test_Generation\\Crawls_complete\\GroundTruthModels";
 
     public void main(){
 
         try {
             Class.forName("org.sqlite.JDBC");
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:"+folderPath+"/gs.db");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:"+folderPath+"\\gs.db");
             Statement stat = conn.createStatement();
 
 
@@ -42,10 +42,10 @@ public class DatasetManager {
                 String state2 = rs.getString("state2");
                 //System.out.println(appName+" "+crawl+" "+state1+" "+state2);
 
-                String pathHTML1 = folderPath+"/"+appName+"/"+crawl+"/states/"+state1+".html";
-                String pathHTML2 = folderPath+"/"+appName+"/"+crawl+"/states/"+state2+".html";
+                String pathHTML1 = folderPath+"\\"+appName+"\\"+crawl+"\\doms\\"+state1+".html";
+                String pathHTML2 = folderPath+"\\"+appName+"\\"+crawl+"\\doms\\"+state2+".html";
 
-                float kernel = similarityTool.computeKernelNormalized(pathHTML1,pathHTML2,"noScript");
+                float kernel = similarityTool.computeKernelNormalized(pathHTML1,pathHTML2,"treeForCrawl");
 
                 //System.out.println("Path state1: "+pathHTML1+"\nPath state2: "+pathHTML2+"\n");
                 System.out.println(appName+" "+crawl+" "+state1+" "+state2+" - "+kernel + " | "+(++counter));
