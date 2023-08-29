@@ -8,7 +8,7 @@ public abstract class TreeFactory {
                 return new FullTree(path);
             case "noscript":
                 return new TreeNoScript(path);
-            case "treeForCrawl":
+            case "treeforcrawl":
                 return new TreeForCrawl(path);
             default:
                 throw new Exception("TreeType not valid! Choose:[all, noScript,treeForCrawl]");

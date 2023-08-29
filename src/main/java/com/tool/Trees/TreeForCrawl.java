@@ -37,6 +37,10 @@ public class TreeForCrawl extends Tree {
             tag.remove();
         }
 
+        for(Element tag: parsedDOM.select("link")){
+            tag.remove();
+        }
+
         removeComments(parsedDOM);
 
     }
