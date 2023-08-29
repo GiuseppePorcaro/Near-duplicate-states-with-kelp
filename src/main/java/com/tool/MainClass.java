@@ -5,11 +5,14 @@ import com.tool.Trees.TreeFactory;
 import com.tool.similarity.AllAttributesDiceSorensenSimilarity;
 import com.tool.similarity.AllAttributesJaccardSimilarity;
 import com.tool.similarity.ChildrenBasedJaccardSimilarity;
+import it.uniroma2.sag.kelp.data.representation.structure.CompositionalStructureElement;
+import it.uniroma2.sag.kelp.data.representation.structure.PosStructureElement;
 import it.uniroma2.sag.kelp.data.representation.structure.StructureElement;
-import it.uniroma2.sag.kelp.data.representation.structure.similarity.ExactMatchingStructureElementSimilarity;
-import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureElementSimilarityI;
+import it.uniroma2.sag.kelp.data.representation.structure.SyntacticStructureElement;
+import it.uniroma2.sag.kelp.data.representation.structure.similarity.*;
 import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
 import it.uniroma2.sag.kelp.data.representation.tree.node.TreeNode;
+import it.uniroma2.sag.kelp.kernel.DirectKernel;
 import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
 import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Element;
@@ -34,10 +37,20 @@ MainClass {
         StructureElementSimilarityI jaccardSimilarity = new AllAttributesJaccardSimilarity();
         StructureElementSimilarityI diceSorensen = new AllAttributesDiceSorensenSimilarity();
         StructureElementSimilarityI childrenBasedJaccardSimilarity = new ChildrenBasedJaccardSimilarity();
-        StructureElementSimilarityI kelpStandardSimilarity = new ExactMatchingStructureElementSimilarity();
+        StructureElementSimilarityI kelpStandardSimilarity = new LexicalStructureElementSimilarity();
+
+        /*DirectKernel<TreeRepresentation> kernelAttr = new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,jaccardSimilarity,representationIdentifier);
+        DirectKernel<TreeRepresentation> kernelChildre = new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,childrenBasedJaccardSimilarity,representationIdentifier);
 
         NormalizationKernel<TreeRepresentation> kernelOnAttributes = new NormalizationKernel<>(new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,jaccardSimilarity,representationIdentifier));
         NormalizationKernel<TreeRepresentation> kernelOnChildren = new NormalizationKernel<>(new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,kelpStandardSimilarity,representationIdentifier));
+*/
+
+        DirectKernel<TreeRepresentation> kernelAttributeNotNormalized = new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,jaccardSimilarity,representationIdentifier);
+        DirectKernel<TreeRepresentation> kernelStandardNotNormalized = new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,kelpStandardSimilarity,representationIdentifier);
+
+        NormalizationKernel<TreeRepresentation> kernelAttributeNormalized = new NormalizationKernel<>(new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,jaccardSimilarity,representationIdentifier));
+        NormalizationKernel<TreeRepresentation> kernelStandardNormalized = new NormalizationKernel<>(new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,kelpStandardSimilarity,representationIdentifier));
 
 
         Tree treeANoScript = TreeFactory.createTree("src/main/resources/testDOMA.html","noScript");
@@ -51,20 +64,25 @@ MainClass {
         TreeRepresentation kelpTreeBNoScript = popolateTree(treeBNoScript);
 
 
-        float kernelAttributes = kernelOnAttributes.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
-        float kernelChildren = kernelOnChildren.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
+        float kernelAttrNotNormalized = kernelAttributeNotNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
+        float kernelStandarNotNormalized = kernelStandardNotNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
+        float kernelAttrNormalized = kernelAttributeNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
+        float kernelStandarNormalized = kernelStandardNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
         /*float kernelOnAttributes = smoothedPartialTreeKernelOnNodeAttributes.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
         float kernelOnChildren = smoothedPartialTreeKernelOnNodeChildren.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);*/
 
 
-        System.out.println("Kernel: ("+kernelAttributes+","+kernelChildren+")");
+        //System.out.println("Kernel normalized: ("+kernelAttributes+","+kernelChildren+")\nKernel not normalized: ("+kernelAttri+","+kernelChildr+")");
 
+        System.out.println("Kernel not normalized: \n\tOn attributes: "+kernelAttrNotNormalized+"\n\tStandard: "+kernelStandarNotNormalized);
+        System.out.println("Kernel normalized: \n\tOn attributes: "+kernelAttrNormalized+"\n\tStandard: "+kernelStandarNormalized);
     }
 
     public static TreeRepresentation popolateTree(Tree tree){
 
         TreeNode root = null;
-        root = traverseTree(tree.getParsedDOM(),root);
+        Element rootJsoup = tree.getParsedDOM().select("*").first();
+        root = traverseTree(rootJsoup.children().first(),root);
 
         return new TreeRepresentation(root);
     }
@@ -77,7 +95,7 @@ MainClass {
         }
         StructureElement content = new HTMLStructureElement(element.tagName(),nodeAttributes);
 
-        //System.out.println(element.tagName()+" - "+nodeAttributes+"\t\t\t\tprof: "+prof);
+        //System.out.println(element.tagName()+" - "+nodeAttributes);
 
         TreeNode newNode = new TreeNode(id,content,father);
         id++;
