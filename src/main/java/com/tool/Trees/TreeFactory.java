@@ -2,14 +2,14 @@ package com.tool.Trees;
 
 public abstract class TreeFactory {
 
-    public static Tree createTree(String path, String typeOfTree){
+    public static Tree createTree(String path, String typeOfTree) throws Exception {
         switch (typeOfTree.toLowerCase()){
             case "all":
                 return new FullTree(path);
             case "noscript":
                 return new TreeNoScript(path);
             default:
-                return null;
+                throw new Exception("TreeType not valid! Choose:[all, noScript]");
         }
     }
 }

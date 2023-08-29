@@ -32,7 +32,6 @@ public class SimilarityTool {
     private String representationIdentifier = null; //????
     private DirectKernel<TreeRepresentation> kernel;
     private NormalizationKernel<TreeRepresentation> kernelNormalized;
-    private String treeType = "noScript";
 
     public SimilarityTool(StructureElementSimilarityI similarity, float LAMBDA, float MU, float terminalFactor, float similarityThreshold, String representationIdentifier) {
         this.LAMBDA = LAMBDA;
@@ -45,14 +44,14 @@ public class SimilarityTool {
         this.kernelNormalized = new NormalizationKernel<>(kernel);
     }
 
-    public float computeKernelNotNormalized(String pathHtml1, String pathHtml2){
+    public float computeKernelNotNormalized(String pathHtml1, String pathHtml2,String treeType) throws Exception {
         TreeRepresentation firstTree = popolateTree(TreeFactory.createTree(pathHtml1,treeType));
         TreeRepresentation secondTree = popolateTree(TreeFactory.createTree(pathHtml2,treeType));
 
         return kernel.kernelComputation(firstTree,secondTree);
     }
 
-    public float computeKernelNormalized(String pathHtml1, String pathHtml2){
+    public float computeKernelNormalized(String pathHtml1, String pathHtml2, String treeType) throws Exception {
         TreeRepresentation firstTree = popolateTree(TreeFactory.createTree(pathHtml1,treeType));
         TreeRepresentation secondTree = popolateTree(TreeFactory.createTree(pathHtml2,treeType));
 
@@ -93,7 +92,7 @@ public class SimilarityTool {
         return newNode;
     }
 
-    private void printTree(TreeRepresentation tree) {
+    public void printTree(TreeRepresentation tree) {
         for(TreeNode n: tree.getAllNodes()){
             StructureElement s = n.getContent();
             System.out.println(s.getTextFromData());
@@ -106,12 +105,20 @@ public class SimilarityTool {
         }*/
     }
 
-    public String getTreeType() {
-        return treeType;
+    public DirectKernel<TreeRepresentation> getKernel() {
+        return kernel;
     }
 
-    public void setTreeType(String treeType) {
-        this.treeType = treeType;
+    public void setKernel(DirectKernel<TreeRepresentation> kernel) {
+        this.kernel = kernel;
+    }
+
+    public NormalizationKernel<TreeRepresentation> getKernelNormalized() {
+        return kernelNormalized;
+    }
+
+    public void setKernelNormalized(NormalizationKernel<TreeRepresentation> kernelNormalized) {
+        this.kernelNormalized = kernelNormalized;
     }
 
     /*
@@ -119,7 +126,7 @@ public class SimilarityTool {
      * Serve per mettere da una parte tutto il codice richiamato per calcolare le similitudini.
      * Verrà rimosso in seguito
      * */
-    public void start(){
+    public void start() throws Exception {
 
         StructureElementSimilarityI jaccardSimilarity = new AllAttributesJaccardSimilarity();
         StructureElementSimilarityI diceSorensen = new AllAttributesDiceSorensenSimilarity();
