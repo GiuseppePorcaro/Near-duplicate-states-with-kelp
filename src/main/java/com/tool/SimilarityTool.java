@@ -150,7 +150,7 @@ public class SimilarityTool {
 
 
         Tree treeANoScript = TreeFactory.createTree("F:\\Università\\Libri_università\\Magistrale\\Tesi_magistrale\\Web_Test_Generation\\Crawls_complete\\GroundTruthModels\\addressbook\\crawl-addressbook-60min\\doms\\index.html","treeForCrawl");
-        Tree treeBNoScript = TreeFactory.createTree("F:\\Università\\Libri_università\\Magistrale\\Tesi_magistrale\\Web_Test_Generation\\Crawls_complete\\GroundTruthModels\\addressbook\\crawl-addressbook-60min\\doms\\state523.html","treeForCrawl");
+        Tree treeBNoScript = TreeFactory.createTree("F:\\Università\\Libri_università\\Magistrale\\Tesi_magistrale\\Web_Test_Generation\\Crawls_complete\\GroundTruthModels\\addressbook\\crawl-addressbook-60min\\doms\\state389.html","treeForCrawl");
 
         System.out.println(treeBNoScript.getParsedDOM());
 

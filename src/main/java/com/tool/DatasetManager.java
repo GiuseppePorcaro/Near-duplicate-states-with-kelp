@@ -1,6 +1,11 @@
 package com.tool;
 
+import com.tool.Trees.Tree;
+import com.tool.Trees.TreeFactory;
 import com.tool.similarity.AllAttributesJaccardSimilarity;
+import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
+import it.uniroma2.sag.kelp.kernel.DirectKernel;
+import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
 
 import java.sql.*;
 
@@ -14,6 +19,8 @@ public class DatasetManager {
     private String folderPath = "F:\\Università\\Libri_università\\Magistrale\\Tesi_magistrale\\Web_Test_Generation\\Crawls_complete\\GroundTruthModels";
 
     public void main(){
+
+        DirectKernel<TreeRepresentation> kernelAttributeNotNormalized = new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.05f,new AllAttributesJaccardSimilarity(),null);
 
         try {
             Class.forName("org.sqlite.JDBC");
@@ -34,7 +41,7 @@ public class DatasetManager {
 
             int counter = 0;
             while (rs.next()){
-                SimilarityTool similarityTool = new SimilarityTool(new AllAttributesJaccardSimilarity(),0.4f,0.4f,1,0.01f,null);
+                SimilarityTool similarityTool = new SimilarityTool(new AllAttributesJaccardSimilarity(),0.4f,0.4f,1,0.05f,null);
 
                 String appName = rs.getString("appname");
                 String crawl = rs.getString("crawl");
@@ -46,7 +53,6 @@ public class DatasetManager {
                 String pathHTML2 = folderPath+"\\"+appName+"\\"+crawl+"\\doms\\"+state2+".html";
 
                 float kernel = similarityTool.computeKernelNormalized(pathHTML1,pathHTML2,"treeForCrawl");
-
                 //System.out.println("Path state1: "+pathHTML1+"\nPath state2: "+pathHTML2+"\n");
                 System.out.println(appName+" "+crawl+" "+state1+" "+state2+" - "+kernel + " | "+(++counter));
             }

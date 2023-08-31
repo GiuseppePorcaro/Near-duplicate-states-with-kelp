@@ -8,11 +8,13 @@ public class MainClass {
 
     public static void main(String args[]) throws Exception {
 
-        SimilarityTool similarityTool = new SimilarityTool(new AllAttributesJaccardSimilarity(),0.4f,0.4f,1,0.01f,null);
+        /*SimilarityTool similarityTool = new SimilarityTool(new AllAttributesJaccardSimilarity(),0.4f,0.4f,1,0.01f,null);
         similarityTool.start();
-        /*DatasetManager datasetManager = new DatasetManager();
-        datasetManager.main();
-*/
+        DatasetManager datasetManager = new DatasetManager();
+        datasetManager.main();*/
+
+        System.out.println("Hello da python!"+args[0]);
+
     }
 
 

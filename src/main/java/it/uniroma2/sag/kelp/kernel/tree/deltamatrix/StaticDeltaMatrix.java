@@ -7,7 +7,7 @@ public class StaticDeltaMatrix implements DeltaMatrix {
 
 	private Logger logger = LoggerFactory.getLogger(StaticDeltaMatrix.class);
 
-	private final static int DEFAULTSIZE = 100;
+	private final static int DEFAULTSIZE = 1000;
 
 	/**
 	 * Sparse implementation of a matrix
@@ -76,7 +76,8 @@ public class StaticDeltaMatrix implements DeltaMatrix {
 	 * Clear the delta matrix
 	 */
 	public void clear() {
-
+		matrix = null;
+		matrix = new float[DEFAULTSIZE][DEFAULTSIZE];
 	}
 
 	public static StaticDeltaMatrix getInstance() {
