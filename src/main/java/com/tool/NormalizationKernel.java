@@ -25,8 +25,4 @@ public class NormalizationKernel<T extends Representation> {
 
         return (float)(kernelAB/(Math.sqrt(kernelA*kernelB)));
     }
-
-    public void clearDeltaMatrix(){
-
-    }
 }

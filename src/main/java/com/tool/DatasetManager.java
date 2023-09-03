@@ -16,7 +16,8 @@ import java.sql.*;
 
 public class DatasetManager {
 
-    private String folderPath = "F:\\Università\\Libri_università\\Magistrale\\Tesi_magistrale\\Web_Test_Generation\\Crawls_complete\\GroundTruthModels";
+    //private String folderPath = "F:\\Università\\Libri_università\\Magistrale\\Tesi_magistrale\\Web_Test_Generation\\Crawls_complete\\GroundTruthModels"; path per windows
+    private String folderPath = "/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/";
 
     public void main(){
 
@@ -24,18 +25,11 @@ public class DatasetManager {
 
         try {
             Class.forName("org.sqlite.JDBC");
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:"+folderPath+"\\gs.db");
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:"+folderPath+"//gs.db");
             Statement stat = conn.createStatement();
 
-
             /*
-            * Cose da fare per popolare il dataset:
-            * 1) creare una nuova colonna per tipo di similarità nel file db (per ora solo attribute) OK
-            * 2) Iterare sulla tabella nearduplicates: per ogni record prendere appname, state1, state2
-            * 3) Ricreare il percorso per arrivare a state1.html e state2.html tramite appname, state1 e state2
-            * 4) Presi gli html, calcolare il kernel normalizzato
-            * 5) Aggiornare la colonna ATTRIBUTE_SIM
-            *
+            * PROBLEMA: La matrice DeltaMatrix viene ingrandita a dismisura
             * */
             ResultSet rs = stat.executeQuery("SELECT appname, crawl,state1, state2 from nearduplicates;");
 
@@ -47,14 +41,17 @@ public class DatasetManager {
                 String crawl = rs.getString("crawl");
                 String state1 = rs.getString("state1");
                 String state2 = rs.getString("state2");
-                //System.out.println(appName+" "+crawl+" "+state1+" "+state2);
 
-                String pathHTML1 = folderPath+"\\"+appName+"\\"+crawl+"\\doms\\"+state1+".html";
-                String pathHTML2 = folderPath+"\\"+appName+"\\"+crawl+"\\doms\\"+state2+".html";
+                String pathHTML1 = folderPath+"/"+appName+"/"+crawl+"/doms/"+state1+".html";
+                String pathHTML2 = folderPath+"/"+appName+"/"+crawl+"/doms/"+state2+".html";
 
                 float kernel = similarityTool.computeKernelNormalized(pathHTML1,pathHTML2,"treeForCrawl");
                 //System.out.println("Path state1: "+pathHTML1+"\nPath state2: "+pathHTML2+"\n");
                 System.out.println(appName+" "+crawl+" "+state1+" "+state2+" - "+kernel + " | "+(++counter));
+
+                /*
+                * Qui aggiornare il database
+                * */
             }
 
 

@@ -8,10 +8,17 @@ public class MainClass {
 
     public static void main(String args[]) throws Exception {
 
-        SimilarityTool similarityTool = new SimilarityTool(new AllAttributesJaccardSimilarity(),0.4f,0.4f,1,0.01f,null);
-        /*similarityTool.start();
+        /*Itera sui record del database -> calcola il kernel per ogni coppia -> per ora stampa solo il risultato del kernel*/
         DatasetManager datasetManager = new DatasetManager();
-        datasetManager.main();*/
+        datasetManager.main();
+
+        /*Calcola il kernel per una singola coppia di html passati in input al programma*/
+        //mainForScriptPython(args);
+
+    }
+
+    public static void mainForScriptPython(String args[]) throws Exception {
+        SimilarityTool similarityTool = new SimilarityTool(new AllAttributesJaccardSimilarity(),0.4f,0.4f,1,0.01f,null);
 
         String folderPath = "/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/";
         String appName = args[0];

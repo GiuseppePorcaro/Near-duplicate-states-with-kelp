@@ -18,6 +18,9 @@ import java.util.Set;
  *
  * */
 
+/*
+* È DA RIVEDERE LEGGERMENTE
+* */
 public class ChildrenBasedJaccardSimilarity implements StructureElementSimilarityI {
     @Override
     public float sim(StructureElement sx, StructureElement sd) {
