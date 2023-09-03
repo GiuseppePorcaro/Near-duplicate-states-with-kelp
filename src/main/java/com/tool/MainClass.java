@@ -26,7 +26,7 @@ public class MainClass {
 
         float kernel = similarityTool.computeKernelNormalized(pathHTML1,pathHTML2,"treeForCrawl");
         //System.out.println("Path state1: "+pathHTML1+"\nPath state2: "+pathHTML2+"\n");
-        System.out.println(appName+" "+crawl+" "+state1+" "+state2+" - "+kernel+ " | "+counter);
+        System.out.println(appName+" "+crawl+" "+state1+" "+state2+" - | "+kernel+ " | "+counter);
     }
 
 
