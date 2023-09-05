@@ -1,12 +1,69 @@
 package com.tool;
 
+import com.tool.Trees.Tree;
+import it.uniroma2.sag.kelp.data.representation.structure.StructureElement;
+import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
+import it.uniroma2.sag.kelp.data.representation.tree.node.TreeNode;
+import org.jsoup.nodes.Attribute;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Utils {
+
+    private static int treeNodeId = 0;
+
+    public static TreeRepresentation popolateTree(Tree tree){
+
+        TreeNode root = null;
+        Element rootJsoup = tree.getParsedDOM().select("*").first(); //remove #root element added by Jsoup
+        root = traverseTree(rootJsoup.children().first(),root);
+
+        return new TreeRepresentation(root);
+    }
+
+    private static TreeNode traverseTree(Element element, TreeNode father) {
+
+        Map<String, String> nodeAttributes = new HashMap<>();
+        for(Attribute attribute: element.attributes()){
+            nodeAttributes.put(attribute.getKey(), attribute.getValue());
+        }
+        StructureElement content = new HTMLStructureElement(element.tagName(),nodeAttributes);
+
+        //System.out.println(element.tagName()+" - "+nodeAttributes);
+
+        TreeNode newNode = new TreeNode(treeNodeId,content,father);
+        treeNodeId++;
+
+        ArrayList<TreeNode> newNodeChildren = new ArrayList<>();
+        Elements children = element.children();
+        for (Element child : children) {
+            TreeNode childNode = traverseTree(child,newNode);
+            newNodeChildren.add(childNode);
+        }
+        newNode.setChildren(newNodeChildren);
+        content.addAdditionalInformation("children",newNodeChildren);
+        content.addAdditionalInformation("father",father);
+
+        return newNode;
+    }
+
+    public static void printTree(TreeRepresentation tree) {
+        for(TreeNode n: tree.getAllNodes()){
+            StructureElement s = n.getContent();
+            System.out.println(s.getTextFromData());
+        }
+
+        /*for(TreeNode n: kelpTreeANoScript.getAllNodes()){
+            StructureElement s = n.getContent();
+            Set<String> attributesSx = getAttributes(s.getTextFromData());
+            System.out.println(getTag(s.getTextFromData())+" - "+attributesSx);
+        }*/
+    }
 
     public static String getTestDOM(String path){
         StringBuilder contentBuilder = new StringBuilder();
