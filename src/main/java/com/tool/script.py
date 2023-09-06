@@ -9,11 +9,13 @@ counter = 0
 lock = threading.Lock()
 
 def main():
+    #num tot row nearduplicates 97490
     
     threads = []
     
     numCPU = multiprocessing.cpu_count()
-    slice = round(97490/numCPU) +1 
+    numRows = 8515
+    slice = round(numRows/numCPU) + 1 
     print(slice)
     start = 0
     
@@ -32,12 +34,12 @@ def importdb(start,slice,t):
     global counter
     global lock
     
-    pathDB = "/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/gs.db"
+    pathDB = "/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/gs_dom_senza_tag_tabelle.db"
     
     lock.acquire()
     conn = sqlite3.connect(pathDB)
     c = conn.cursor()
-    c.execute("SELECT appname, crawl,state1, state2 from nearduplicates order by appname, crawl, state1, state2 limit "+start+","+slice+";")
+    c.execute("SELECT appname, crawl,state1, state2 from nearduplicates where appname=\"addressbook\" order by appname, crawl, state1, state2 limit "+start+","+slice+";")
     rows = c.fetchall()
     conn.close()
     lock.release()
@@ -60,7 +62,7 @@ def importdb(start,slice,t):
         counter = counter+1
         conn = sqlite3.connect(pathDB,timeout=10)
         c = conn.cursor()
-        c.execute('''update nearduplicates set ATTRIBUTE_SIM_NOSCRIPT=? where appname= ? and crawl = ? and state1 = ? and state2 = ?;''',(kernel,appname,crawl,state1,state2))
+        c.execute('''update nearduplicates set ATTRIBUTE_SIM = ? where appname= ? and crawl = ? and state1 = ? and state2 = ?;''',(kernel,appname,crawl,state1,state2))
         conn.commit()
         conn.close()
 

@@ -37,6 +37,8 @@ public class ChildrenBasedJaccardSimilarity implements StructureElementSimilarit
 
         ArrayList<TreeNode> childrenSx = (ArrayList<TreeNode>)  sx.getAdditionalInformation("children");
         ArrayList<TreeNode> childrenSd = (ArrayList<TreeNode>)  sd.getAdditionalInformation("children");
+        TreeNode fatherSx = (TreeNode)  sx.getAdditionalInformation("father");
+        TreeNode fatherSd = (TreeNode)  sd.getAdditionalInformation("father");
 
         Set<String> childrenSxSet = getChildrenSet(childrenSx);
         Set<String> childrenSdSet = getChildrenSet(childrenSd);
@@ -52,6 +54,8 @@ public class ChildrenBasedJaccardSimilarity implements StructureElementSimilarit
         int intersectionCardinality = (childrenSxSet.size()+childrenSdSet.size()) - union.size();
 
         float sim = 1f * intersectionCardinality/union.size();
+
+        /*Fare similiditune con i padri*/
 
         //System.out.println("Children: "+childrenSxSet+" -- "+childrenSdSet+"\nIntersection: "+intersectionCardinality+" - union: "+union.size());
         //System.out.println("Sim: "+sim+"\n");

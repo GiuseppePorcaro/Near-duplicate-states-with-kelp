@@ -57,12 +57,15 @@ public class Utils {
             StructureElement s = n.getContent();
             System.out.println(s.getTextFromData());
         }
+    }
 
-        /*for(TreeNode n: kelpTreeANoScript.getAllNodes()){
-            StructureElement s = n.getContent();
-            Set<String> attributesSx = getAttributes(s.getTextFromData());
-            System.out.println(getTag(s.getTextFromData())+" - "+attributesSx);
-        }*/
+    public static void printTreeDepthFirst(TreeNode root, int profondità){
+        System.out.println(root.getContent().getTextFromData()+" - "+profondità);
+
+        profondità++;
+        for(TreeNode child: root.getChildren()){
+            printTreeDepthFirst(child, profondità);
+        }
     }
 
     public static String getTestDOM(String path){

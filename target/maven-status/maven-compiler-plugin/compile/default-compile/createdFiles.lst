@@ -18,6 +18,7 @@ it/uniroma2/sag/kelp/learningalgorithm/budgetedAlgorithm/BudgetedLearningAlgorit
 it/uniroma2/sag/kelp/data/manipulator/TreeAddAdditionalInfoFromArray.class
 com/tool/SimilarityTool.class
 it/uniroma2/sag/kelp/kernel/tree/deltamatrix/DynamicDeltaMatrix.class
+com/tool/debug/DebugClass.class
 it/uniroma2/sag/kelp/linearization/nystrom/NystromMethodEnsemble.class
 it/uniroma2/sag/kelp/data/representation/vector/exception/VectorOperationException.class
 it/uniroma2/sag/kelp/data/dataset/selector/ExampleSelector.class
