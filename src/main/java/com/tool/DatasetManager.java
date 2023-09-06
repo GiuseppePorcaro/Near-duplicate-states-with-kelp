@@ -10,7 +10,8 @@ import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
 
 import java.sql.*;
 
-import static com.tool.Utils.popolateTree;
+import static com.tool.ManageTreeRepresentation.popolateTree;
+
 
 /*
 * Gestisce la lettura e la scrittura del dataset nel file ds.db

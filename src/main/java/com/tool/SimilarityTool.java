@@ -1,26 +1,12 @@
 package com.tool;
 
-import com.tool.Trees.Tree;
 import com.tool.Trees.TreeFactory;
-import com.tool.similarity.AllAttributesDiceSorensenSimilarity;
-import com.tool.similarity.AllAttributesJaccardSimilarity;
-import com.tool.similarity.ChildrenBasedJaccardSimilarity;
-import it.uniroma2.sag.kelp.data.representation.structure.StructureElement;
-import it.uniroma2.sag.kelp.data.representation.structure.similarity.LexicalStructureElementSimilarity;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureElementSimilarityI;
 import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
-import it.uniroma2.sag.kelp.data.representation.tree.node.TreeNode;
 import it.uniroma2.sag.kelp.kernel.DirectKernel;
 import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
-import org.jsoup.nodes.Attribute;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.tool.Utils.popolateTree;
+import static com.tool.ManageTreeRepresentation.popolateTree;
 
 
 public class SimilarityTool {

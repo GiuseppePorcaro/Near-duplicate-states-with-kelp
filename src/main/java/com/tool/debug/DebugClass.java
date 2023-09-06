@@ -13,7 +13,8 @@ import it.uniroma2.sag.kelp.kernel.DirectKernel;
 import it.uniroma2.sag.kelp.kernel.tree.PartialTreeKernel;
 import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
 
-import static com.tool.Utils.popolateTree;
+import static com.tool.ManageTreeRepresentation.popolateTree;
+import static com.tool.ManageTreeRepresentation.printTreeDepthFirst;
 
 public class DebugClass {
 
@@ -55,6 +56,7 @@ public class DebugClass {
 
 
 
+
         //System.out.println(treeANoScript.getParsedDOM());
         //System.out.println("################################################################################");
         //System.out.println(treeBNoScript.getParsedDOM());
@@ -65,6 +67,8 @@ public class DebugClass {
         }
         TreeRepresentation kelpTreeANoScript = popolateTree(treeANoScript);
         TreeRepresentation kelpTreeBNoScript = popolateTree(treeBNoScript);
+
+        printTreeDepthFirst(kelpTreeANoScript.getRoot(),0);
 
         NormalizationKernel partialTreeKernelNormalized = new NormalizationKernel(partialTreeKernel);
 

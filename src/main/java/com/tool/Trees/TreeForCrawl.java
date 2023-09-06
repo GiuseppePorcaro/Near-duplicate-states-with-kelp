@@ -43,7 +43,7 @@ public class TreeForCrawl extends Tree {
         }
 
         /*Tag che forse non incidono abbastanza nella similitudine(?) */
-        /*for(Element tag: parsedDOM.select("tr")){
+        for(Element tag: parsedDOM.select("tr")){
             tag.remove();
         }
         for(Element tag: parsedDOM.select("td")){
@@ -54,7 +54,7 @@ public class TreeForCrawl extends Tree {
         }
         for(Element tag: parsedDOM.select("li")){
             tag.remove();
-        }*/
+        }
 
         removeComments(parsedDOM);
 
