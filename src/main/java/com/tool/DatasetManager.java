@@ -1,6 +1,5 @@
 package com.tool;
 
-import com.tool.Trees.Tree;
 import com.tool.Trees.TreeFactory;
 import com.tool.similarity.AllAttributesJaccardSimilarity;
 import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
@@ -10,7 +9,7 @@ import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
 
 import java.sql.*;
 
-import static com.tool.ManageTreeRepresentation.popolateTree;
+import static com.tool.representations.ManageTreeRepresentation.popolateTree;
 
 
 /*
@@ -51,6 +50,7 @@ public class DatasetManager {
 
                 PartialTreeKernel partialTreeKernel = new PartialTreeKernel(0.4f,0.4f,1,null);
                 NormalizationKernel partialTreeKernelNormalized = new NormalizationKernel(partialTreeKernel);
+
                 TreeRepresentation firstTree = popolateTree(TreeFactory.createTree(pathHTML1,"treeForCrawl"));
                 TreeRepresentation secondTree = popolateTree(TreeFactory.createTree(pathHTML2,"treeForCrawl"));
                 float partialTreeKernelNorm = partialTreeKernelNormalized.kernelComputation(firstTree,secondTree);

@@ -6,7 +6,7 @@ import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
 import it.uniroma2.sag.kelp.kernel.DirectKernel;
 import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
 
-import static com.tool.ManageTreeRepresentation.popolateTree;
+import static com.tool.representations.ManageTreeRepresentation.popolateTree;
 
 
 public class SimilarityTool {

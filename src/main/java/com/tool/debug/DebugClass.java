@@ -13,8 +13,8 @@ import it.uniroma2.sag.kelp.kernel.DirectKernel;
 import it.uniroma2.sag.kelp.kernel.tree.PartialTreeKernel;
 import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
 
-import static com.tool.ManageTreeRepresentation.popolateTree;
-import static com.tool.ManageTreeRepresentation.printTreeDepthFirst;
+import static com.tool.representations.ManageTreeRepresentation.popolateTree;
+import static com.tool.representations.ManageTreeRepresentation.printTreeDepthFirst;
 
 public class DebugClass {
 
@@ -24,7 +24,7 @@ public class DebugClass {
     DirectKernel<TreeRepresentation> kernelStandardNotNormalized;
     NormalizationKernel<TreeRepresentation> kernelStandardNormalized;
 
-    PartialTreeKernel partialTreeKernel = new PartialTreeKernel(0.4f,0.4f,1,null);
+    PartialTreeKernel partialTreeKernel = new PartialTreeKernel(0.4f,0.4f,1,"treeForCrawl");
     NormalizationKernel<TreeRepresentation> kernelChildBasedNormalized;
     public DebugClass(){
         StructureElementSimilarityI jaccardSimilarity = new AllAttributesJaccardSimilarity();
@@ -32,13 +32,13 @@ public class DebugClass {
         StructureElementSimilarityI childrenBasedJaccardSimilarity = new ChildrenBasedJaccardSimilarity();
         StructureElementSimilarityI kelpStandardSimilarity = new LexicalStructureElementSimilarity();
 
-        kernelAttributeNotNormalized = new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.01f,jaccardSimilarity,null);
-        kernelStandardNotNormalized = new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.01f,kelpStandardSimilarity,null);
+        kernelAttributeNotNormalized = new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.01f,jaccardSimilarity,"treeForCrawl");
+        kernelStandardNotNormalized = new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.01f,kelpStandardSimilarity,"treeForCrawl");
 
         kernelAttributeNormalized = new NormalizationKernel<>(kernelAttributeNotNormalized);
         kernelStandardNormalized = new NormalizationKernel<>(kernelStandardNotNormalized);
 
-        kernelChildBasedNormalized = new NormalizationKernel<>(new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.01f,childrenBasedJaccardSimilarity,null));
+        kernelChildBasedNormalized = new NormalizationKernel<>(new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.01f,childrenBasedJaccardSimilarity,"treeForCrawl"));
     }
 
     //Liste di oggetti omogenei ai quali è stato dato un valore di similarità basso:
