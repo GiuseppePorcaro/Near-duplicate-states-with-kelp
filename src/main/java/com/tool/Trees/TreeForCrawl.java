@@ -21,41 +21,6 @@ public class TreeForCrawl extends Tree {
             tag.remove();
         }
 
-        for(Element tag: parsedDOM.select("style")){
-            tag.remove();
-        }
-
-        /*Tag che sicuramente sono inutili nella similarità tra due html*/
-        for(Element tag: parsedDOM.select("meta")){
-            tag.remove();
-        }
-
-        for(Element tag: parsedDOM.select("br")){
-            tag.remove();
-        }
-
-        for(Element tag: parsedDOM.select("hr")){
-            tag.remove();
-        }
-
-        for(Element tag: parsedDOM.select("link")){
-            tag.remove();
-        }
-
-        /*Tag che forse non incidono abbastanza nella similitudine(?) */
-        for(Element tag: parsedDOM.select("tr")){
-            tag.remove();
-        }
-        for(Element tag: parsedDOM.select("td")){
-            tag.remove();
-        }
-        for(Element tag: parsedDOM.select("ul")){
-            tag.remove();
-        }
-        for(Element tag: parsedDOM.select("li")){
-            tag.remove();
-        }
-
         removeComments(parsedDOM);
 
     }

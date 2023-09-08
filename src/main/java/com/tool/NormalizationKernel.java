@@ -1,17 +1,18 @@
 package com.tool;
 
-import it.uniroma2.sag.kelp.data.representation.Representation;
-import it.uniroma2.sag.kelp.kernel.DirectKernel;
+import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
+import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
+import it.uniroma2.sag.kelp.kernel.tree.deltamatrix.DeltaMatrix;
 
-public class NormalizationKernel<T extends Representation> {
+public class NormalizationKernel {
 
-    private DirectKernel<T> baseKernel;
+    private SmoothedPartialTreeKernel baseKernel;
 
-    public NormalizationKernel(DirectKernel<T> baseKernel){
+    public NormalizationKernel(SmoothedPartialTreeKernel baseKernel){
         this.baseKernel = baseKernel;
     }
 
-    public float kernelComputation(T treeA, T treeB){
+    public float kernelComputation(TreeRepresentation treeA, TreeRepresentation treeB){
         Float kernelA = baseKernel.kernelComputation(treeA,treeA);
         if(kernelA==0){
             return 0;
@@ -22,5 +23,9 @@ public class NormalizationKernel<T extends Representation> {
         }
         float kernelAB= baseKernel.kernelComputation(treeA, treeB);
         return (float)(kernelAB/(Math.sqrt(kernelA*kernelB)));
+    }
+
+    public void setDeltaMatrix(DeltaMatrix deltaMatrix){
+        baseKernel.setDeltaMatrix(deltaMatrix);
     }
 }

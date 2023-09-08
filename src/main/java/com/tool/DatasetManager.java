@@ -48,19 +48,19 @@ public class DatasetManager {
                 String pathHTML1 = folderPath+"/"+appName+"/"+crawl+"/doms/"+state1+".html";
                 String pathHTML2 = folderPath+"/"+appName+"/"+crawl+"/doms/"+state2+".html";
 
-                PartialTreeKernel partialTreeKernel = new PartialTreeKernel(0.4f,0.4f,1,null);
-                NormalizationKernel partialTreeKernelNormalized = new NormalizationKernel(partialTreeKernel);
+                //PartialTreeKernel partialTreeKernel = new PartialTreeKernel(0.4f,0.4f,1,null);
+                //NormalizationKernel partialTreeKernelNormalized = new NormalizationKernel(partialTreeKernel);
 
                 TreeRepresentation firstTree = popolateTree(TreeFactory.createTree(pathHTML1,"treeForCrawl"));
                 TreeRepresentation secondTree = popolateTree(TreeFactory.createTree(pathHTML2,"treeForCrawl"));
-                float partialTreeKernelNorm = partialTreeKernelNormalized.kernelComputation(firstTree,secondTree);
+                //float partialTreeKernelNorm = partialTreeKernelNormalized.kernelComputation(firstTree,secondTree);
 
 
 
-                //float kernel = similarityTool.computeKernelNormalized(pathHTML1,pathHTML2,"treeForCrawl");
+                float kernel = similarityTool.computeKernelNormalized(pathHTML1,pathHTML2,"treeForCrawl");
                 //System.out.println("Path state1: "+pathHTML1+"\nPath state2: "+pathHTML2+"\n");
-                //System.out.println(appName+" "+crawl+" "+state1+" "+state2+" - "+kernel + " | "+(++counter));
-                System.out.println("\tPartialTreeKenrel: "+partialTreeKernelNorm);
+                System.out.println(appName+" "+crawl+" "+state1+" "+state2+" - "+kernel + " | "+(++counter));
+                //System.out.println("\tPartialTreeKenrel: "+partialTreeKernelNorm);
 
 
                 /*

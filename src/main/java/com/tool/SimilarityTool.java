@@ -4,7 +4,9 @@ import com.tool.Trees.TreeFactory;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureElementSimilarityI;
 import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
 import it.uniroma2.sag.kelp.kernel.DirectKernel;
+import it.uniroma2.sag.kelp.kernel.cache.DynamicIndexSquaredNormCache;
 import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
+import it.uniroma2.sag.kelp.kernel.tree.deltamatrix.DynamicDeltaMatrix;
 
 import static com.tool.representations.ManageTreeRepresentation.popolateTree;
 
@@ -16,8 +18,8 @@ public class SimilarityTool {
     private float terminalFactor = 1;
     private float similarityThreshold = 0.01f;
     private String representationIdentifier = null; //????
-    private DirectKernel<TreeRepresentation> kernel;
-    private NormalizationKernel<TreeRepresentation> kernelNormalized;
+    private SmoothedPartialTreeKernel kernel;
+    private NormalizationKernel kernelNormalized;
 
     public SimilarityTool(StructureElementSimilarityI similarity, float LAMBDA, float MU, float terminalFactor, float similarityThreshold, String representationIdentifier) {
         this.LAMBDA = LAMBDA;
@@ -26,8 +28,10 @@ public class SimilarityTool {
         this.similarityThreshold = similarityThreshold;
         this.representationIdentifier = representationIdentifier;
 
+
+
         this.kernel = new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,similarity,representationIdentifier);
-        this.kernelNormalized = new NormalizationKernel<>(kernel);
+        this.kernelNormalized = new NormalizationKernel(kernel);
 
     }
 
@@ -35,12 +39,16 @@ public class SimilarityTool {
         TreeRepresentation firstTree = popolateTree(TreeFactory.createTree(pathHtml1,treeType));
         TreeRepresentation secondTree = popolateTree(TreeFactory.createTree(pathHtml2,treeType));
 
+        kernel.setDeltaMatrix(new DynamicDeltaMatrix());
+
         return kernel.kernelComputation(firstTree,secondTree);
     }
 
     public float computeKernelNormalized(String pathHtml1, String pathHtml2, String treeType) throws Exception {
         TreeRepresentation firstTree = popolateTree(TreeFactory.createTree(pathHtml1,treeType));
         TreeRepresentation secondTree = popolateTree(TreeFactory.createTree(pathHtml2,treeType));
+
+        kernelNormalized.setDeltaMatrix(new DynamicDeltaMatrix());
 
         return kernelNormalized.kernelComputation(firstTree,secondTree);
     }
@@ -50,15 +58,15 @@ public class SimilarityTool {
         return kernel;
     }
 
-    public void setKernel(DirectKernel<TreeRepresentation> kernel) {
+    public void setKernel(SmoothedPartialTreeKernel kernel) {
         this.kernel = kernel;
     }
 
-    public NormalizationKernel<TreeRepresentation> getKernelNormalized() {
+    public NormalizationKernel getKernelNormalized() {
         return kernelNormalized;
     }
 
-    public void setKernelNormalized(NormalizationKernel<TreeRepresentation> kernelNormalized) {
+    public void setKernelNormalized(NormalizationKernel kernelNormalized) {
         this.kernelNormalized = kernelNormalized;
     }
 

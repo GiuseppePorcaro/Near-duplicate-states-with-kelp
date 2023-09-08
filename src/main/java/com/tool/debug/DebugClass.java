@@ -18,14 +18,14 @@ import static com.tool.representations.ManageTreeRepresentation.printTreeDepthFi
 
 public class DebugClass {
 
-    DirectKernel<TreeRepresentation> kernelAttributeNotNormalized;
-    NormalizationKernel<TreeRepresentation> kernelAttributeNormalized;
+    SmoothedPartialTreeKernel kernelAttributeNotNormalized;
+    NormalizationKernel kernelAttributeNormalized;
 
-    DirectKernel<TreeRepresentation> kernelStandardNotNormalized;
-    NormalizationKernel<TreeRepresentation> kernelStandardNormalized;
+    SmoothedPartialTreeKernel kernelStandardNotNormalized;
+    NormalizationKernel kernelStandardNormalized;
 
     PartialTreeKernel partialTreeKernel = new PartialTreeKernel(0.4f,0.4f,1,"treeForCrawl");
-    NormalizationKernel<TreeRepresentation> kernelChildBasedNormalized;
+    NormalizationKernel kernelChildBasedNormalized;
     public DebugClass(){
         StructureElementSimilarityI jaccardSimilarity = new AllAttributesJaccardSimilarity();
         StructureElementSimilarityI diceSorensen = new AllAttributesDiceSorensenSimilarity();
@@ -35,10 +35,10 @@ public class DebugClass {
         kernelAttributeNotNormalized = new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.01f,jaccardSimilarity,"treeForCrawl");
         kernelStandardNotNormalized = new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.01f,kelpStandardSimilarity,"treeForCrawl");
 
-        kernelAttributeNormalized = new NormalizationKernel<>(kernelAttributeNotNormalized);
-        kernelStandardNormalized = new NormalizationKernel<>(kernelStandardNotNormalized);
+        kernelAttributeNormalized = new NormalizationKernel(kernelAttributeNotNormalized);
+        kernelStandardNormalized = new NormalizationKernel(kernelStandardNotNormalized);
 
-        kernelChildBasedNormalized = new NormalizationKernel<>(new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.01f,childrenBasedJaccardSimilarity,"treeForCrawl"));
+        kernelChildBasedNormalized = new NormalizationKernel(new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.01f,childrenBasedJaccardSimilarity,"treeForCrawl"));
     }
 
     //Liste di oggetti omogenei ai quali è stato dato un valore di similarità basso:
@@ -70,13 +70,13 @@ public class DebugClass {
 
         printTreeDepthFirst(kelpTreeANoScript.getRoot(),0);
 
-        NormalizationKernel partialTreeKernelNormalized = new NormalizationKernel(partialTreeKernel);
+        //NormalizationKernel partialTreeKernelNormalized = new NormalizationKernel(partialTreeKernel);
 
         float kernelAttrNotNormalized = kernelAttributeNotNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
         float kernelStandarNotNormalized = kernelStandardNotNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
         float kernelAttrNormalized = kernelAttributeNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
         float kernelStandarNormalized = kernelStandardNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
-        float partialTreeKernelNorm = partialTreeKernelNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
+        //float partialTreeKernelNorm = partialTreeKernelNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
         float childBasedKernel = kernelChildBasedNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
 
 
@@ -85,7 +85,7 @@ public class DebugClass {
         System.out.println("################################################################################");
         System.out.println("Kernel not normalized: \n\tOn attributes: "+kernelAttrNotNormalized+"\n\tStandard: "+kernelStandarNotNormalized);
         System.out.println("Kernel normalized: \n\tOn attributes: "+kernelAttrNormalized+"\n\tStandard: "+kernelStandarNormalized);
-        System.out.println("\tPartialTreeKenrel: "+partialTreeKernelNorm);
+        //System.out.println("\tPartialTreeKenrel: "+partialTreeKernelNorm);
         System.out.println("\tKernel childBased: "+childBasedKernel);
     }
 }
