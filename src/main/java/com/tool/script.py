@@ -14,7 +14,7 @@ def main():
     threads = []
     
     numCPU = multiprocessing.cpu_count()
-    numRows = 8515
+    numRows = 97490
     slice = round(numRows/numCPU) + 1 
     print(slice)
     start = 0
