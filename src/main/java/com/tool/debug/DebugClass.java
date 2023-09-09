@@ -24,7 +24,9 @@ public class DebugClass {
     SmoothedPartialTreeKernel kernelStandardNotNormalized;
     NormalizationKernel kernelStandardNormalized;
 
-    PartialTreeKernel partialTreeKernel = new PartialTreeKernel(0.4f,0.4f,1,"treeForCrawl");
+    private String typeTree = "all";
+
+    PartialTreeKernel partialTreeKernel = new PartialTreeKernel(0.4f,0.4f,1,typeTree);
     NormalizationKernel kernelChildBasedNormalized;
     public DebugClass(){
         StructureElementSimilarityI jaccardSimilarity = new AllAttributesJaccardSimilarity();
@@ -32,13 +34,13 @@ public class DebugClass {
         StructureElementSimilarityI childrenBasedJaccardSimilarity = new ChildrenBasedJaccardSimilarity();
         StructureElementSimilarityI kelpStandardSimilarity = new LexicalStructureElementSimilarity();
 
-        kernelAttributeNotNormalized = new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.01f,jaccardSimilarity,"treeForCrawl");
-        kernelStandardNotNormalized = new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.01f,kelpStandardSimilarity,"treeForCrawl");
+        kernelAttributeNotNormalized = new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.01f,jaccardSimilarity,typeTree);
+        kernelStandardNotNormalized = new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.01f,kelpStandardSimilarity,typeTree);
 
         kernelAttributeNormalized = new NormalizationKernel(kernelAttributeNotNormalized);
         kernelStandardNormalized = new NormalizationKernel(kernelStandardNotNormalized);
 
-        kernelChildBasedNormalized = new NormalizationKernel(new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.01f,childrenBasedJaccardSimilarity,"treeForCrawl"));
+        kernelChildBasedNormalized = new NormalizationKernel(new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.01f,childrenBasedJaccardSimilarity,typeTree));
     }
 
     //Liste di oggetti omogenei ai quali è stato dato un valore di similarità basso:
@@ -48,27 +50,19 @@ public class DebugClass {
     * */
     public void start() throws Exception {
 
-        String dom1 = "addressbook/crawl-addressbook-60min/doms/state176.html";
-        String dom2 = "addressbook/crawl-addressbook-60min/doms/state538.html";
+        String dom1 = "claroline/crawl-claroline-60min/doms/state130.html";
+        String dom2 = "claroline/crawl-claroline-60min/doms/state1325.html";
+        String folderPath = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"; //"/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"
 
-        Tree treeANoScript = TreeFactory.createTree("/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"+dom1,"treeForCrawl");
-        Tree treeBNoScript = TreeFactory.createTree("/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"+dom2,"treeForCrawl");
-
-
-
+        Tree treeANoScript = TreeFactory.createTree(folderPath+dom1,typeTree);
+        Tree treeBNoScript = TreeFactory.createTree(folderPath+dom2,typeTree);
 
         //System.out.println(treeANoScript.getParsedDOM());
         //System.out.println("################################################################################");
         //System.out.println(treeBNoScript.getParsedDOM());
 
-        if(treeANoScript == null || treeBNoScript == null){
-            System.out.println("Type of tree not defined");
-            return;
-        }
         TreeRepresentation kelpTreeANoScript = popolateTree(treeANoScript);
         TreeRepresentation kelpTreeBNoScript = popolateTree(treeBNoScript);
-
-        printTreeDepthFirst(kelpTreeANoScript.getRoot(),0);
 
         //NormalizationKernel partialTreeKernelNormalized = new NormalizationKernel(partialTreeKernel);
 

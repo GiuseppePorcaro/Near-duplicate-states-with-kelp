@@ -44,7 +44,7 @@ public class Utils {
     public static Set<String> getAttributes(String data){
 
         Set<String> attrValues = new HashSet<>();
-        String token [] = data.split("#");
+        String token [] = data.split("~");
 
 
         for(int i = 1 ; i < token.length; i++){
@@ -57,7 +57,7 @@ public class Utils {
 
     public static Set<String> getChildrenData(String data){
         Set<String> childrenData = new HashSet<>();
-        String token[] = data.split("##");
+        String token[] = data.split("~~");
 
         for(String s: token){
             childrenData = getAttributes(s);
@@ -68,7 +68,7 @@ public class Utils {
 
     public static String getTag(String data){
 
-        String token [] = data.split("#");
+        String token [] = data.split("~");
 
         return token[0];
 
