@@ -4,10 +4,27 @@ import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
 import it.uniroma2.sag.kelp.data.representation.tree.node.TreeNode;
 
 import javax.swing.plaf.IconUIResource;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ComputeStatisticsRunnable implements Runnable{
+
+    private static Integer counter = 0;
+    private final Object lock = new Object();
+    private Integer numThread;
+    private Integer slice;
+    private Integer start;
+    private String folderPath;
+    private String datasetDB;
+
+    public ComputeStatisticsRunnable(Integer numThread, Integer slice, Integer start, String folderPath, String datasetDB) {
+        this.numThread = numThread;
+        this.slice = slice;
+        this.start = start;
+        this.folderPath = folderPath;
+        this.datasetDB = datasetDB;
+    }
 
     @Override
     public void run() {
@@ -23,10 +40,55 @@ public class ComputeStatisticsRunnable implements Runnable{
         * 6) Grado dell'albero
         *
         * */
+
+        /*
+        * Devo creare il database dove vado a mettere tutte le statistiche
+        * */
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:"+folderPath+"/"+ datasetDB);
+            Statement stat = conn.createStatement();
+
+            ResultSet rs = stat.executeQuery("SELECT appname, crawl, state, nodeSize from states order by appname, crawl, state limit "+start+","+slice+";");
+
+
+            while(rs.next()){
+
+                String appName = rs.getString("appname");
+                String crawl = rs.getString("crawl");
+                String state = rs.getString("state");
+                String numNodes = rs.getString("nodeSize");
+
+                String datasetDBDest = "";
+                synchronized (lock){
+                    DriverManager.setLoginTimeout(10);
+                    Connection connUpdate = DriverManager.getConnection("jdbc:sqlite:"+folderPath+"/"+ datasetDBDest);
+                    connUpdate.setAutoCommit(true);
+
+                    String query = "UPDATE nearduplicates SET where appname=? and crawl=? and state1=? and state2=?;";
+                    PreparedStatement statement = connUpdate.prepareStatement(query);
+                    /*
+                     * Fare updates del db
+                     * */
+
+                    statement.executeUpdate();
+
+                    statement.close();
+                    connUpdate.close();
+                }
+            }
+
+            rs.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     /*
-    * Sono tutte da testare
+    * Sono tutte da testare.
+    *
+    * Forse da spostare in ManageTreeRepresentation
     * */
     public int getTreeHeight(TreeNode node, int profondità){
         if(node == null){
