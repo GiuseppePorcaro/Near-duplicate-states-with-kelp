@@ -3,22 +3,15 @@ package com.tool.debug;
 import com.tool.NormalizationKernel;
 import com.tool.Trees.Tree;
 import com.tool.Trees.TreeFactory;
-import com.tool.Trees.TreeNoScript;
 import com.tool.similarity.AllAttributesDiceSorensenSimilarity;
 import com.tool.similarity.AllAttributesJaccardSimilarity;
 import com.tool.similarity.ChildrenBasedJaccardSimilarity;
-import it.uniroma2.sag.kelp.data.representation.structure.StructureElement;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.LexicalStructureElementSimilarity;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureElementSimilarityI;
 import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
-import it.uniroma2.sag.kelp.data.representation.tree.node.TreeNode;
-import it.uniroma2.sag.kelp.kernel.DirectKernel;
 import it.uniroma2.sag.kelp.kernel.tree.PartialTreeKernel;
 import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
 
-import javax.swing.text.AbstractDocument;
-
-import static com.tool.Utils.getMetaDescription;
 import static com.tool.representations.ManageTreeRepresentation.*;
 
 public class DebugClass {
