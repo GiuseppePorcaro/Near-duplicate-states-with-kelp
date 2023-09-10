@@ -48,11 +48,8 @@ public class SimilarityTool {
         TreeRepresentation firstTree = popolateTree(TreeFactory.createTree(pathHtml1,treeType));
         TreeRepresentation secondTree = popolateTree(TreeFactory.createTree(pathHtml2,treeType));
 
-        kernelNormalized.setDeltaMatrix(new DynamicDeltaMatrix());
-
         return kernelNormalized.kernelComputation(firstTree,secondTree);
     }
-
 
     public DirectKernel<TreeRepresentation> getKernel() {
         return kernel;

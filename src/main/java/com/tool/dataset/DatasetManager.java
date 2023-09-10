@@ -20,7 +20,9 @@ public class DatasetManager {
         int slice = round(numRows/numCores) + 1;
         int start = 0;
         String folderPath = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels";
-        String datasetDB = "gs_full_dom.db";
+        String datasetDB = "gs_full_dom_mu01.db";
+        String selectQuery = "";
+        String updateQuery = "";
 
         List<Thread> threads = new ArrayList<>();
 

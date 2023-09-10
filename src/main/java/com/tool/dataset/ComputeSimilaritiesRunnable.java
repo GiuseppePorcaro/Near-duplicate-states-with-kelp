@@ -36,7 +36,7 @@ public class ComputeSimilaritiesRunnable implements Runnable{
             conn.close();
 
             for(DatasetRow entity: entities){
-                SimilarityTool similarityTool = new SimilarityTool(new AllAttributesJaccardSimilarity(),0.4f,0.4f,1,0.05f,null);
+                SimilarityTool similarityTool = new SimilarityTool(new AllAttributesJaccardSimilarity(),0.4f,0.1f,1,0.05f,null);
 
                 String appName = entity.getAppname();
                 String crawl = entity.getCrawl();
@@ -72,7 +72,8 @@ public class ComputeSimilaritiesRunnable implements Runnable{
                     connUpdate.close();
 
                     counter++;
-                    System.out.println(appName+" "+crawl+" "+state1+" "+state2+" - "+kernel + " |\tThread: "+numThread+ " - Pair N°:  "+counter);
+                    String format = "%-40s%s%n";
+                    System.out.printf(format,appName+" "+crawl+" "+state1+" "+state2+" - "+kernel," | Thread: "+numThread+ " - Pair N°:  "+counter);
                 }
             }
 
