@@ -10,6 +10,7 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ManageTreeRepresentation {
@@ -67,5 +68,102 @@ public class ManageTreeRepresentation {
         for(TreeNode child: root.getChildren()){
             printTreeDepthFirst(child, profondità);
         }
+    }
+
+    public int getTreeHeight(TreeNode node, int profondità){
+        if(node == null){
+            return 0;
+        }
+
+        int maxProfondità = 0;
+        List<Integer> listChildrenProfondità = new ArrayList<>();
+
+        if(!node.hasChildren()){
+            return profondità;
+        }else {
+            profondità++;
+            for(TreeNode child: node.getChildren()){
+                listChildrenProfondità.add(getTreeHeight(child, profondità));
+            }
+            for(Integer p: listChildrenProfondità){
+                if(p > maxProfondità){
+                    maxProfondità = p;
+                }
+            }return maxProfondità;
+        }
+    }
+
+    public float getAverageBranchingFactor(TreeNode root){
+        if(root == null){
+            return 0.0f;
+        }
+
+        //Numero di nodi non root / numero di nodi non leaf
+        float numNodesNonRoot = getNumNodes(root)-1;
+        float numNodesNonLeaf = getNumNodesNonLeaf(root);
+
+        if(numNodesNonLeaf == 0){
+            return 0.0f;
+        }
+        return numNodesNonRoot/numNodesNonLeaf;
+    }
+
+    public float getNumNodesNonLeaf(TreeNode node){
+        StructureElement s = node.getContent();
+        if(!node.hasChildren()){
+            return 0;
+        }
+
+        float result = 1;
+        for(TreeNode child: node.getChildren()){
+            result = result + getNumNodesNonLeaf(child);
+        }
+
+        return result;
+    }
+
+    public int getTreeDegree(TreeNode node){
+        if(!node.hasChildren()){
+            return 0;
+        }
+        int max = node.getChildren().size();
+
+        List<Integer> listNumChildren = new ArrayList<>();
+        for(TreeNode child: node.getChildren()){
+            listNumChildren.add(getTreeDegree(child));
+        }
+        for(Integer num: listNumChildren){
+            if(num > max){
+                max = num;
+            }
+        }return max;
+
+    }
+
+    public float getDensity(TreeNode root){
+        if(root == null){
+            return 0;
+        }
+
+        int numNodes = getNumNodes(root);
+        int height = getTreeHeight(root, 1);
+        int maxNodes = (int) Math.pow(height+1,2)-1;
+
+        return (float) numNodes /maxNodes;
+    }
+
+
+
+    /*Il numero di nodi lo tengo già, quindi probabilmente questa funzione non serve*/
+    public int getNumNodes(TreeNode node){
+        if(node == null){
+            return 0;
+        }
+
+        int conter = 1;
+        for(TreeNode children: node.getChildren()){
+            conter += getNumNodes(children);
+        }
+        return conter;
     }
 }
