@@ -15,7 +15,8 @@ public class MainClass {
         //mainForScriptPython(args);
 
         DebugClass debugClass = new DebugClass();
-        debugClass.start();
+        //debugClass.start();
+        debugClass.debugTrees();
     }
 }
 

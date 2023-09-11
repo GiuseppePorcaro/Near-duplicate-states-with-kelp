@@ -1,5 +1,8 @@
 package com.tool.dataset;
 
+import com.tool.Trees.Tree;
+import com.tool.Utils;
+import it.uniroma2.sag.kelp.data.representation.structure.StructureElement;
 import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
 import it.uniroma2.sag.kelp.data.representation.tree.node.TreeNode;
 
@@ -101,6 +104,7 @@ public class ComputeStatisticsRunnable implements Runnable{
         if(!node.hasChildren()){
             return profondità;
         }else {
+            profondità++;
             for(TreeNode child: node.getChildren()){
                 listChildrenProfondità.add(getTreeHeight(child, profondità));
             }
@@ -117,13 +121,46 @@ public class ComputeStatisticsRunnable implements Runnable{
             return 0.0f;
         }
 
-        float result[] = new float[2];
-        computeBranchingFactors(root,result);
+        //Numero di nodi non root / numero di nodi non leaf
+        float numNodesNonRoot = getNumNodes(root)-1;
+        float numNodesNonLeaf = getNumNodesNonLeaf(root);
 
-        if(result[1] == 0){
+        if(numNodesNonLeaf == 0){
             return 0.0f;
         }
-        return result[0]/result[1]; //result[0] è la somma dei figli, result[1] è il numero di nodi
+        return numNodesNonRoot/numNodesNonLeaf;
+    }
+
+    public float getNumNodesNonLeaf(TreeNode node){
+        StructureElement s = node.getContent();
+        if(!node.hasChildren()){
+            return 0;
+        }
+
+        float result = 1;
+        for(TreeNode child: node.getChildren()){
+            result = result + getNumNodesNonLeaf(child);
+        }
+
+        return result;
+    }
+
+    public int getTreeDegree(TreeNode node){
+        if(!node.hasChildren()){
+            return 0;
+        }
+        int max = node.getChildren().size();
+
+        List<Integer> listNumChildren = new ArrayList<>();
+        for(TreeNode child: node.getChildren()){
+            listNumChildren.add(getTreeDegree(child));
+        }
+        for(Integer num: listNumChildren){
+            if(num > max){
+                max = num;
+            }
+        }return max;
+
     }
 
     public float getDensity(TreeNode root){
@@ -135,19 +172,10 @@ public class ComputeStatisticsRunnable implements Runnable{
         int height = getTreeHeight(root, 1);
         int maxNodes = (int) Math.pow(height+1,2)-1;
 
-        return numNodes/maxNodes;
+        return (float) numNodes /maxNodes;
     }
 
-    public void computeBranchingFactors(TreeNode node, float result[]){
-        if(node != null){
-            result[0] = node.getChildren().size();
-            result[1]++;
 
-            for(TreeNode children: node.getChildren()){
-                computeBranchingFactors(children,result);
-            }
-        }
-    }
 
     /*Il numero di nodi lo tengo già, quindi probabilmente questa funzione non serve*/
     public int getNumNodes(TreeNode node){

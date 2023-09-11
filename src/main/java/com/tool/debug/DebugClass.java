@@ -3,6 +3,7 @@ package com.tool.debug;
 import com.tool.NormalizationKernel;
 import com.tool.Trees.Tree;
 import com.tool.Trees.TreeFactory;
+import com.tool.dataset.ComputeStatisticsRunnable;
 import com.tool.similarity.AllAttributesDiceSorensenSimilarity;
 import com.tool.similarity.AllAttributesJaccardSimilarity;
 import com.tool.similarity.ChildrenBasedJaccardSimilarity;
@@ -81,5 +82,21 @@ public class DebugClass {
         System.out.println("Kernel normalized: \n\tOn attributes: "+kernelAttrNormalized/*+"\n\tStandard: "+kernelStandarNormalized*/);
         //System.out.println("\tPartialTreeKenrel: "+partialTreeKernelNorm);
         //System.out.println("\tKernel childBased: "+childBasedKernel);
+    }
+
+    public void debugTrees() throws Exception {
+        String pathTree = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testChildrenA.html";
+        Tree treeA = TreeFactory.createTree(pathTree,typeTree);
+        ComputeStatisticsRunnable computeStatisticsRunnable = new ComputeStatisticsRunnable(1,0,0,"","");
+
+        TreeRepresentation kelpTreeA = popolateTree(treeA);
+
+        //printTreeDepthFirst(kelpTreeA.getRoot(),1);
+
+        System.out.println("Altezza: "+computeStatisticsRunnable.getTreeHeight(kelpTreeA.getRoot(),1));
+        System.out.println("NUmero nodi: "+computeStatisticsRunnable.getNumNodes(kelpTreeA.getRoot()));
+        System.out.println("Average branching factor: "+computeStatisticsRunnable.getAverageBranchingFactor(kelpTreeA.getRoot()));
+        System.out.println("Degree: "+computeStatisticsRunnable.getTreeDegree(kelpTreeA.getRoot()));
+
     }
 }
