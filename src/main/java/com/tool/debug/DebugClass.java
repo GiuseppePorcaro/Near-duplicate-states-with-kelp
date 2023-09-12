@@ -3,6 +3,7 @@ package com.tool.debug;
 import com.tool.NormalizationKernel;
 import com.tool.Trees.Tree;
 import com.tool.Trees.TreeFactory;
+import com.tool.Utils;
 import com.tool.dataset.ComputeStatisticsRunnable;
 import com.tool.representations.ManageTreeRepresentation;
 import com.tool.similarity.AllAttributesDiceSorensenSimilarity;
@@ -11,6 +12,7 @@ import com.tool.similarity.ChildrenBasedJaccardSimilarity;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.LexicalStructureElementSimilarity;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureElementSimilarityI;
 import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
+import it.uniroma2.sag.kelp.data.representation.tree.node.TreeNode;
 import it.uniroma2.sag.kelp.kernel.tree.PartialTreeKernel;
 import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
 
@@ -50,10 +52,13 @@ public class DebugClass {
     * */
     public void start() throws Exception {
 
-        String dom1 = "dimeshift/crawl-dimeshift-60min/doms/state87.html";
-        String dom2 = "dimeshift/crawl-dimeshift-60min/doms/state94.html";
-        String folderPath = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"; //"/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"
-
+        ManageTreeRepresentation manager = new ManageTreeRepresentation();
+        String dom1 = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testDOMA.html";
+        String dom2 = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testDOMB.html";
+        //String dom1 = "dimeshift/crawl-dimeshift-60min/doms/state46.html";
+        //String dom2 = "dimeshift/crawl-dimeshift-60min/doms/state88.html";
+        //String folderPath = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"; //"/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"
+        String folderPath = "";
         Tree treeANoScript = TreeFactory.createTree(folderPath+dom1,typeTree);
         Tree treeBNoScript = TreeFactory.createTree(folderPath+dom2,typeTree);
 
@@ -66,6 +71,16 @@ public class DebugClass {
         TreeRepresentation kelpTreeANoScript = popolateTree(treeANoScript);
         TreeRepresentation kelpTreeBNoScript = popolateTree(treeBNoScript);
 
+        float numPairs = manager.getNumNodes(kelpTreeANoScript.getRoot())*manager.getNumNodes(kelpTreeBNoScript.getRoot());
+        for(TreeNode node: kelpTreeANoScript.getAllNodes()){
+            //System.out.println("TreeA attr: "+ Utils.getDisplayStyle(node.getContent().getTextFromData()));
+            node.getContent().addAdditionalInformation("numPairs",numPairs);
+        }
+        for(TreeNode node: kelpTreeBNoScript.getAllNodes()){
+            //System.out.println("TreeA attr: "+ Utils.getDisplayStyle(node.getContent().getTextFromData()));
+            node.getContent().addAdditionalInformation("numPairs",numPairs);
+        }
+        System.out.println("NumPairs: "+numPairs);
         //NormalizationKernel partialTreeKernelNormalized = new NormalizationKernel(partialTreeKernel);
 
         //float kernelAttrNotNormalized = kernelAttributeNotNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);

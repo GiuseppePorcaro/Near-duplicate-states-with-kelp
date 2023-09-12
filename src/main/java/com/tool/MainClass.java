@@ -35,6 +35,10 @@ public class MainClass {
 * -Il style="display: none;" e style="display: hidden;" ci dicono anche quando due pagine identiche invece sono classificate come diverse. Serve un modo per recuperare
 *       questa informazione e quindi stabilire che le due pagine sono diverse
 *
+*-Ci sono pagine identiche (classificate come diverse) ad eccezione che una inserisce un nuovo dato, mentre una
+*       fa un update. Il minimo che può cambiare è il tipo di <form> col bottone <submit> e basta.
+*
+*
 * **Si potrebbe pensare di applicare due livelli di calcolo? Il primo è su cose speficiche dell'albero, il secondo invece sulle coppie di nodi**
 *
 *

@@ -26,6 +26,8 @@ public class NormalizationKernel {
         }
         baseKernel.setDeltaMatrix(new DynamicDeltaMatrix());
         float kernelAB= baseKernel.kernelComputation(treeA, treeB);
+
+        System.out.println("KernelA: "+kernelA+"\nKernelB: "+kernelB+"\nKernelAB: "+kernelAB);
         return (float)(kernelAB/(Math.sqrt(kernelA*kernelB)));
     }
 
