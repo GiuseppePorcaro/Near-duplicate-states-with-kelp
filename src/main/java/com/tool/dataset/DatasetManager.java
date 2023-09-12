@@ -13,22 +13,31 @@ import static java.lang.Math.round;
 
 public class DatasetManager {
 
-    public void computeDatasetSimilarities() throws InterruptedException {
+    private String folderPath;
+    private String datasetDB;
+    String selectQuery = "";
+    String updateQuery = "";
+    private int numRows;
+    private String action;
+
+    public DatasetManager(String folderPath, String datasetDB, int numRows, String action) {
+        this.folderPath = folderPath;
+        this.datasetDB = datasetDB;
+        this.numRows = numRows;
+        this.action = action;
+    }
+
+    public void computeDatasetFunction() throws InterruptedException {
 
         int numCores = Runtime.getRuntime().availableProcessors();
-        int numRows = 97490;
         int slice = round(numRows/numCores) + 1;
         int start = 0;
-        String folderPath = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels";
-        String datasetDB = "gs_full_dom_mu01.db";
-        String selectQuery = "";
-        String updateQuery = "";
 
         List<Thread> threads = new ArrayList<>();
 
         for(int i = 0; i < numCores; i++){
             start = i*slice;
-            Thread t = new Thread(new ComputeSimilaritiesRunnable(slice,start,folderPath,datasetDB,i));
+            Thread t = new Thread(runnableFactory(action,slice, start,i));
 
             t.start();
             threads.add(t);
@@ -38,6 +47,18 @@ public class DatasetManager {
             thread.join();
         }
     }
+
+    public Runnable runnableFactory(String action,int slice, int start,int i){
+        switch (action){
+            case "statistics":
+                return new ComputeStatisticsRunnable(i,slice,start,folderPath,datasetDB);
+            case "similarities":
+                return new ComputeSimilaritiesRunnable(slice,start,folderPath,datasetDB,i);
+            default:
+                return null;
+        }
+    }
+
 }
 
 //private String folderPath = "F:\\Università\\Libri_università\\Magistrale\\Tesi_magistrale\\Web_Test_Generation\\Crawls_complete\\GroundTruthModels"; path per windows

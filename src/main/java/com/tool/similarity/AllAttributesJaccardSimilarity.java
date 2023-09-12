@@ -42,6 +42,8 @@ public class AllAttributesJaccardSimilarity implements StructureElementSimilarit
 
         //System.out.println("Ids: "+idSx+" - "+idSd);
 
+
+
         /*Stesso id -> stesso nodo*/
         if( idSx != null && idSd != null ){
             if(idSx.equals(idSd)){

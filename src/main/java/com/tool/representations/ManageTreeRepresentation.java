@@ -93,13 +93,13 @@ public class ManageTreeRepresentation {
         }
     }
 
-    public float getAverageBranchingFactor(TreeNode root){
+    public float getAverageBranchingFactor(TreeNode root, float numNodes){
         if(root == null){
             return 0.0f;
         }
 
         //Numero di nodi non root / numero di nodi non leaf
-        float numNodesNonRoot = getNumNodes(root)-1;
+        float numNodesNonRoot = numNodes-1;
         float numNodesNonLeaf = getNumNodesNonLeaf(root);
 
         if(numNodesNonLeaf == 0){

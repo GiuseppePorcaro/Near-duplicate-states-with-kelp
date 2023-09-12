@@ -4,6 +4,7 @@ import com.tool.NormalizationKernel;
 import com.tool.Trees.Tree;
 import com.tool.Trees.TreeFactory;
 import com.tool.dataset.ComputeStatisticsRunnable;
+import com.tool.representations.ManageTreeRepresentation;
 import com.tool.similarity.AllAttributesDiceSorensenSimilarity;
 import com.tool.similarity.AllAttributesJaccardSimilarity;
 import com.tool.similarity.ChildrenBasedJaccardSimilarity;
@@ -49,8 +50,8 @@ public class DebugClass {
     * */
     public void start() throws Exception {
 
-        String dom1 = "phoenix/crawl-phoenix-60min/doms/state37.html";
-        String dom2 = "phoenix/crawl-phoenix-60min/doms/state534.html";
+        String dom1 = "dimeshift/crawl-dimeshift-60min/doms/state87.html";
+        String dom2 = "dimeshift/crawl-dimeshift-60min/doms/state94.html";
         String folderPath = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"; //"/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"
 
         Tree treeANoScript = TreeFactory.createTree(folderPath+dom1,typeTree);
@@ -85,18 +86,21 @@ public class DebugClass {
     }
 
     public void debugTrees() throws Exception {
-        String pathTree = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testChildrenA.html";
+        //String pathTree = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/mrbs/crawl-mrbs-60min/doms/state284.html";
+        String pathTree = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testDOMA.html";
         Tree treeA = TreeFactory.createTree(pathTree,typeTree);
-        ComputeStatisticsRunnable computeStatisticsRunnable = new ComputeStatisticsRunnable(1,0,0,"","");
+
+        ManageTreeRepresentation manager = new ManageTreeRepresentation();
 
         TreeRepresentation kelpTreeA = popolateTree(treeA);
 
         //printTreeDepthFirst(kelpTreeA.getRoot(),1);
+        //mrbs crawl-mrbs-60min state284 834
 
-        System.out.println("Altezza: "+computeStatisticsRunnable.getTreeHeight(kelpTreeA.getRoot(),1));
-        System.out.println("NUmero nodi: "+computeStatisticsRunnable.getNumNodes(kelpTreeA.getRoot()));
-        System.out.println("Average branching factor: "+computeStatisticsRunnable.getAverageBranchingFactor(kelpTreeA.getRoot()));
-        System.out.println("Degree: "+computeStatisticsRunnable.getTreeDegree(kelpTreeA.getRoot()));
+        System.out.println("Altezza: "+manager.getTreeHeight(kelpTreeA.getRoot(),1));
+        System.out.println("NUmero nodi: "+manager.getNumNodes(kelpTreeA.getRoot()));
+        System.out.println("Average branching factor: "+manager.getAverageBranchingFactor(kelpTreeA.getRoot(),manager.getNumNodes(kelpTreeA.getRoot())));
+        System.out.println("Degree: "+manager.getTreeDegree(kelpTreeA.getRoot()));
 
     }
 }

@@ -73,4 +73,14 @@ public class Utils {
         return token[0];
 
     }
+
+    public static String getDisplayStyle(String data){
+        String token [] = data.split("~");
+
+        for(String attr: token){
+            if(attr.contains("hidden")||attr.contains("none")){
+                return attr;
+            }
+        }return null;
+    }
 }

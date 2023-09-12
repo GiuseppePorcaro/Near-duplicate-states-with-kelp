@@ -36,14 +36,19 @@ public class ComputeStatisticsRunnable implements Runnable{
     @Override
     public void run() {
 
+        System.out.println(start+" - "+slice+" - "+numThread);
+
         ManageTreeRepresentation manager = new ManageTreeRepresentation();
 
         try {
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:"+folderPath+"/"+ datasetDB);
-            Statement stat = conn.createStatement();
+            ResultSet rs;
+            Connection conn;
 
-            ResultSet rs = stat.executeQuery("SELECT appname, crawl, state, nodeSize from states order by appname, crawl, state limit "+start+","+slice+";");
-            
+                conn = DriverManager.getConnection("jdbc:sqlite:"+folderPath+"/"+ datasetDB);
+                Statement stat = conn.createStatement();
+
+                rs = stat.executeQuery("SELECT appname, crawl, state, nodeSize from states order by appname, crawl, state limit "+start+","+slice+";");
+
             while(rs.next()){
 
                 String appName = rs.getString("appname");
@@ -71,13 +76,19 @@ public class ComputeStatisticsRunnable implements Runnable{
                     statement.setInt(4,numNodes);
                     statement.setInt(5,manager.getTreeHeight(root,1));
                     statement.setInt(6,manager.getTreeDegree(root));
-                    statement.setFloat(7,manager.getAverageBranchingFactor(root));
+                    statement.setFloat(7,manager.getAverageBranchingFactor(root,numNodes));
 
                     statement.executeUpdate();
 
                     statement.close();
                     connUpdate.close();
+
+                    counter++;
+                    String format = "%-100s%s%n";
+                    System.out.printf(format, appName + " " + crawl + " " + state + " " + numNodes, " | Thread: " + numThread + " - Pair N°:  " + counter);
+
                 }
+
             }
 
             rs.close();
