@@ -48,12 +48,12 @@ public class AllAttributesJaccardSimilarity implements StructureElementSimilarit
         /*Stesso id -> stesso nodo*/
         if( idSx != null && idSd != null ){
             if(idSx.equals(idSd)){
-                if(attrStyleSd != null && attrStyleSx != null){
+                /*if(attrStyleSd != null && attrStyleSx != null){
                     if((attrStyleSd.contains("hidden") && attrStyleSx.contains("none"))||attrStyleSd.contains("none") && attrStyleSx.contains("hidden")){
                         System.out.println(attrStyleSd+" --- "+attrStyleSx +" | "+attrStyleSd.contains("hidden")+" --- "+attrStyleSx.contains("none"));
                         return 100000000000.0f;
                     }
-                }
+                }*/
                 //System.out.println("Sim: 1\n");
                 return 1f;
             }

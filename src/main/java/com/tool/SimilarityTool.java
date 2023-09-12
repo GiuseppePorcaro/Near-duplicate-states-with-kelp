@@ -1,13 +1,16 @@
 package com.tool;
 
 import com.tool.Trees.TreeFactory;
+import it.uniroma2.sag.kelp.data.representation.structure.StructureElement;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureElementSimilarityI;
 import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
+import it.uniroma2.sag.kelp.data.representation.tree.node.TreeNode;
 import it.uniroma2.sag.kelp.kernel.DirectKernel;
 import it.uniroma2.sag.kelp.kernel.cache.DynamicIndexSquaredNormCache;
 import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
 import it.uniroma2.sag.kelp.kernel.tree.deltamatrix.DynamicDeltaMatrix;
 
+import static com.tool.Utils.getDisplayStyle;
 import static com.tool.representations.ManageTreeRepresentation.popolateTree;
 
 
@@ -49,6 +52,39 @@ public class SimilarityTool {
         TreeRepresentation secondTree = popolateTree(TreeFactory.createTree(pathHtml2,treeType));
 
         return kernelNormalized.kernelComputation(firstTree,secondTree);
+    }
+
+    /*
+    * METODO DI PROVA
+    *
+    * Questo metodo controlla per ogni coppia di nodi se ci possono essere coppie che hanno diverso valore
+    * per l'attributo style:display. Se si, allora ritorna 0.0 come similarità.
+    *
+    * Motivo ti tale metodo è il fatto che ci sono molte pagine identiche, ma che differiscono solo per il fatto che
+    * hanno uno stesso tag con due visibilità diverse. Quindi il kenrel è alto in quanto cambia solo questo attributo,
+    * ma la funzionalità è classificata come diversa.
+    * */
+    public static float computePreKernelSimilarity(TreeRepresentation treeA, TreeRepresentation treeB){
+        float sim = -1;
+        for(TreeNode nodeA: treeA.getAllNodes()){
+            StructureElement seA = nodeA.getContent();
+            String attrStyleSx = getDisplayStyle(seA.getTextFromData());
+            String tagSx = Utils.getTag(seA.getTextFromData());
+            for(TreeNode nodeB: treeB.getAllNodes()){
+                StructureElement seB = nodeB.getContent();
+                String attrStyleSd = getDisplayStyle(seB.getTextFromData());
+                String tagSd = Utils.getTag(seB.getTextFromData());
+                if(tagSx.equalsIgnoreCase(tagSd)){
+                    if(attrStyleSd != null && attrStyleSx != null){
+                        if((attrStyleSd.contains("hidden") && attrStyleSx.contains("none"))||attrStyleSd.contains("none") && attrStyleSx.contains("hidden")){
+                            //System.out.println(attrStyleSd+" --- "+attrStyleSx +" | "+attrStyleSd.contains("hidden")+" --- "+attrStyleSx.contains("none"));
+                            sim = 0;
+                        }
+                    }
+                }
+            }
+        }
+        return sim;
     }
 
     public DirectKernel<TreeRepresentation> getKernel() {
