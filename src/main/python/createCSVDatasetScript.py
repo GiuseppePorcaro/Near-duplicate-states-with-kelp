@@ -3,13 +3,14 @@ import csv
 
 def main():
 
-    path = '/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/dataset.csv'
-    pathDB = '/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/gs_full_dom_mu01.db'
-    pathDBStats  = '/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/gs_stats.db'
+    path = '/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset3_preCheck_9Param.csv'
+    pathDB = '/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/gs_full_dom_mu01_preCheck.db'
+    pathDBStats  = '/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/gs_stats.db'
     
     print("Creating dataset as csv in:\n",path,"\n\nfrom:\n>",pathDB,"\n>",pathDBStats)
     with open(path, 'w', newline='') as file:
         fieldnames = ['attribute_sim','numNodes1','height1','degree1','averageBranchingFactor1','numNodes2','height2','degre2','averageBranchingFactor2','human_classification']
+        #fieldnames = ['attribute_sim','numNodes1','numNodes2','human_classification']
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
 
@@ -33,6 +34,7 @@ def main():
             [numNodes2,height2,degre2,averageBranchingFactor2] = getHtmlTreeStats(appname,crawl,state2,cStats)
 
             writer.writerow({'attribute_sim': attributeSim,'numNodes1': numNodes1,'height1' : height1,'degree1' : degree1,'averageBranchingFactor1' : averageBranchingFactor1,'numNodes2' : numNodes2,'height2' : height2,'degre2' : degre2,'averageBranchingFactor2' : averageBranchingFactor2,'human_classification' : humanClassification})
+            #writer.writerow({'attribute_sim': attributeSim,'numNodes1': numNodes1,'numNodes2' : numNodes2,'human_classification' : humanClassification})
 
             counter = counter + 1
             #print(attributeSim," ",numNodes1," ",height1," ",degree1," ",averageBranchingFactor1," ",numNodes2," ",height2," ",degre2," ",averageBranchingFactor2," ",humanClassification,"\t| "+str(counter))
