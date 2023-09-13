@@ -4,21 +4,16 @@ import com.tool.NormalizationKernel;
 import com.tool.SimilarityTool;
 import com.tool.Trees.Tree;
 import com.tool.Trees.TreeFactory;
-import com.tool.Utils;
-import com.tool.dataset.ComputeStatisticsRunnable;
 import com.tool.representations.ManageTreeRepresentation;
 import com.tool.similarity.AllAttributesDiceSorensenSimilarity;
 import com.tool.similarity.AllAttributesJaccardSimilarity;
 import com.tool.similarity.ChildrenBasedJaccardSimilarity;
-import it.uniroma2.sag.kelp.data.representation.structure.StructureElement;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.LexicalStructureElementSimilarity;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureElementSimilarityI;
 import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
-import it.uniroma2.sag.kelp.data.representation.tree.node.TreeNode;
 import it.uniroma2.sag.kelp.kernel.tree.PartialTreeKernel;
 import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
 
-import static com.tool.Utils.getDisplayStyle;
 import static com.tool.representations.ManageTreeRepresentation.*;
 
 public class DebugClass {
@@ -28,8 +23,8 @@ public class DebugClass {
 
     SmoothedPartialTreeKernel kernelStandardNotNormalized;
     NormalizationKernel kernelStandardNormalized;
-
     private String typeTree = "all";
+    private SimilarityTool similarityTool;
 
     PartialTreeKernel partialTreeKernel = new PartialTreeKernel(0.4f,0.4f,1,typeTree);
     NormalizationKernel kernelChildBasedNormalized;
@@ -38,6 +33,7 @@ public class DebugClass {
         StructureElementSimilarityI diceSorensen = new AllAttributesDiceSorensenSimilarity();
         StructureElementSimilarityI childrenBasedJaccardSimilarity = new ChildrenBasedJaccardSimilarity();
         StructureElementSimilarityI kelpStandardSimilarity = new LexicalStructureElementSimilarity();
+        similarityTool = new SimilarityTool(jaccardSimilarity,0.4f,0.1f,1f,0.01f,typeTree);
 
         kernelAttributeNotNormalized = new SmoothedPartialTreeKernel(0.4f,0.1f,1f,0.01f,jaccardSimilarity,typeTree);
         kernelStandardNotNormalized = new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.01f,kelpStandardSimilarity,typeTree);
@@ -56,31 +52,17 @@ public class DebugClass {
     public void start() throws Exception {
 
         ManageTreeRepresentation manager = new ManageTreeRepresentation();
-        String dom1 = "/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/resources/testDOMA.html";
-        String dom2 = "/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/resources/testDOMB.html";
-        //String dom1 = "dimeshift/crawl-dimeshift-60min/doms/state46.html";
-        //String dom2 = "dimeshift/crawl-dimeshift-60min/doms/state88.html";
-        //String folderPath = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"; //"/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"
-        String folderPath = "";
-        Tree treeANoScript = TreeFactory.createTree(folderPath+dom1,typeTree);
-        Tree treeBNoScript = TreeFactory.createTree(folderPath+dom2,typeTree);
 
-        //System.out.println(treeANoScript.getParsedDOM());
-        //System.out.println("################################################################################");
-        //System.out.println(treeBNoScript.getParsedDOM());
-
-
-
-        TreeRepresentation kelpTreeANoScript = popolateTree(treeANoScript);
-        TreeRepresentation kelpTreeBNoScript = popolateTree(treeBNoScript);
-
-        float sim = SimilarityTool.computePreKernelSimilarity(kelpTreeANoScript,kelpTreeBNoScript);
-
-        //NormalizationKernel partialTreeKernelNormalized = new NormalizationKernel(partialTreeKernel);
+        //String dom1 = "/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/resources/testDOMA.html";
+        //String dom2 = "/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/resources/testDOMB.html";
+        String dom1 = "dimeshift/crawl-dimeshift-60min/doms/state46.html";
+        String dom2 = "dimeshift/crawl-dimeshift-60min/doms/state88.html";
+        String folderPath = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"; //"/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"
+        //String folderPath = "";
 
         //float kernelAttrNotNormalized = kernelAttributeNotNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
         //float kernelStandarNotNormalized = kernelStandardNotNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
-        float kernelAttrNormalized = kernelAttributeNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
+        float kernelAttrNormalized = similarityTool.computeKernelNormalized(folderPath+dom1,folderPath+dom2,typeTree );
         //float kernelStandarNormalized = kernelStandardNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
         //float partialTreeKernelNorm = partialTreeKernelNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
         //float childBasedKernel = kernelChildBasedNormalized.kernelComputation(kelpTreeANoScript,kelpTreeBNoScript);
@@ -90,7 +72,7 @@ public class DebugClass {
 
         System.out.println("################################################################################");
         //System.out.println("Kernel not normalized: \n\tOn attributes: "+kernelAttrNotNormalized+"\n\tStandard: "+kernelStandarNotNormalized);
-        System.out.println("Kernel normalized: \n\tOn attributes: "+Math.min(sim,kernelAttrNormalized)/*+"\n\tStandard: "+kernelStandarNormalized*/);
+        System.out.println("Kernel normalized: \n\tOn attributes: "+kernelAttrNormalized/*+"\n\tStandard: "+kernelStandarNormalized*/);
         //System.out.println("\tPartialTreeKenrel: "+partialTreeKernelNorm);
         //System.out.println("\tKernel childBased: "+childBasedKernel);
     }

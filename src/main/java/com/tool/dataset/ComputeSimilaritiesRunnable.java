@@ -21,6 +21,7 @@ public class ComputeSimilaritiesRunnable implements Runnable{
 
         long startTime = System.currentTimeMillis();
         try {
+            DriverManager.setLoginTimeout(10);
             Connection conn = DriverManager.getConnection("jdbc:sqlite:"+folderPath+"/"+ datasetDB);
             Statement stat = conn.createStatement();
 

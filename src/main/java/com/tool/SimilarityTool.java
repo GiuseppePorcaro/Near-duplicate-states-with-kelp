@@ -51,6 +51,10 @@ public class SimilarityTool {
         TreeRepresentation firstTree = popolateTree(TreeFactory.createTree(pathHtml1,treeType));
         TreeRepresentation secondTree = popolateTree(TreeFactory.createTree(pathHtml2,treeType));
 
+        if(Float.compare(computePreKernelSimilarity(firstTree,secondTree),0.0f) == 0){
+            return 0.0f;
+        }
+
         return kernelNormalized.kernelComputation(firstTree,secondTree);
     }
 
