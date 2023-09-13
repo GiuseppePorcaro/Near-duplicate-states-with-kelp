@@ -80,8 +80,8 @@ public class SimilarityTool {
                 String tagSd = Utils.getTag(seB.getTextFromData());
                 if(tagSx.equalsIgnoreCase(tagSd)){
                     if(attrStyleSd != null && attrStyleSx != null){
-                        if((attrStyleSd.contains("hidden") && attrStyleSx.contains("none"))||attrStyleSd.contains("none") && attrStyleSx.contains("hidden")){
-                            //System.out.println(attrStyleSd+" --- "+attrStyleSx +" | "+attrStyleSd.contains("hidden")+" --- "+attrStyleSx.contains("none"));
+                        if((attrStyleSd.contains("block;") && attrStyleSx.contains("none;"))||attrStyleSd.contains("none;") && attrStyleSx.contains("block;")){
+                            System.out.println(attrStyleSd+" --- "+attrStyleSx +" | "+attrStyleSd.contains("block;")+" --- "+attrStyleSx.contains("none;"));
                             sim = 0;
                         }
                     }

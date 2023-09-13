@@ -55,8 +55,8 @@ public class DebugClass {
 
         //String dom1 = "/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/resources/testDOMA.html";
         //String dom2 = "/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/resources/testDOMB.html";
-        String dom1 = "dimeshift/crawl-dimeshift-60min/doms/state46.html";
-        String dom2 = "dimeshift/crawl-dimeshift-60min/doms/state88.html";
+        String dom1 = "pagekit/crawl-pagekit-60min/doms/state297.html";
+        String dom2 = "pagekit/crawl-pagekit-60min/doms/state433.html";
         String folderPath = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"; //"/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"
         //String folderPath = "";
 
