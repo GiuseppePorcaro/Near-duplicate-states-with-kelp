@@ -3,7 +3,7 @@ import csv
 
 def main():
 
-    path = '/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset3_preCheck_9Param.csv'
+    path = '/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset_-1_1_targets.csv'
     pathDB = '/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/gs_full_dom_mu01_preCheck.db'
     pathDBStats  = '/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/gs_stats.db'
     
@@ -11,6 +11,7 @@ def main():
     with open(path, 'w', newline='') as file:
         fieldnames = ['attribute_sim','numNodes1','height1','degree1','averageBranchingFactor1','numNodes2','height2','degre2','averageBranchingFactor2','human_classification']
         #fieldnames = ['attribute_sim','numNodes1','numNodes2','human_classification']
+
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
 
@@ -22,13 +23,8 @@ def main():
         cStats = connStats.cursor()
 
         counter = 0
-        for table in c.fetchall():
-            appname = str(table[0])
-            crawl = str(table[1])
-            state1 = str(table[2])
-            state2 = str(table[3])
-            attributeSim = float(table[4])
-            humanClassification = int(table[5])
+        for row in c.fetchall():
+            [appname, crawl, state1,state2,attributeSim,humanClassification] = getParameters(row)
 
             [numNodes1,height1,degree1,averageBranchingFactor1] = getHtmlTreeStats(appname,crawl,state1,cStats)
             [numNodes2,height2,degre2,averageBranchingFactor2] = getHtmlTreeStats(appname,crawl,state2,cStats)
@@ -45,6 +41,19 @@ def main():
         file.close()
         print("Done!")
 
+
+def getParameters(row):
+    appname = str(row[0])
+    crawl = str(row[1])
+    state1 = str(row[2])
+    state2 = str(row[3])
+    attributeSim = float(row[4])
+    humanClassification = int(row[5])
+
+    humanClassification = convertHumanClassification(humanClassification)
+
+    return [appname, crawl, state1,state2,attributeSim,humanClassification]
+
 def getHtmlTreeStats(appname, crawl, state,cStats):
     cStats.execute("Select numNodes, height, degree, averageBranchingFactor from states where appname=\""+appname+"\" and crawl=\""+crawl+"\" and state = \""+state+"\";")
     rowStats = cStats.fetchone()
@@ -55,5 +64,13 @@ def getHtmlTreeStats(appname, crawl, state,cStats):
     averageBranchingFactor = float(rowStats[3])
 
     return [numNodes,height,degree,averageBranchingFactor]
+
+def convertHumanClassification(humanClassification):
+
+    if humanClassification == 2:
+        return -1
+
+    if humanClassification == 1 or humanClassification == 0:
+        return 1
 
 main()

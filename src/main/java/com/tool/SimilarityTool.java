@@ -51,44 +51,7 @@ public class SimilarityTool {
         TreeRepresentation firstTree = popolateTree(TreeFactory.createTree(pathHtml1,treeType));
         TreeRepresentation secondTree = popolateTree(TreeFactory.createTree(pathHtml2,treeType));
 
-        if(Float.compare(computePreKernelSimilarity(firstTree,secondTree),0.0f) == 0){
-            return 0.0f;
-        }
-
         return kernelNormalized.kernelComputation(firstTree,secondTree);
-    }
-
-    /*
-    * METODO DI PROVA
-    *
-    * Questo metodo controlla per ogni coppia di nodi se ci possono essere coppie che hanno diverso valore
-    * per l'attributo style:display. Se si, allora ritorna 0.0 come similarità.
-    *
-    * Motivo ti tale metodo è il fatto che ci sono molte pagine identiche, ma che differiscono solo per il fatto che
-    * hanno uno stesso tag con due visibilità diverse. Quindi il kenrel è alto in quanto cambia solo questo attributo,
-    * ma la funzionalità è classificata come diversa.
-    * */
-    public static float computePreKernelSimilarity(TreeRepresentation treeA, TreeRepresentation treeB){
-        float sim = -1;
-        for(TreeNode nodeA: treeA.getAllNodes()){
-            StructureElement seA = nodeA.getContent();
-            String attrStyleSx = getDisplayStyle(seA.getTextFromData());
-            String tagSx = Utils.getTag(seA.getTextFromData());
-            for(TreeNode nodeB: treeB.getAllNodes()){
-                StructureElement seB = nodeB.getContent();
-                String attrStyleSd = getDisplayStyle(seB.getTextFromData());
-                String tagSd = Utils.getTag(seB.getTextFromData());
-                if(tagSx.equalsIgnoreCase(tagSd)){
-                    if(attrStyleSd != null && attrStyleSx != null){
-                        if((attrStyleSd.contains("block;") && attrStyleSx.contains("none;"))||attrStyleSd.contains("none;") && attrStyleSx.contains("block;")){
-                            System.out.println(attrStyleSd+" --- "+attrStyleSx +" | "+attrStyleSd.contains("block;")+" --- "+attrStyleSx.contains("none;"));
-                            sim = 0;
-                        }
-                    }
-                }
-            }
-        }
-        return sim;
     }
 
     public DirectKernel<TreeRepresentation> getKernel() {
