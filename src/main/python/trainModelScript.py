@@ -35,9 +35,10 @@ def crossValidation(X,Y):
     print("Starting cross validation...")
     clf = make_pipeline(StandardScaler(), svm.SVC(cache_size=1000,C=1, kernel='rbf'))
     scoring = ['precision_macro', 'recall_macro']
-    score = cross_validate(clf,X,Y,cv=10, scoring=scoring)
+    score = cross_validate(clf,X,Y,cv=10, scoring=scoring, return_train_score=True)
     print("\nDone!")
 
+    print("keys: ",score.keys())
     print("Fit time: ",sum(score['fit_time']))
     print("\nScore time: ",sum(score['score_time']))
 
@@ -51,10 +52,12 @@ def crossValidation(X,Y):
 
 
 def makePlot(title, xlabel,ylabel,range,X):
-    plt.titile(title)
-    plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
-    plt.plot(X,range, color="red")
+    plt.title(title)
+    plt.xlabel(ylabel)
+    plt.ylabel(xlabel)
+    plt.plot(range, X, color="red")
+
+    plt.show()
 
 def trainModel(X_train, X_test, y_train, y_test):
 
@@ -71,7 +74,7 @@ def trainModel(X_train, X_test, y_train, y_test):
     print(">Recall: ",metrics.recall_score(y_test,y_pred)) #Ci dice l'abilità del classificatore di trovare tutte le etichette positive
 
 def preProcessingX(X_train, X_test):
-    print("\nPre processing...\n>   X scaled: \n")
+    print("\nPre processing...\n>   X scaled:")
     scaler = StandardScaler().fit(X_train)
     X_trainScaled = scaler.transform(X_train)
     X_testSCaled = scaler.transform(X_test)
