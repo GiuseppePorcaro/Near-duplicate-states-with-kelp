@@ -49,7 +49,7 @@ def validationCurve(X, Y):
         svm.SVC(cache_size=1000),
         X,
         Y,
-        param_name="Gamma",
+        param_name="gamma",
         param_range=np.logspace(-4, 5, 10),
         score_type="both",
         scoring="f1",

@@ -33,9 +33,9 @@ public class DebugClass {
         StructureElementSimilarityI diceSorensen = new AllAttributesDiceSorensenSimilarity();
         StructureElementSimilarityI childrenBasedJaccardSimilarity = new ChildrenBasedJaccardSimilarity();
         StructureElementSimilarityI kelpStandardSimilarity = new LexicalStructureElementSimilarity();
-        similarityTool = new SimilarityTool(jaccardSimilarity,0.4f,0.1f,1f,0.01f,typeTree);
+        similarityTool = new SimilarityTool(jaccardSimilarity,0.4f,0.8f,1f,0.01f,typeTree);
 
-        kernelAttributeNotNormalized = new SmoothedPartialTreeKernel(0.4f,0.1f,1f,0.01f,jaccardSimilarity,typeTree);
+        kernelAttributeNotNormalized = new SmoothedPartialTreeKernel(0.4f,0.4f,1f,0.01f,jaccardSimilarity,typeTree);
         kernelStandardNotNormalized = new SmoothedPartialTreeKernel(0.4f,0.4f,1,0.01f,kelpStandardSimilarity,typeTree);
 
         kernelAttributeNormalized = new NormalizationKernel(kernelAttributeNotNormalized);
@@ -55,8 +55,8 @@ public class DebugClass {
 
         //String dom1 = "/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/resources/testDOMA.html";
         //String dom2 = "/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/resources/testDOMB.html";
-        String dom1 = "pagekit/crawl-pagekit-60min/doms/state297.html";
-        String dom2 = "pagekit/crawl-pagekit-60min/doms/state433.html";
+        String dom1 = "mrbs/crawl-mrbs-60min/doms/state23.html";
+        String dom2 = "mrbs/crawl-mrbs-60min/doms/state253.html";
         String folderPath = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"; //"/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"
         //String folderPath = "";
 

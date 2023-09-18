@@ -50,10 +50,10 @@ public class AllAttributesJaccardSimilarity implements StructureElementSimilarit
             if(idSx.equals(idSd)){
                 //System.out.println("Sim: 1\n");
                 if(attrStyleSd != null && attrStyleSx != null){
-                    if((attrStyleSd.contains("block;") && attrStyleSx.contains("none;"))||attrStyleSd.contains("none;") && attrStyleSx.contains("block;")){
+                    /*if((attrStyleSd.contains("block;") && attrStyleSx.contains("none;"))||attrStyleSd.contains("none;") && attrStyleSx.contains("block;")){
                         System.out.println(attrStyleSd+" --- "+attrStyleSx +" | "+attrStyleSd.contains("block;")+" --- "+attrStyleSx.contains("none;"));
                         return 0.0f;
-                    }
+                    }*/
 
                     /*
                     * Possibilmente inserire il caso in cui i nodi sono due form, ma con due action diverse -> sim = 0.0f
