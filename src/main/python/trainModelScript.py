@@ -10,6 +10,11 @@ from sklearn import metrics
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import cross_validate
 import matplotlib.pyplot as plt
+from sklearn.model_selection import ValidationCurveDisplay
+from sklearn.utils import shuffle
+from sklearn.model_selection import validation_curve
+from sklearn.model_selection import LearningCurveDisplay
+from sklearn.model_selection import learning_curve
 
 def main():
     print("Caricamento dataset...")
@@ -28,14 +33,20 @@ def main():
     [X_trainScaled, X_testSCaled] = preProcessingX(X_train,X_test)
 
     #trainModel(X_trainScaled, X_testSCaled, y_train, y_test)
-    crossValidation(datasetX,datasetY)
+    #crossValidation(datasetX,datasetY)
+
+    #validationCurve(datasetX,datasetY)
+
+    learningCurve(datasetX,datasetY)
+
+
 
 def crossValidation(X,Y):
 
     print("Starting cross validation...")
     clf = make_pipeline(StandardScaler(), svm.SVC(cache_size=1000,C=1, kernel='rbf'))
-    scoring = ['precision_macro', 'recall_macro']
-    score = cross_validate(clf,X,Y,cv=10, scoring=scoring, return_train_score=True)
+    scoring = ['precision_macro', 'recall_macro','accuracy']
+    score = cross_validate(clf,X,Y,cv=10, scoring=scoring)
     print("\nDone!")
 
     print("keys: ",score.keys())
@@ -44,18 +55,66 @@ def crossValidation(X,Y):
 
     precision = score['test_precision_macro']
     recall = score['test_recall_macro']
-    print("\nPrecision: ",precision)
-    print("\nRecall: ",recall)
+    accuracy = ['test_accuracy']
+    print("\nPrecision: ",precision," - ",precision.shape)
+    print("\nRecall: ",recall," - ",recall.shape)
+    print("\nAccuracy: ",accuracy," - ",accuracy.shape)
 
-    makePlot("Cross-Validation - Precision","Precision","Fold",range(1,11), precision)
-    makePlot("Cross-Validation - Recall", "Recall","Fold", range(1,11), recall)
+    makePlot("Cross-Validation - Precision e Recall","Precision - Recall","Fold",range(1,11), precision, recall, accuracy)
 
 
-def makePlot(title, xlabel,ylabel,range,X):
+def learningCurve(X,Y):
+
+    print("Computing learning curve...")
+    scaler = StandardScaler().fit(X)
+    X = scaler.transform(X)
+    X, Y = shuffle(X, Y, random_state=0)
+
+    train_sizes, train_scores, valid_scores = learning_curve( svm.SVC(kernel='rbf'), X, Y, train_sizes=[10000, 40000, 70000], cv=5, scoring="accuracy")
+
+    print("Train_scores shape: ",train_scores.shape)
+    print("valid_scores shape: ",valid_scores.shape)
+
+    makePlot("Learning curve - accuracy", "Accuracy","Folds",range(1,6),train_scores.mean(0),valid_scores.mean(0),train_sizes)
+
+    print("Done!")
+
+
+def validationCurve( X, Y):
+
+
+    scaler = StandardScaler().fit(X)
+    X = scaler.transform(X)
+    X, Y = shuffle(X, Y, random_state=0)
+
+    print("Computing validation curves...")
+    disp = ValidationCurveDisplay.from_estimator(
+        svm.SVC(),
+        X,
+        Y,
+        param_name="gamma",
+        param_range=np.logspace(-6, -1, 5),
+        score_type="both",
+        n_jobs=2,
+        score_name="Accuracy",
+    )
+    disp.ax_.set_title("Validation Curve for SVM with an RBF kernel")
+    disp.ax_.set_xlabel(r"gamma (inverse radius of the RBF kernel)")
+    disp.ax_.set_ylim(0.0, 1.1)
+    plt.show()
+
+    print("Done!")
+
+    #   makePlot("Validation Curve", "Folds",range(1,11),trainScores, validScores, np.zeroes(10))
+
+
+def makePlot(title, xlabel,ylabel,range,X1, X2, X3):
     plt.title(title)
     plt.xlabel(ylabel)
     plt.ylabel(xlabel)
-    plt.plot(range, X, color="red")
+
+    plt.plot(range, X1, color="red", label="train")
+    plt.plot(range, X2, color="blue", label="valid")
 
     plt.show()
 
