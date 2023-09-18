@@ -15,6 +15,7 @@ from sklearn.utils import shuffle
 from sklearn.model_selection import validation_curve
 from sklearn.model_selection import LearningCurveDisplay
 from sklearn.model_selection import learning_curve
+from sklearn import preprocessing
 
 def main():
     print("Caricamento dataset...")
@@ -27,18 +28,56 @@ def main():
 
     printDatasetShape(datasetX,datasetY)
     
-    X_train, X_test, y_train, y_test = train_test_split(datasetX, datasetY , test_size=0.30, random_state=42)
-    printSplittedDatasetShape(X_train,X_test,y_train,y_test)
+    #X_train, X_test, y_train, y_test = train_test_split(datasetX, datasetY , test_size=0.30, random_state=42)
+    #printSplittedDatasetShape(X_train,X_test,y_train,y_test)
 
-    [X_trainScaled, X_testSCaled] = preProcessingX(X_train,X_test)
+    [datasetXPreprocessed] = preProcessingX(datasetX)
+    X, Y = shuffle(datasetXPreprocessed, datasetY, random_state=0)
+    print("X:\n",X,"Y:\n",Y)
 
     #trainModel(X_trainScaled, X_testSCaled, y_train, y_test)
     #crossValidation(datasetX,datasetY)
 
-    #validationCurve(datasetX,datasetY)
+    validationCurve(X,Y)
 
-    learningCurve(datasetX,datasetY)
+    #learningCurve(datasetX,datasetY)
 
+def validationCurve(X, Y):
+
+    print("Computing validation curves...")
+    disp = ValidationCurveDisplay.from_estimator(
+        svm.SVC(cache_size=1000),
+        X,
+        Y,
+        param_name="Gamma",
+        param_range=np.logspace(-4, 5, 10),
+        score_type="both",
+        scoring="f1",
+        n_jobs=2,
+        score_name="f1",
+    )
+    disp.ax_.set_title("Validation Curve for SVM with an RBF kernel")
+    disp.ax_.set_xlabel(r"Gamma")
+    disp.ax_.set_ylim(0.0, 1.1)
+    plt.show()
+
+    print("Done!")
+
+def learningCurve(X,Y):
+
+    print("Computing learning curve...")
+    scaler = StandardScaler().fit(X)
+    X = scaler.transform(X)
+    X, Y = shuffle(X, Y, random_state=0)
+
+    train_sizes, train_scores, valid_scores = learning_curve( svm.SVC(kernel='rbf'), X, Y, train_sizes=[10000, 40000, 70000], cv=5, scoring="accuracy")
+
+    print("Train_scores shape: ",train_scores.shape)
+    print("valid_scores shape: ",valid_scores.shape)
+
+    makePlot("Learning curve - accuracy", "Accuracy","Folds",range(1,6),train_scores.mean(0),valid_scores.mean(0),train_sizes)
+
+    print("Done!")
 
 
 def crossValidation(X,Y):
@@ -61,52 +100,6 @@ def crossValidation(X,Y):
     print("\nAccuracy: ",accuracy," - ",accuracy.shape)
 
     makePlot("Cross-Validation - Precision e Recall","Precision - Recall","Fold",range(1,11), precision, recall, accuracy)
-
-
-def learningCurve(X,Y):
-
-    print("Computing learning curve...")
-    scaler = StandardScaler().fit(X)
-    X = scaler.transform(X)
-    X, Y = shuffle(X, Y, random_state=0)
-
-    train_sizes, train_scores, valid_scores = learning_curve( svm.SVC(kernel='rbf'), X, Y, train_sizes=[10000, 40000, 70000], cv=5, scoring="accuracy")
-
-    print("Train_scores shape: ",train_scores.shape)
-    print("valid_scores shape: ",valid_scores.shape)
-
-    makePlot("Learning curve - accuracy", "Accuracy","Folds",range(1,6),train_scores.mean(0),valid_scores.mean(0),train_sizes)
-
-    print("Done!")
-
-
-def validationCurve( X, Y):
-
-
-    scaler = StandardScaler().fit(X)
-    X = scaler.transform(X)
-    X, Y = shuffle(X, Y, random_state=0)
-
-    print("Computing validation curves...")
-    disp = ValidationCurveDisplay.from_estimator(
-        svm.SVC(),
-        X,
-        Y,
-        param_name="gamma",
-        param_range=np.logspace(-6, -1, 5),
-        score_type="both",
-        n_jobs=2,
-        score_name="Accuracy",
-    )
-    disp.ax_.set_title("Validation Curve for SVM with an RBF kernel")
-    disp.ax_.set_xlabel(r"gamma (inverse radius of the RBF kernel)")
-    disp.ax_.set_ylim(0.0, 1.1)
-    plt.show()
-
-    print("Done!")
-
-    #   makePlot("Validation Curve", "Folds",range(1,11),trainScores, validScores, np.zeroes(10))
-
 
 def makePlot(title, xlabel,ylabel,range,X1, X2, X3):
     plt.title(title)
@@ -132,15 +125,14 @@ def trainModel(X_train, X_test, y_train, y_test):
     print(">Precision: ",metrics.precision_score(y_test,y_pred)) #Ci dice l'abilità del classificatore di non etichettare come positiva una etichetta negativa
     print(">Recall: ",metrics.recall_score(y_test,y_pred)) #Ci dice l'abilità del classificatore di trovare tutte le etichette positive
 
-def preProcessingX(X_train, X_test):
-    print("\nPre processing...\n>   X scaled:")
-    scaler = StandardScaler().fit(X_train)
-    X_trainScaled = scaler.transform(X_train)
-    X_testSCaled = scaler.transform(X_test)
-    print("\n",X_trainScaled)
+def preProcessingX(X):
+    print("\nPre processing...")
+    scaler = preprocessing.MinMaxScaler(feature_range=(-1,1))
+    X = scaler.fit_transform(X)
+    #print(">X scaled:\n",X)
     print("Done!\n")
 
-    return [X_trainScaled, X_testSCaled]
+    return [X]
 
 def printSplittedDatasetShape(X_train,X_test,y_train,y_test):
     print("\nX_train shape: ",X_train.shape)
