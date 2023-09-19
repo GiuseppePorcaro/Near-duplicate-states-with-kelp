@@ -16,15 +16,17 @@ from sklearn.model_selection import validation_curve
 from sklearn.model_selection import LearningCurveDisplay
 from sklearn.model_selection import learning_curve
 from sklearn import preprocessing
+import time
+import datetime
 
 def main():
     print("Caricamento dataset...")
-    csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset_-1_1_targets.csv', sep=",")
+    csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset_-1_1_targets_attrSim_RTED_Leven.csv', sep=",")
 
     print("csv shape: ",csv.shape)
 
-    datasetX = csv[csv.columns[0:9]].to_numpy()
-    datasetY = csv[csv.columns[9]].to_numpy()
+    datasetX = csv[csv.columns[0:3]].to_numpy()
+    datasetY = csv[csv.columns[3]].to_numpy()
 
     printDatasetShape(datasetX,datasetY)
     
@@ -38,26 +40,35 @@ def main():
     #trainModel(X_trainScaled, X_testSCaled, y_train, y_test)
     #crossValidation(datasetX,datasetY)
 
+    startTime = time.time()
+
     validationCurve(X,Y)
+
+    print("Execution time: ",str(datetime.timedelta(seconds=(time.time()-startTime))))
+
 
     #learningCurve(datasetX,datasetY)
 
 def validationCurve(X, Y):
 
+    print("\nStarting validation:")
+    print(">X shape: ",X.shape)
+    print(">Y shape: ",Y.shape)
     print("Computing validation curves...")
     disp = ValidationCurveDisplay.from_estimator(
         svm.SVC(cache_size=1000),
         X,
         Y,
-        param_name="gamma",
+        param_name="C",
         param_range=np.logspace(-4, 5, 10),
         score_type="both",
         scoring="f1",
         n_jobs=2,
-        score_name="f1",
+        score_name="C",
+        cv=2,
     )
     disp.ax_.set_title("Validation Curve for SVM with an RBF kernel")
-    disp.ax_.set_xlabel(r"Gamma")
+    disp.ax_.set_xlabel(r"C")
     disp.ax_.set_ylim(0.0, 1.1)
     plt.show()
 
