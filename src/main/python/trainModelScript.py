@@ -29,20 +29,21 @@ def main():
     datasetY = csv[csv.columns[3]].to_numpy()
 
     printDatasetShape(datasetX,datasetY)
-    
-    #X_train, X_test, y_train, y_test = train_test_split(datasetX, datasetY , test_size=0.30, random_state=42)
-    #printSplittedDatasetShape(X_train,X_test,y_train,y_test)
-
     [datasetXPreprocessed] = preProcessingX(datasetX)
-    X, Y = shuffle(datasetXPreprocessed, datasetY, random_state=0)
-    print("X:\n",X,"Y:\n",Y)
 
-    #trainModel(X_trainScaled, X_testSCaled, y_train, y_test)
-    #crossValidation(datasetX,datasetY)
+    X_train, X_test, y_train, y_test = train_test_split(datasetX, datasetY , test_size=0.30, random_state=42)
+    printSplittedDatasetShape(X_train,X_test,y_train,y_test)
+
+
+    #X, Y = shuffle(datasetXPreprocessed, datasetY, random_state=0)
+    #print("X:\n",X,"Y:\n",Y)
+
+
 
     startTime = time.time()
-
-    validationCurve(X,Y)
+    trainModel(X_train, X_test, y_train, y_test)
+    #crossValidation(datasetX,datasetY)
+    #validationCurve(X,Y)
 
     print("Execution time: ",str(datetime.timedelta(seconds=(time.time()-startTime))))
 
@@ -59,16 +60,16 @@ def validationCurve(X, Y):
         svm.SVC(cache_size=1000),
         X,
         Y,
-        param_name="C",
+        param_name="gamma",
         param_range=np.logspace(-4, 5, 10),
         score_type="both",
-        scoring="f1",
+        scoring="recall",
         n_jobs=2,
-        score_name="C",
+        score_name="recall",
         cv=2,
     )
     disp.ax_.set_title("Validation Curve for SVM with an RBF kernel")
-    disp.ax_.set_xlabel(r"C")
+    disp.ax_.set_xlabel(r"gamma")
     disp.ax_.set_ylim(0.0, 1.1)
     plt.show()
 
@@ -125,7 +126,7 @@ def makePlot(title, xlabel,ylabel,range,X1, X2, X3):
 def trainModel(X_train, X_test, y_train, y_test):
 
     print("\nTraining model...")
-    clf = svm.SVC(cache_size=1000, kernel='rbf')
+    clf = svm.SVC(cache_size=1000, kernel='rbf', C=100000, gamma=800)
     clf.fit(X_train, y_train)
     print("Complete!")
 
