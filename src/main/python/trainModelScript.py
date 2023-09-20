@@ -31,24 +31,23 @@ def main():
     printDatasetShape(datasetX,datasetY)
     [datasetXPreprocessed] = preProcessingX(datasetX)
 
-    X_train, X_test, y_train, y_test = train_test_split(datasetX, datasetY , test_size=0.30, random_state=42)
-    printSplittedDatasetShape(X_train,X_test,y_train,y_test)
+    #X_train, X_test, y_train, y_test = train_test_split(datasetX, datasetY , test_size=0.30, random_state=42)
+    #printSplittedDatasetShape(X_train,X_test,y_train,y_test)
 
 
-    #X, Y = shuffle(datasetXPreprocessed, datasetY, random_state=0)
-    #print("X:\n",X,"Y:\n",Y)
+    X, Y = shuffle(datasetXPreprocessed, datasetY, random_state=0)
+    print("X:\n",X,"Y:\n",Y)
 
 
 
     startTime = time.time()
-    trainModel(X_train, X_test, y_train, y_test)
+    #trainModel(X_train, X_test, y_train, y_test)
     #crossValidation(datasetX,datasetY)
     #validationCurve(X,Y)
+    learningCurve(X,Y)
 
     print("Execution time: ",str(datetime.timedelta(seconds=(time.time()-startTime))))
 
-
-    #learningCurve(datasetX,datasetY)
 
 def validationCurve(X, Y):
 
@@ -78,16 +77,17 @@ def validationCurve(X, Y):
 def learningCurve(X,Y):
 
     print("Computing learning curve...")
-    scaler = StandardScaler().fit(X)
-    X = scaler.transform(X)
-    X, Y = shuffle(X, Y, random_state=0)
 
-    train_sizes, train_scores, valid_scores = learning_curve( svm.SVC(kernel='rbf'), X, Y, train_sizes=[10000, 40000, 70000], cv=5, scoring="accuracy")
+    display = LearningCurveDisplay.from_estimator(svm.SVC(cache_size=1000),
+        X, 
+        Y, 
+        train_sizes=[15000,30000,48670], 
+        cv=2, scoring='precision', 
+        n_jobs=2
+    )
 
-    print("Train_scores shape: ",train_scores.shape)
-    print("valid_scores shape: ",valid_scores.shape)
-
-    makePlot("Learning curve - accuracy", "Accuracy","Folds",range(1,6),train_scores.mean(0),valid_scores.mean(0),train_sizes)
+    display.plot()
+    plt.show()
 
     print("Done!")
 
@@ -126,7 +126,7 @@ def makePlot(title, xlabel,ylabel,range,X1, X2, X3):
 def trainModel(X_train, X_test, y_train, y_test):
 
     print("\nTraining model...")
-    clf = svm.SVC(cache_size=1000, kernel='rbf', C=0.1, gamma=0.1)
+    clf = svm.SVC(cache_size=1000, kernel='rbf', C=100000, gamma=100000)
     clf.fit(X_train, y_train)
     print("Complete!")
 
