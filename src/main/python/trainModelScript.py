@@ -21,12 +21,12 @@ import datetime
 
 def main():
     print("Caricamento dataset...")
-    csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset_-1_1_targets_attrSim_RTED_Leven.csv', sep=",")
+    csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset_-1_1_targets_attrSim_WebTesting.csv', sep=",")
 
     print("csv shape: ",csv.shape)
 
-    datasetX = csv[csv.columns[0:3]].to_numpy()
-    datasetY = csv[csv.columns[3]].to_numpy()
+    datasetX = csv[csv.columns[0:5]].to_numpy()
+    datasetY = csv[csv.columns[5]].to_numpy()
 
     printDatasetShape(datasetX,datasetY)
     [datasetXPreprocessed] = preProcessingX(datasetX)
@@ -126,7 +126,7 @@ def makePlot(title, xlabel,ylabel,range,X1, X2, X3):
 def trainModel(X_train, X_test, y_train, y_test):
 
     print("\nTraining model...")
-    clf = svm.SVC(cache_size=1000, kernel='rbf', C=100000, gamma=800)
+    clf = svm.SVC(cache_size=1000, kernel='rbf', C=0.1, gamma=0.1)
     clf.fit(X_train, y_train)
     print("Complete!")
 
