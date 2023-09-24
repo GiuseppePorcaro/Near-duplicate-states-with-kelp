@@ -78,15 +78,19 @@ def learningCurve(X,Y):
 
     print("Computing learning curve...")
 
-    display = LearningCurveDisplay.from_estimator(svm.SVC(cache_size=1000),
+    disp = LearningCurveDisplay.from_estimator(svm.SVC(cache_size=1000),
         X, 
         Y, 
-        train_sizes=[15000,30000,48670], 
-        cv=2, scoring='precision', 
-        n_jobs=2
+        train_sizes=[15000,25000,35000,48670], 
+        cv=2, 
+        scoring='accuracy', 
+        score_name='accuracy',
+        score_type='both',
+        n_jobs=2,
     )
-
-    display.plot()
+    disp.ax_.set_title("Learning Curve for SVM with an RBF kernel")
+    disp.ax_.set_xlabel(r"Number of Sample")
+    disp.ax_.set_ylim(0.0, 1.1)
     plt.show()
 
     print("Done!")
