@@ -21,54 +21,91 @@ import datetime
 
 def main():
     print("Caricamento dataset...")
-    csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset_-1_1_targets_attrSim_WebTesting.csv', sep=",")
+    csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset_TreeEditDistance.csv', sep=",")
 
     print("csv shape: ",csv.shape)
 
-    datasetX = csv[csv.columns[0:5]].to_numpy()
-    datasetY = csv[csv.columns[5]].to_numpy()
+    datasetX = csv[csv.columns[0:1]].to_numpy()
+    datasetY = csv[csv.columns[1]].to_numpy()
 
     printDatasetShape(datasetX,datasetY)
-    [datasetXPreprocessed] = preProcessingX(datasetX)
-
-    #X_train, X_test, y_train, y_test = train_test_split(datasetX, datasetY , test_size=0.30, random_state=42)
-    #printSplittedDatasetShape(X_train,X_test,y_train,y_test)
+    #[datasetXPreprocessed] = preProcessingX(datasetX)
 
 
-    X, Y = shuffle(datasetXPreprocessed, datasetY, random_state=0)
-    print("X:\n",X,"Y:\n",Y)
+    X, Y = shuffle(datasetX, datasetY)
+    print("X:\n",X,"\nY:\n",Y)
 
 
 
     startTime = time.time()
+    #X_train, X_test, y_train, y_test = train_test_split(datasetX, datasetY , test_size=0.30, random_state=42)
+    #printSplittedDatasetShape(X_train,X_test,y_train,y_test)
     #trainModel(X_train, X_test, y_train, y_test)
+
     #crossValidation(datasetX,datasetY)
-    #validationCurve(X,Y)
-    learningCurve(X,Y)
+    validationCurve(X,Y)
+    #learningCurve(X,Y)
+    #manualValidationCUrve(X, Y)
 
     print("Execution time: ",str(datetime.timedelta(seconds=(time.time()-startTime))))
 
+def manualValidationCUrve(X, Y):
+
+    X = X[0:100]
+    Y = Y[0:100]
+
+    print("\nStarting validation:")
+    print(">X shape: ",X.shape)
+    print(">Y shape: ",Y.shape)
+    print("\nComputing validation curves...")
+
+    for fixedParam in np.logspace(-2, 7, 10):
+        disp = ValidationCurveDisplay.from_estimator(
+            svm.SVC(cache_size=1000, gamma=fixedParam),
+            X,
+            Y,
+            param_name="C",
+            param_range=np.logspace(-2, 7, 10),
+            score_type="both",
+            scoring="f1",
+            n_jobs=8,
+            score_name="f1",
+            cv=2,
+        )
+        disp.ax_.set_title("Validation Curve for SVM with an RBF kernel")
+        disp.ax_.set_xlabel(r"C")
+        disp.ax_.set_ylim(0.0, 1.1)
+        plt.show()
+
+    print("Done!")
+
 
 def validationCurve(X, Y):
+
+    fitParams={"gamma": [0.01,0.1,10,100,1000,10000,100000,1000000,10000000]}
+    gss = GroupShuffleSplit(n_splits=2, train_size=.7, test_size=.3 random_state=42)
 
     print("\nStarting validation:")
     print(">X shape: ",X.shape)
     print(">Y shape: ",Y.shape)
     print("Computing validation curves...")
+
     disp = ValidationCurveDisplay.from_estimator(
         svm.SVC(cache_size=1000),
         X,
         Y,
-        param_name="gamma",
-        param_range=np.logspace(-4, 5, 10),
+        param_name="C",
+        param_range=np.logspace(-2, 7, 10),
         score_type="both",
-        scoring="recall",
-        n_jobs=2,
-        score_name="recall",
+        scoring="f1",
+        n_jobs=-1,
+        score_name="f1",
         cv=2,
+        groups=gss
+
     )
     disp.ax_.set_title("Validation Curve for SVM with an RBF kernel")
-    disp.ax_.set_xlabel(r"gamma")
+    disp.ax_.set_xlabel(r"C")
     disp.ax_.set_ylim(0.0, 1.1)
     plt.show()
 
@@ -129,17 +166,25 @@ def makePlot(title, xlabel,ylabel,range,X1, X2, X3):
 
 def trainModel(X_train, X_test, y_train, y_test):
 
-    print("\nTraining model...")
-    clf = svm.SVC(cache_size=1000, kernel='rbf', C=100000, gamma=100000)
-    clf.fit(X_train, y_train)
-    print("Complete!")
+    for Cparam in np.logspace(-2, 7, 10):
+        for gammaParam in np.logspace(-2, 7, 10):
 
-    print("\nTesting model...")
-    y_pred = clf.predict(X_test)
-    print("Done!\n\n>Accuracy:",metrics.accuracy_score(y_test, y_pred))
 
-    print(">Precision: ",metrics.precision_score(y_test,y_pred)) #Ci dice l'abilità del classificatore di non etichettare come positiva una etichetta negativa
-    print(">Recall: ",metrics.recall_score(y_test,y_pred)) #Ci dice l'abilità del classificatore di trovare tutte le etichette positive
+            print("\nTraining model with C: ",Cparam," and gamma: ",gammaParam)
+            clf = svm.SVC(cache_size=4000, kernel='rbf', C=Cparam, gamma=gammaParam)
+            clf.fit(X_train, y_train)
+            print("Complete!")
+
+            print("\nTesting model...")
+            y_pred = clf.predict(X_test)
+            print("Done!\n\n>Accuracy:",metrics.accuracy_score(y_test, y_pred))
+
+            print(">Precision: ",metrics.precision_score(y_test,y_pred)) #Ci dice l'abilità del classificatore di non etichettare come positiva una etichetta negativa
+            print(">Recall: ",metrics.recall_score(y_test,y_pred)) #Ci dice l'abilità del classificatore di trovare tutte le etichette positive
+
+            plot.title("")
+
+
 
 def preProcessingX(X):
     print("\nPre processing...")

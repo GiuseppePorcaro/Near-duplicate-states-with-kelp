@@ -6,7 +6,7 @@ import sqlite3
 def main():
 
 
-    [simOfNearDuplicate,simOfDifferent] = getSimilarities()
+    [simOfNearDuplicate,simOfDifferent] = getSimilarities("/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/gs_full_dom_mu01.db")
 
     print("simOfNearDuplicate shape: ",simOfNearDuplicate.shape)
     print("simOfDifferent shape: ",simOfDifferent.shape)
@@ -23,12 +23,12 @@ def main():
 
 
 
-def getSimilarities():
+def getSimilarities(pathDB):
 
     simOfNearDuplicate = []
     simOfDifferent = []
 
-    conn = sqlite3.connect("/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/gs_full_dom_mu01.db")
+    conn = sqlite3.connect(pathDB)
     c = conn.cursor()
     c.execute("SELECT Attribute_sim, human_classification from nearduplicates where human_classification <> -1 order by appname, crawl, state1, state2;")
 
