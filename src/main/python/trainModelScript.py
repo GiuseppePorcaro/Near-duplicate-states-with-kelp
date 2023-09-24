@@ -20,13 +20,14 @@ import time
 import datetime
 
 def main():
+
     print("Caricamento dataset...")
-    csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset_TreeEditDistance.csv', sep=",")
+    csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset_-1_1_targets.csv', sep=",")
 
     print("csv shape: ",csv.shape)
 
-    datasetX = csv[csv.columns[0:1]].to_numpy()
-    datasetY = csv[csv.columns[1]].to_numpy()
+    datasetX = csv[csv.columns[0:9]].to_numpy()
+    datasetY = csv[csv.columns[9]].to_numpy()
 
     printDatasetShape(datasetX,datasetY)
     #[datasetXPreprocessed] = preProcessingX(datasetX)
@@ -36,76 +37,83 @@ def main():
     print("X:\n",X,"\nY:\n",Y)
 
 
-
-    startTime = time.time()
     #X_train, X_test, y_train, y_test = train_test_split(datasetX, datasetY , test_size=0.30, random_state=42)
     #printSplittedDatasetShape(X_train,X_test,y_train,y_test)
     #trainModel(X_train, X_test, y_train, y_test)
 
     #crossValidation(datasetX,datasetY)
-    validationCurve(X,Y)
+    #validationCurve(X,Y)
     #learningCurve(X,Y)
-    #manualValidationCUrve(X, Y)
+    validationCurveOnTwoParameters(X, Y)
 
-    print("Execution time: ",str(datetime.timedelta(seconds=(time.time()-startTime))))
 
-def manualValidationCUrve(X, Y):
 
-    X = X[0:100]
-    Y = Y[0:100]
+def validationCurveOnTwoParameters(X, Y):
 
-    print("\nStarting validation:")
-    print(">X shape: ",X.shape)
-    print(">Y shape: ",Y.shape)
-    print("\nComputing validation curves...")
+    score = "f1"
+    param = "C"
+    dataset = "dataset_-1_1_targets.csv"
+    fixedParam = "gamma" #CONTROLLARE CHE QUESTO SIA SCRITTO BENE ALTRIMENTI MI CONFONDO QUANDO ESCONO I PLOT
 
-    for fixedParam in np.logspace(-2, 7, 10):
+    printValidationInfos(X.shape, Y.shape, dataset, score, param, fixedParam)
+    startTimeTot = time.time()
+    i = 1
+    for fixedParam in np.logspace(-2, 6, 9):
+        startTime = time.time()
         disp = ValidationCurveDisplay.from_estimator(
-            svm.SVC(cache_size=1000, gamma=fixedParam),
+            svm.SVC(cache_size=1000, gamma=fixedParam), #CONTROLLARE SEMPRE IL PARAMETRO FISSATO PRIMA
             X,
             Y,
-            param_name="C",
-            param_range=np.logspace(-2, 7, 10),
+            param_name=param,
+            param_range=np.logspace(-2, 6, 9),
             score_type="both",
-            scoring="f1",
-            n_jobs=8,
-            score_name="f1",
+            scoring=score,
+            n_jobs=2,
+            score_name=score,
             cv=2,
         )
-        disp.ax_.set_title("Validation Curve for SVM with an RBF kernel")
-        disp.ax_.set_xlabel(r"C")
-        disp.ax_.set_ylim(0.0, 1.1)
-        plt.show()
 
+        disp.ax_.set_title("Validation Curve (SVM, RBF) - CV split - Gamma: "+str(fixedParam)+" - "+dataset)
+        disp.ax_.set_xlabel(param)
+        disp.ax_.set_ylim(0.0, 1.1)
+        plt.figure(i)
+        i = i+1
+        print("Execution time figure("+str(i)+"): ",str(datetime.timedelta(seconds=(time.time()-startTime))))
+
+    print("Execution time tot: ",str(datetime.timedelta(seconds=(time.time()-startTimeTot))))
+    plt.show()
     print("Done!")
 
 
 def validationCurve(X, Y):
 
-    fitParams={"gamma": [0.01,0.1,10,100,1000,10000,100000,1000000,10000000]}
-    gss = GroupShuffleSplit(n_splits=2, train_size=.7, test_size=.3 random_state=42)
+    #fitParams={"gamma": [0.01,0.1,10,100,1000,10000,100000,1000000,10000000]}
+    #gss = GroupShuffleSplit(n_splits=2, train_size=.7, test_size=.3 random_state=42)
 
-    print("\nStarting validation:")
-    print(">X shape: ",X.shape)
-    print(">Y shape: ",Y.shape)
-    print("Computing validation curves...")
+    score = "f1"
+    param = "gamma"
+    dataset = "dataset_-1_1_targets.csv"
+    fixedParam = "No fixed param"
 
+    printValidationInfos(X.shape, Y.shape, dataset, score, param, fixedParam)
+
+    startTime = time.time()
     disp = ValidationCurveDisplay.from_estimator(
         svm.SVC(cache_size=1000),
         X,
         Y,
-        param_name="C",
+        param_name=param,
         param_range=np.logspace(-2, 7, 10),
         score_type="both",
-        scoring="f1",
-        n_jobs=-1,
-        score_name="f1",
+        scoring=score,
+        n_jobs=2,
+        score_name=score,
         cv=2,
-        groups=gss
 
     )
-    disp.ax_.set_title("Validation Curve for SVM with an RBF kernel")
-    disp.ax_.set_xlabel(r"C")
+    print("Execution time: ",str(datetime.timedelta(seconds=(time.time()-startTime))))
+    disp.ax_.set_title("Validation Curve (SVM, RBF) - CV split")
+    disp.ax_.set_xlabel(param)
     disp.ax_.set_ylim(0.0, 1.1)
     plt.show()
 
@@ -194,6 +202,17 @@ def preProcessingX(X):
     print("Done!\n")
 
     return [X]
+
+def printValidationInfos(Xshape,Yshape, dataset, score, param, fixedParam):
+
+
+    print("\nStarting validation:")
+    print(">Dataset: ",dataset)
+    print(">X shape: ",Xshape)
+    print(">Y shape: ",Yshape)
+    print(">Score name: ",score,"\n>Param name: ",param,"\n>Fixed param: ",fixedParam)
+    print("\nComputing validation curves...")
+
 
 def printSplittedDatasetShape(X_train,X_test,y_train,y_test):
     print("\nX_train shape: ",X_train.shape)
