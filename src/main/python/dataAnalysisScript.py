@@ -16,10 +16,10 @@ def main():
     plt.title('Histogram')
     plt.xlabel('bins')
     plt.ylabel('Similarities')
-    plt.hist(simOfNearDuplicate, bins=100, histtype='barstacked', label="NearDuplicates")
-    plt.hist(simOfDifferent, bins=100, histtype='barstacked', label="Different pages")
-    plt.legend(['Near Duplicates','Different Pages'])
-    plt.show()
+    plt.hist(simOfDifferent, bins=100, histtype='barstacked', label="Different pages", color="blue")
+    plt.hist(simOfNearDuplicate, bins=100, histtype='barstacked', label="NearDuplicates", color="orange")
+    plt.legend(['Different Pages','Near Duplicates'])
+    plt.savefig("/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/plots/Histogram_AttributeSImilarity.png")
 
 
 
@@ -37,9 +37,9 @@ def getSimilarities(pathDB):
         humanClassification = int(row[1])
 
         if humanClassification == 0 or humanClassification == 1:
-            simOfDifferent.append(float(row[0]))
-        if humanClassification == 2:
             simOfNearDuplicate.append(float(row[0]))
+        if humanClassification == 2:
+            simOfDifferent.append(float(row[0]))
 
     c.close()
 

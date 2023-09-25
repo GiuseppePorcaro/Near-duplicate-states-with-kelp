@@ -26,7 +26,7 @@ def main():
 
     print("csv shape: ",csv.shape)
 
-    datasetX = csv[csv.columns[0:9]].to_numpy()
+    datasetX = csv[csv.columns[0:1]].to_numpy()
     datasetY = csv[csv.columns[9]].to_numpy()
 
     printDatasetShape(datasetX,datasetY)
@@ -42,57 +42,14 @@ def main():
     #trainModel(X_train, X_test, y_train, y_test)
 
     #crossValidation(datasetX,datasetY)
-    #validationCurve(X,Y)
+    validationCurve(X,Y,"dataset_-1_1_targets_AttrsimOnly")
     #learningCurve(X,Y)
-    validationCurveOnTwoParameters(X, Y)
+    #validationCurveOnTwoParameters(X, Y)
 
+def validationCurve(X, Y, dataset):
 
-
-def validationCurveOnTwoParameters(X, Y):
-
-    score = "f1"
-    param = "C"
-    dataset = "dataset_-1_1_targets.csv"
-    fixedParam = "gamma" #CONTROLLARE CHE QUESTO SIA SCRITTO BENE ALTRIMENTI MI CONFONDO QUANDO ESCONO I PLOT
-
-    printValidationInfos(X.shape, Y.shape, dataset, score, param, fixedParam)
-    startTimeTot = time.time()
-    i = 1
-    for fixedParam in np.logspace(-2, 6, 9):
-        startTime = time.time()
-        disp = ValidationCurveDisplay.from_estimator(
-            svm.SVC(cache_size=1000, gamma=fixedParam), #CONTROLLARE SEMPRE IL PARAMETRO FISSATO PRIMA
-            X,
-            Y,
-            param_name=param,
-            param_range=np.logspace(-2, 6, 9),
-            score_type="both",
-            scoring=score,
-            n_jobs=2,
-            score_name=score,
-            cv=2,
-        )
-
-        disp.ax_.set_title("Validation Curve (SVM, RBF) - CV split - Gamma: "+str(fixedParam)+" - "+dataset)
-        disp.ax_.set_xlabel(param)
-        disp.ax_.set_ylim(0.0, 1.1)
-        plt.figure(i)
-        i = i+1
-        print("Execution time figure("+str(i)+"): ",str(datetime.timedelta(seconds=(time.time()-startTime))))
-
-    print("Execution time tot: ",str(datetime.timedelta(seconds=(time.time()-startTimeTot))))
-    plt.show()
-    print("Done!")
-
-
-def validationCurve(X, Y):
-
-    #fitParams={"gamma": [0.01,0.1,10,100,1000,10000,100000,1000000,10000000]}
-    #gss = GroupShuffleSplit(n_splits=2, train_size=.7, test_size=.3 random_state=42)
-
-    score = "f1"
+    score = "recall"
     param = "gamma"
-    dataset = "dataset_-1_1_targets.csv"
     fixedParam = "No fixed param"
 
     printValidationInfos(X.shape, Y.shape, dataset, score, param, fixedParam)
@@ -103,7 +60,7 @@ def validationCurve(X, Y):
         X,
         Y,
         param_name=param,
-        param_range=np.logspace(-2, 7, 10),
+        param_range=np.logspace(-2, 6, 9),
         score_type="both",
         scoring=score,
         n_jobs=2,
@@ -111,13 +68,51 @@ def validationCurve(X, Y):
         cv=2,
 
     )
-    print("Execution time: ",str(datetime.timedelta(seconds=(time.time()-startTime))))
+    execTime = str(datetime.timedelta(seconds=(time.time()-startTime)))
+    print("Execution time: ",execTime)
     disp.ax_.set_title("Validation Curve (SVM, RBF) - CV split")
     disp.ax_.set_xlabel(param)
     disp.ax_.set_ylim(0.0, 1.1)
-    plt.show()
+    plt.savefig("/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/plots/Plots_CV_Split/ValidationCurve_"+score+"_"+param+"_"+dataset+"_"+execTime+".png")
 
     print("Done!")
+
+def validationCurveOnTwoParameters(X, Y):
+
+    score = "f1"
+    param = "C"
+    dataset = "dataset_TreeEditDistance.csv"
+    fixedParamName = "C" #CONTROLLARE CHE QUESTO SIA SCRITTO BENE ALTRIMENTI MI CONFONDO QUANDO ESCONO I PLOT
+
+    printValidationInfos(X.shape, Y.shape, dataset, score, param, fixedParamName)
+    startTimeTot = time.time()
+    i = 1
+    for fixedParam in np.logspace(-2, 7, 10):
+        startTime = time.time()
+        disp = ValidationCurveDisplay.from_estimator(
+            svm.SVC(cache_size=1000, C=fixedParam), #CONTROLLARE SEMPRE IL PARAMETRO FISSATO PRIMA
+            X,
+            Y,
+            param_name=param,
+            param_range=np.logspace(-2, 7, 10),
+            score_type="both",
+            scoring=score,
+            n_jobs=2,
+            score_name=score,
+            cv=2,
+        )
+
+        disp.ax_.set_title("Validation Curve (SVM, RBF) - CV split - "+fixedParamName+": "+str(fixedParam)+" - "+dataset)
+        disp.ax_.set_xlabel(param)
+        disp.ax_.set_ylim(0.0, 1.1)
+        plt.figure(i)
+        i = i+1
+        print("Execution time figure("+str(i)+"): ",str(datetime.timedelta(seconds=(time.time()-startTime))))
+
+    print("Execution time tot: ",str(datetime.timedelta(seconds=(time.time()-startTimeTot))))
+    plt.show()
+    print("Done!")
+
 
 def learningCurve(X,Y):
 

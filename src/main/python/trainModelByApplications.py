@@ -27,8 +27,6 @@ def main():
 
     print("csv shape: ",csv.shape)
 
-    group = np.ones(csv.shape[0])
-    group[86166:] = 2
 
     gss = GroupShuffleSplit(n_splits=2, train_size=.7, test_size=.3, random_state=42)
     datasetX = csv[csv.columns[0:1]].to_numpy()
