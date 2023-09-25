@@ -22,19 +22,71 @@ import datetime
 
 def main():
 
+
+    [foldsX,foldsY] = getFolds(csv)
+
+
+
+
+    print("FoldsX: ",foldsX[0])
+    print("FoldsY: ",foldsY[0])
+
+    print(sum)
+def getFolds(csv):
+
+    foldsX = []
+    foldsY = []
+
+    appsIndexes = [8515, 17766, 11628, 11325, 11325, 9730, 11026, 11175, 4851]
+
     print("Caricamento dataset...")
-    csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset_TreeEditDistance.csv', sep=",")
 
-    print("csv shape: ",csv.shape)
+    start = 0
+    for i in range(0,9):
+
+        if i == 0:
+            realStart = 0
+        end = appsIndexes[i]
+
+        print("start: ",start+1," - ",end)
+
+        csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset_-1_1_targets.csv', sep=",", skiprows=realStart, nrows=end)
+        foldsX.append(csv[csv.columns[0:csv.shape[1]-1]].to_numpy())
+        foldsY.append(csv[csv.columns[csv.shape[1]-1]].to_numpy())
+        
+        start = start + appsIndexes[i]
+        realStart = start + 1
+
+    return [foldsX,foldsY]
 
 
-    gss = GroupShuffleSplit(n_splits=2, train_size=.7, test_size=.3, random_state=42)
-    datasetX = csv[csv.columns[0:1]].to_numpy()
-    datasetY = csv[csv.columns[1]].to_numpy()
+def setGroups():
 
-    for i, (train_index, test_index) in enumerate(gss.split(datasetX, datasetY, group)):
-        print(f"Fold {i}:")
-        print(f"  Train: index={train_index}, group={group[train_index]}")
-        print(f"  Test:  index={test_index}, group={group[test_index]}")
+
+    group = np.empty((0,97341))
+
+    start = 0
+    for i in range(0,len(appsIndexes)):
+        group[(start+i):appsIndexes[i]]
+
+    '''
+    
+    
+
+    group[0:appsIndexes[0]] = 1
+    group[appsIndexes[0]+1:appsIndexes[1]] = 2
+    group[appsIndexes[1]+1:appsIndexes[2]] = 3
+    group[appsIndexes[2]+1:appsIndexes[3]] = 4
+    group[appsIndexes[3]+1:appsIndexes[4]] = 5
+    group[appsIndexes[4]+1:appsIndexes[5]] = 6
+    group[appsIndexes[5]+1:appsIndexes[6]] = 7
+    group[appsIndexes[6]+1:appsIndexes[7]] = 8
+    group[appsIndexes[7]+1:appsIndexes[8]] = 9
+
+    '''
+
+    return group
+
+
 
 main()
