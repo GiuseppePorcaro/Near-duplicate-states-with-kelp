@@ -1,37 +1,100 @@
 import pandas as pd
 import numpy as np
-import sqlite3
 import csv
-from sklearn.model_selection import train_test_split
 from sklearn import svm
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
 from sklearn import metrics
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import cross_validate
 import matplotlib.pyplot as plt
 from sklearn.model_selection import ValidationCurveDisplay
-from sklearn.utils import shuffle
 from sklearn.model_selection import validation_curve
 from sklearn.model_selection import LearningCurveDisplay
-from sklearn.model_selection import learning_curve
-from sklearn import preprocessing
 from sklearn.model_selection import GroupShuffleSplit
+from sklearn.utils import resample
 import time
 import datetime
+from sklearn.model_selection import KFold
 
 def main():
 
 
-    [foldsX,foldsY] = getFolds(csv)
+    print(">Creating folds based on applications...")
+    [foldsX,foldsY] = getFolds(csv) #array in which each fold is an app
+    print(">Resampling folds (stratified)...")
+    [foldsXResampled,foldsYResampled] = resampleXY(foldsX,foldsY) #array of resampled folds (1000 sample each stratified)
+    print(">Concatenating folds to create dataset...")
+    [datasetX,datasetY] = concatenateFolds(foldsXResampled,foldsYResampled)
+    print("Done!\nDataset shapes: ")
+    print(datasetX.shape)
+    print(datasetY.shape)
+    print(datasetX)
+    print(datasetY)
+
+    validationCurve(datasetX,datasetY,"prova")
+
+def validationCurve(X, Y, dataset):
+
+    score = "f1"
+    param = "C"
+    fixedParam = "No fixed param"
+
+    printValidationInfos(X.shape,Y.shape, dataset, score, param, fixedParam)
+
+    startTime = time.time()
+
+    disp = ValidationCurveDisplay.from_estimator(
+        svm.SVC(cache_size=1000),
+        X,
+        Y,
+        param_name=param,
+        param_range=np.logspace(-2, 6, 9),
+        score_type="both",
+        scoring=score,
+        n_jobs=2,
+        score_name=score,
+        cv=KFold(n_splits=9, random_state=None, shuffle=False),
+
+    )
+    execTime = str(datetime.timedelta(seconds=(time.time()-startTime)))
+    print("Execution time: ",execTime)
+    disp.ax_.set_title("Validation Curve (SVM, RBF) - CV split")
+    disp.ax_.set_xlabel(param)
+    disp.ax_.set_ylim(0.0, 1.1)
+    plt.savefig("/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/plots/Plots_CV_Split/ValidationCurve_"+score+"_"+param+"_"+dataset+"_"+execTime+".png")
+
+    print("Done!")
+
+def printValidationInfos(Xshape,Yshape,dataset, score, param, fixedParam):
 
 
-
-
-    print("FoldsX: ",foldsX[0])
-    print("FoldsY: ",foldsY[0])
-
+    print("\nStarting validation:")
+    print(">Dataset: ",dataset)
+    print(">X shape: ",Xshape)
+    print(">Y shape: ",Yshape)
+    print(">Score name: ",score,"\n>Param name: ",param,"\n>Fixed param: ",fixedParam)
+    print("\nComputing validation curves...")
     print(sum)
+
+def concatenateFolds(foldsXResampled,foldsYResampled):
+    datasetX = foldsXResampled[0]
+    datasetY = foldsYResampled[0]
+
+    for i in range(1,9):
+        datasetX = np.concatenate((datasetX,foldsXResampled[i]))
+        datasetY = np.concatenate((datasetY, foldsYResampled[i]))
+
+    return [datasetX,datasetY]
+
+def resampleXY(X,Y):
+
+    foldsXResampled = []
+    foldsYResampled = []
+
+    for i in range(0,9):
+        [foldsXRes, foldsYRes] = resample(X[0],Y[0], n_samples = 1000)
+        foldsXResampled.append(np.array(foldsXRes))
+        foldsYResampled.append(np.array(foldsYRes))
+
+    return [foldsXResampled,foldsYResampled]
+
 def getFolds(csv):
 
     foldsX = []
@@ -39,16 +102,12 @@ def getFolds(csv):
 
     appsIndexes = [8515, 17766, 11628, 11325, 11325, 9730, 11026, 11175, 4851]
 
-    print("Caricamento dataset...")
-
     start = 0
     for i in range(0,9):
 
         if i == 0:
             realStart = 0
         end = appsIndexes[i]
-
-        print("start: ",start+1," - ",end)
 
         csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset_-1_1_targets.csv', sep=",", skiprows=realStart, nrows=end)
         foldsX.append(csv[csv.columns[0:csv.shape[1]-1]].to_numpy())
@@ -59,33 +118,6 @@ def getFolds(csv):
 
     return [foldsX,foldsY]
 
-
-def setGroups():
-
-
-    group = np.empty((0,97341))
-
-    start = 0
-    for i in range(0,len(appsIndexes)):
-        group[(start+i):appsIndexes[i]]
-
-    '''
-    
-    
-
-    group[0:appsIndexes[0]] = 1
-    group[appsIndexes[0]+1:appsIndexes[1]] = 2
-    group[appsIndexes[1]+1:appsIndexes[2]] = 3
-    group[appsIndexes[2]+1:appsIndexes[3]] = 4
-    group[appsIndexes[3]+1:appsIndexes[4]] = 5
-    group[appsIndexes[4]+1:appsIndexes[5]] = 6
-    group[appsIndexes[5]+1:appsIndexes[6]] = 7
-    group[appsIndexes[6]+1:appsIndexes[7]] = 8
-    group[appsIndexes[7]+1:appsIndexes[8]] = 9
-
-    '''
-
-    return group
 
 
 
