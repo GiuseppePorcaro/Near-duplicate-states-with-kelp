@@ -28,37 +28,46 @@ def main():
     print(datasetX)
     print(datasetY)
 
-    validationCurve(datasetX,datasetY,"prova")
+    validationCurve(datasetX,datasetY,"dataset_-1_1_targets")
 
 def validationCurve(X, Y, dataset):
 
-    score = "f1"
-    param = "C"
-    fixedParam = "No fixed param"
 
-    printValidationInfos(X.shape,Y.shape, dataset, score, param, fixedParam)
+    score = "recall"
+    param = "gamma"
+    fixedParamName = "C"
 
-    startTime = time.time()
+    printValidationInfos(X.shape,Y.shape, dataset, score, param, fixedParamName)
 
-    disp = ValidationCurveDisplay.from_estimator(
-        svm.SVC(cache_size=1000),
-        X,
-        Y,
-        param_name=param,
-        param_range=np.logspace(-2, 6, 9),
-        score_type="both",
-        scoring=score,
-        n_jobs=2,
-        score_name=score,
-        cv=KFold(n_splits=9, random_state=None, shuffle=False),
+    startTimeTot = time.time()
 
-    )
-    execTime = str(datetime.timedelta(seconds=(time.time()-startTime)))
-    print("Execution time: ",execTime)
-    disp.ax_.set_title("Validation Curve (SVM, RBF) - CV split")
-    disp.ax_.set_xlabel(param)
-    disp.ax_.set_ylim(0.0, 1.1)
-    plt.savefig("/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/plots/Plots_CV_Split/ValidationCurve_"+score+"_"+param+"_"+dataset+"_"+execTime+".png")
+    i = 1
+    for fixedParam in np.logspace(-2, 6, 9):
+        startTime = time.time()
+        disp = ValidationCurveDisplay.from_estimator(
+            svm.SVC(cache_size=1000, C=fixedParam),
+            X,
+            Y,
+            param_name=param,
+            param_range=np.logspace(-2, 6, 9),
+            score_type="both",
+            scoring=score,
+            n_jobs=2,
+            score_name=score,
+            cv=KFold(n_splits=9, random_state=None, shuffle=False),
+
+        )
+
+        execTime = str(datetime.timedelta(seconds=(time.time()-startTime)))
+        disp.ax_.set_title("Validation Curve (SVM, RBF) - CV split - "+fixedParamName+": "+str(fixedParam)+" - "+dataset)
+        disp.ax_.set_xlabel(param)
+        disp.ax_.set_ylim(0.0, 1.1)
+        plt.figure(i)
+        i = i+1
+        print("Execution time figure("+str(i)+"): ",execTime)
+
+        plt.savefig("/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/plots/Plots_ApplicationSplit/AttrSimOnly/ValidationCurve_"+score+"_"+param+"_"+dataset+"_"+fixedParamName+"_"+execTime+".png")
+    print("Execution time tot: ",str(datetime.timedelta(seconds=(time.time()-startTimeTot))))
 
     print("Done!")
 
@@ -110,7 +119,7 @@ def getFolds(csv):
         end = appsIndexes[i]
 
         csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset_-1_1_targets.csv', sep=",", skiprows=realStart, nrows=end)
-        foldsX.append(csv[csv.columns[0:csv.shape[1]-1]].to_numpy())
+        foldsX.append(csv[csv.columns[0:1]].to_numpy())
         foldsY.append(csv[csv.columns[csv.shape[1]-1]].to_numpy())
         
         start = start + appsIndexes[i]
