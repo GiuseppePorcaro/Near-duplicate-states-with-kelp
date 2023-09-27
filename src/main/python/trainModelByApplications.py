@@ -28,7 +28,7 @@ def main():
     print(datasetX)
     print(datasetY)
 
-    validationCurve(datasetX,datasetY,"dataset_-1_1_targets")
+    validationCurve(datasetX,datasetY,"dataset_TreeEditDistance")
 
 def validationCurve(X, Y, dataset):
 
@@ -66,7 +66,7 @@ def validationCurve(X, Y, dataset):
         i = i+1
         print("Execution time figure("+str(i)+"): ",execTime)
 
-        plt.savefig("/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/plots/Plots_ApplicationSplit/AttrSimOnly/ValidationCurve_"+score+"_"+param+"_"+dataset+"_"+fixedParamName+"_"+execTime+".png")
+        plt.savefig("/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/plots/Plots_ApplicationSplit/TreeEditDistance/ValidationCurve_"+score+"_"+param+"_"+dataset+"_"+fixedParamName+"_"+execTime+".png")
     print("Execution time tot: ",str(datetime.timedelta(seconds=(time.time()-startTimeTot))))
 
     print("Done!")
@@ -118,7 +118,7 @@ def getFolds(csv):
             realStart = 0
         end = appsIndexes[i]
 
-        csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset_-1_1_targets.csv', sep=",", skiprows=realStart, nrows=end)
+        csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset_TreeEditDistance.csv', sep=",", skiprows=realStart, nrows=end)
         foldsX.append(csv[csv.columns[0:1]].to_numpy())
         foldsY.append(csv[csv.columns[csv.shape[1]-1]].to_numpy())
         
