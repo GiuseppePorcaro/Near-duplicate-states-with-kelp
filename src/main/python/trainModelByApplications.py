@@ -3,13 +3,12 @@ import numpy as np
 import csv
 import sys
 import os
-from sklearn import svm
-from sklearn import metrics
-import matplotlib.pyplot as plt
-from sklearn.model_selection import ValidationCurveDisplay
-from sklearn.utils import resample
 import time
 import datetime
+from sklearn import svm
+from sklearn import metrics
+from sklearn.model_selection import ValidationCurveDisplay
+from sklearn.utils import resample
 from sklearn.model_selection import KFold
 from joblib import dump, load
 
@@ -85,9 +84,9 @@ def experiment(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, dataset
     timestamp = timestamp[:-7]
 
 
-    #for i in range(0,len(foldsX)):
-        #[X_train, y_train] = concatenateFolds(foldXResampled,foldYResampled,i)
-        #[f1,precision,recall,accuracy, execTime] = trainModel(X_train, foldXResampled[i], y_train, foldYResampled[i],C, gamma,datasetName, timestamp)
+    for i in range(0,len(foldsX)):
+        [X_train, y_train] = concatenateFolds(foldXResampled,foldYResampled,i)
+        [f1,precision,recall,accuracy, execTime] = trainModel(X_train, foldXResampled[i], y_train, foldYResampled[i],C, gamma,datasetName, timestamp)
 
         #print(foldXResampled[i])
         #print(foldYResampled[i])
@@ -97,23 +96,26 @@ def experiment(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, dataset
         #saveScores(f1, precision, recall,accuracy, execTime,timestamp,datasetName, i)
 
 
-    np.set_printoptions(threshold=sys.maxsize)
+    #np.set_printoptions(threshold=sys.maxsize)
 
-    debug(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, datasetName, timestamp)
+    #debug(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, datasetName, timestamp)
 
 def debug(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, datasetName, timestamp):
 
     [X_train, y_train] = concatenateFolds(foldXResampled,foldYResampled,-1)
 
-    print(foldsX[1])
-    print(foldsY[1])
+    print(foldsX[5])
+    print(foldsY[5])
 
-    X_test = X_train[5001:6000]
-    y_test = y_train[5001:6000]
+    X_test = X_train[0:1000]
+    y_test = y_train[0:1000]
 
-    X_train = np.concatenate((X_train[0:5000],X_train[6001:]))
-    y_train = np.concatenate((y_train[0:5000],y_train[6001:]))
-    trainModel(X_train, foldsX[5], y_train, foldsY[5],C, gamma,datasetName, timestamp)
+    print("#####")
+    print(y_test)
+
+    X_train = X_train[1001:]
+    y_train = y_train[1001:]
+    trainModel(X_train, X_test, y_train, y_test,C, gamma,datasetName, timestamp)
 
 def trainModel(X_train, X_test, y_train, y_test,Cparam, gammaParam,datasetName, timestamp):
 
