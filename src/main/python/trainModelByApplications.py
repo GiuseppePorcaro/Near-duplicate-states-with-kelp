@@ -85,9 +85,9 @@ def experiment(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, dataset
     timestamp = timestamp[:-7]
 
 
-    for i in range(0,len(foldsX)):
-        [X_train, y_train] = concatenateFolds(foldXResampled,foldYResampled,i)
-        [f1,precision,recall,accuracy, execTime] = trainModel(X_train, foldXResampled[i], y_train, foldYResampled[i],C, gamma,datasetName, timestamp)
+    #for i in range(0,len(foldsX)):
+        #[X_train, y_train] = concatenateFolds(foldXResampled,foldYResampled,i)
+        #[f1,precision,recall,accuracy, execTime] = trainModel(X_train, foldXResampled[i], y_train, foldYResampled[i],C, gamma,datasetName, timestamp)
 
         #print(foldXResampled[i])
         #print(foldYResampled[i])
@@ -97,11 +97,16 @@ def experiment(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, dataset
         #saveScores(f1, precision, recall,accuracy, execTime,timestamp,datasetName, i)
 
 
-    #debug(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, datasetName, timestamp)
+    np.set_printoptions(threshold=sys.maxsize)
+
+    debug(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, datasetName, timestamp)
 
 def debug(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, datasetName, timestamp):
 
     [X_train, y_train] = concatenateFolds(foldXResampled,foldYResampled,-1)
+
+    print(foldsX[1])
+    print(foldsY[1])
 
     X_test = X_train[5001:6000]
     y_test = y_train[5001:6000]
@@ -118,9 +123,12 @@ def trainModel(X_train, X_test, y_train, y_test,Cparam, gammaParam,datasetName, 
     clf = svm.SVC(cache_size=4000, kernel='rbf', C=Cparam, gamma=gammaParam, random_state=42)
     clf.fit(X_train, y_train)
     #print("Complete!")
-
     #print("\nTesting model...")
     y_pred = clf.predict(X_test)
+    #print(y_pred.shape)
+    #print(y_test.shape)
+    #print(y_pred)
+    #print(y_test)
 
     execTime = str(datetime.timedelta(seconds=(time.time()-startTimeTot)))
 
@@ -192,7 +200,7 @@ def resampleXY(X,Y):
     foldsYResampled = []
 
     for i in range(0,9):
-        [foldsXRes, foldsYRes] = resample(X[0],Y[0], n_samples = 1000)
+        [foldsXRes, foldsYRes] = resample(X[i],Y[i], n_samples = 1000, stratify=Y[i])
         foldsXResampled.append(np.array(foldsXRes))
         foldsYResampled.append(np.array(foldsYRes))
 
