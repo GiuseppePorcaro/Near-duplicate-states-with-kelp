@@ -13,13 +13,13 @@ def main():
 
     print(simOfNearDuplicate)
 
-    plt.title('Histogram')
+    plt.title('Histogram TreeEditDistance')
     plt.xlabel('bins')
     plt.ylabel('Similarities')
     plt.hist(simOfDifferent, bins=100, histtype='barstacked', label="Different pages", color="blue")
     plt.hist(simOfNearDuplicate, bins=100, histtype='barstacked', label="NearDuplicates", color="orange")
     plt.legend(['Different Pages','Near Duplicates'])
-    plt.savefig("/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/plots/Histogram_AttributeSImilarity.png")
+    plt.savefig("/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/plots/Histogram_TreeEditDistance.png")
 
 
 
@@ -30,7 +30,7 @@ def getSimilarities(pathDB):
 
     conn = sqlite3.connect(pathDB)
     c = conn.cursor()
-    c.execute("SELECT Attribute_sim, human_classification from nearduplicates where human_classification <> -1 order by appname, crawl, state1, state2;")
+    c.execute("SELECT DOM_RTED, human_classification from nearduplicates where human_classification <> -1 order by appname, crawl, state1, state2;")
 
     for row in c.fetchall():
 
