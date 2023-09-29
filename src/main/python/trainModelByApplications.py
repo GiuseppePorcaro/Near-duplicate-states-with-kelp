@@ -84,15 +84,20 @@ def experiment(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, dataset
     timestamp = date.strftime('%Y-%m-%d %H:%M:%S.%f')
     timestamp = timestamp[:-7]
 
-    '''
+
     for i in range(0,len(foldsX)):
         [X_train, y_train] = concatenateFolds(foldXResampled,foldYResampled,i)
-        [f1,precision,recall,accuracy, execTime] = trainModel(X_train, foldsX[i], y_train, foldsY[i],C, gamma,datasetName, timestamp)
+        [f1,precision,recall,accuracy, execTime] = trainModel(X_train, foldXResampled[i], y_train, foldYResampled[i],C, gamma,datasetName, timestamp)
+
+        #print(foldXResampled[i])
+        #print(foldYResampled[i])
+        #print(foldsX[i])
+        #print(foldsY[i])
 
         #saveScores(f1, precision, recall,accuracy, execTime,timestamp,datasetName, i)
-    '''
 
-    debug(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, datasetName, timestamp)
+
+    #debug(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, datasetName, timestamp)
 
 def debug(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, datasetName, timestamp):
 
