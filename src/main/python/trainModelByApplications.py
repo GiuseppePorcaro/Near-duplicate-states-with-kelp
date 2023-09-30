@@ -16,11 +16,8 @@ def main():
 
     #argv[1] = method; argv[2] dataset; argv[3] = C; argv[4] = gamma;
     print("Path: ", os.getcwd())
-    #resource
-    method = sys.argv[1]
-    dataset = sys.argv[2]
-    C = float(sys.argv[3])
-    gamma = float(sys.argv[4])
+
+    [method, dataset, C, gamma] = getCommandParams()
 
 
     print(">Creating folds based on applications...")
@@ -83,41 +80,22 @@ def experiment(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, dataset
     timestamp = date.strftime('%Y-%m-%d %H:%M:%S.%f')
     timestamp = timestamp[:-7]
 
+    path= "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/models/outputModelScores/experiment_"+datasetName+"_"+timestamp+".csv"
+    fieldnames = ['f1','precision', 'recall', 'accuracy', 'executionTime', 'appTest']
+    with open(path, 'a', newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer.writeheader()
+
+        file.close()
 
     for i in range(0,len(foldsX)):
         [X_train, y_train] = concatenateFolds(foldXResampled,foldYResampled,i)
-        [f1,precision,recall,accuracy, execTime] = trainModel(X_train, foldXResampled[i], y_train, foldYResampled[i],C, gamma,datasetName, timestamp)
+        [f1,precision,recall,accuracy, execTime] = trainModel(X_train, foldXResampled[i], y_train, foldYResampled[i],C, gamma,datasetName, timestamp, i)
 
-        #print(foldXResampled[i])
-        #print(foldYResampled[i])
-        #print(foldsX[i])
-        #print(foldsY[i])
-
-        #saveScores(f1, precision, recall,accuracy, execTime,timestamp,datasetName, i)
+        saveScores(f1, precision, recall,accuracy, execTime,timestamp,datasetName, i, path)
 
 
-    #np.set_printoptions(threshold=sys.maxsize)
-
-    #debug(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, datasetName, timestamp)
-
-def debug(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, datasetName, timestamp):
-
-    [X_train, y_train] = concatenateFolds(foldXResampled,foldYResampled,-1)
-
-    print(foldsX[5])
-    print(foldsY[5])
-
-    X_test = X_train[0:1000]
-    y_test = y_train[0:1000]
-
-    print("#####")
-    print(y_test)
-
-    X_train = X_train[1001:]
-    y_train = y_train[1001:]
-    trainModel(X_train, X_test, y_train, y_test,C, gamma,datasetName, timestamp)
-
-def trainModel(X_train, X_test, y_train, y_test,Cparam, gammaParam,datasetName, timestamp):
+def trainModel(X_train, X_test, y_train, y_test,Cparam, gammaParam,datasetName, timestamp,i):
 
     print("Dataset:"+datasetName+"\nTraining model with C: ",Cparam," and gamma: ",gammaParam)
     startTimeTot = time.time()
@@ -127,33 +105,37 @@ def trainModel(X_train, X_test, y_train, y_test,Cparam, gammaParam,datasetName, 
     #print("Complete!")
     #print("\nTesting model...")
     y_pred = clf.predict(X_test)
-    #print(y_pred.shape)
-    #print(y_test.shape)
-    #print(y_pred)
-    #print(y_test)
 
     execTime = str(datetime.timedelta(seconds=(time.time()-startTimeTot)))
 
     [accuracy, f1,precision, recall] = getScores(y_test,y_pred)
-    print(">f1: ",f1,"\n>Precision: ",precision,"\n>Recall: ",recall,"\n>Accuracy:", accuracy, " - ",set(y_test) - set(y_pred))
+    print(">f1: ",f1,"\n>Precision: ",precision,"\n>Recall: ",recall,"\n>Accuracy:", accuracy)
 
-    path = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/models/output/model_"+datasetName+"_"+timestamp+".joblib"
+    path = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/models/output/model_"+datasetName+"_"+timestamp+"_["+str(i)+"].joblib"
     dump(clf, path)
     print("########################################################################")
     #print("########################################################################")
 
     return [f1,precision,recall,accuracy, execTime]
 
-def saveScores(f1, precision, recall,accuracy, execTime,timestamp, datasetName, i):
+def saveScores(f1, precision, recall,accuracy, execTime,timestamp, datasetName, i, path):
+    fieldnames = ['f1','precision', 'recall', 'accuracy', 'executionTime', 'appTest']
+
+    with open(path, 'a', newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+
+        writer.writerow({'f1': f1,'precision' : precision, 'recall':recall, 'accuracy':accuracy,'executionTime':execTime,'appTest':i})
+
+        file.close()
+
+def createCSVToSaveScores():
     path= "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/models/outputModelScores/experiment_"+datasetName+"_"+timestamp+".csv"
-    with open(path, 'w', newline='') as file:
-        writer = csv.writer(file)
-        fieldnames = ["f1","precision", "recall", "accuracy", "executionTime", "appTest"]
-        writer.writerow([f1, precision, recall,execTime])
-        writer.writerow({'f1': f1,'precision' : precision, 'recall':recall, 'accuracy':accuracy,'executionTime':execTime,"appTest":i})
+    fieldnames = ['f1','precision', 'recall', 'accuracy', 'executionTime', 'appTest']
+    with open(path, 'a', newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer.writeheader()
 
-    file.close()
-
+        file.close()
 
 def getScores(y_test, y_pred):
 
@@ -163,6 +145,14 @@ def getScores(y_test, y_pred):
     recall = metrics.recall_score(y_test,y_pred)
 
     return [accuracy, f1,precision, recall]
+
+def getCommandParams():
+    method = sys.argv[1]
+    dataset = sys.argv[2]
+    C = float(sys.argv[3])
+    gamma = float(sys.argv[4])
+
+    return [method, dataset, C, gamma]
 def printValidationInfos(Xshape,Yshape,dataset, score, param, fixedParam):
 
     print("\nStarting validation:")
@@ -188,7 +178,7 @@ def concatenateFolds(foldsXResampled,foldsYResampled, indexNotToConcat):
         datasetX = np.concatenate((datasetX,foldsXResampled[i]))
         datasetY = np.concatenate((datasetY, foldsYResampled[i]))
 
-    print("Done!\nDataset shapes: ")
+    #print("Done!\nDataset shapes: ")
     #print(datasetX.shape)
     #print(datasetY.shape)
     #print(datasetX)
