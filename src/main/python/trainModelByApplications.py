@@ -5,6 +5,7 @@ import sys
 import os
 import time
 import datetime
+import matplotlib.pyplot as plt
 from sklearn import svm
 from sklearn import metrics
 from sklearn.model_selection import ValidationCurveDisplay
@@ -15,10 +16,9 @@ from joblib import dump, load
 def main():
 
     #argv[1] = method; argv[2] dataset; argv[3] = C; argv[4] = gamma;
-    print("Path: ", os.getcwd())
+    #print("Path: ", os.getcwd())
 
     [method, dataset, C, gamma] = getCommandParams()
-
 
     print(">Creating folds based on applications...")
     [foldsX,foldsY] = getFolds(csv, dataset) #array in which each fold is an app
@@ -28,26 +28,42 @@ def main():
 
     if method == "experiment":
         experiment(C,gamma, foldsX, foldsY, foldsXResampled, foldsYResampled, dataset)
-    if method == "validaiton":
+    if method == "validation":
         [datasetX,datasetY] = concatenateFolds(foldsXResampled,foldsYResampled, -1)
-        validationCurve(datasetX,datasetY,"dataset_TreeEditDistance", np.logspace(-2, 5, 8))
+        modelValidation(foldsXResampled, foldsYResampled,dataset, np.logspace(-2, 5, 8))
 
 
-def validationCurve(X, Y, dataset, range):
+def modelValidation( foldsXResampled, foldsYResampled, dataset, range):
 
-    score = "recall"
-    param = "gamma"
-    fixedParamName = "C"
+    scores = ["f1","precision","recall"]
+    params = ["C","gamma"]
+
+    [X, Y] = concatenateFolds(foldsXResampled, foldsYResampled,-1)
+
+    for score in scores:
+        validationCurve( X, Y, dataset, range, score, params[0], params[1])
+
+    for score in scores:
+        validationCurve(X, Y, dataset, range, score, params[1], params[0])
+
+
+def validationCurve(X, Y, dataset, range, score, param, fixedParamName):
 
     printValidationInfos(X.shape,Y.shape, dataset, score, param, fixedParamName)
 
     startTimeTot = time.time()
 
+    if param == "C":
+        clf = svm.SVC(cache_size=1000, C=range, class_weight="balanced")
+    if param == "gamma":
+        clf = svm.SVC(cache_size=1000, gamma=range, class_weight="balanced")
+
+
     i = 1
     for fixedParam in range:
         startTime = time.time()
         disp = ValidationCurveDisplay.from_estimator(
-            svm.SVC(cache_size=1000, C=fixedParam),
+            clf,
             X,
             Y,
             param_name=param,
@@ -68,7 +84,7 @@ def validationCurve(X, Y, dataset, range):
         i = i+1
         print("Execution time figure("+str(i)+"): ",execTime)
 
-        plt.savefig("src/main/resources/plots/Plots_ApplicationSplit/output/ValidationCurve_"+score+"_"+param+"_"+dataset+"_"+fixedParamName+"_"+execTime+".png")
+        plt.savefig("/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/plots/Plots_ApplicationSplit/output/ValidationCurve_"+score+"_"+param+"_"+dataset+"_"+fixedParamName+"_"+execTime+".png")
     print("Execution time tot: ",str(datetime.timedelta(seconds=(time.time()-startTimeTot))))
 
     print("Done!")
@@ -100,7 +116,7 @@ def trainModel(X_train, X_test, y_train, y_test,Cparam, gammaParam,datasetName, 
     print("Dataset:"+datasetName+"\nTraining model with C: ",Cparam," and gamma: ",gammaParam)
     startTimeTot = time.time()
 
-    clf = svm.SVC(cache_size=4000, kernel='rbf', C=Cparam, gamma=gammaParam, random_state=42)
+    clf = svm.SVC(cache_size=4000, kernel='rbf', C=Cparam, gamma=gammaParam, random_state=42, class_weight="balanced")
     clf.fit(X_train, y_train)
     #print("Complete!")
     #print("\nTesting model...")
@@ -109,7 +125,7 @@ def trainModel(X_train, X_test, y_train, y_test,Cparam, gammaParam,datasetName, 
     execTime = str(datetime.timedelta(seconds=(time.time()-startTimeTot)))
 
     [accuracy, f1,precision, recall] = getScores(y_test,y_pred)
-    print(">f1: ",f1,"\n>Precision: ",precision,"\n>Recall: ",recall,"\n>Accuracy:", accuracy)
+    print(">f1: ",f1,"\n>Precision: ",precision,"\n>Recall: ",recall,"\n>Accuracy:", accuracy,"\nExecution time: ",execTime)
 
     path = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/models/output/model_"+datasetName+"_"+timestamp+"_["+str(i)+"].joblib"
     dump(clf, path)
