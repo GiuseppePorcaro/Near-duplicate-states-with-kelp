@@ -6,6 +6,7 @@ import os
 import time
 import datetime
 import matplotlib.pyplot as plt
+import threading
 from sklearn import svm
 from sklearn import metrics
 from sklearn.model_selection import ValidationCurveDisplay
@@ -18,7 +19,7 @@ def main():
     #argv[1] = method; argv[2] dataset; argv[3] = C; argv[4] = gamma;
     #print("Path: ", os.getcwd())
 
-    [method, dataset, C, gamma] = getCommandParams()
+    [method, dataset, C, gamma, doResample] = getCommandParams()
 
     print(">Creating folds based on applications...")
     [foldsX,foldsY] = getFolds(csv, dataset) #array in which each fold is an app
@@ -30,21 +31,41 @@ def main():
         experiment(C,gamma, foldsX, foldsY, foldsXResampled, foldsYResampled, dataset)
     if method == "validation":
         [datasetX,datasetY] = concatenateFolds(foldsXResampled,foldsYResampled, -1)
-        modelValidation(foldsXResampled, foldsYResampled,dataset, np.logspace(-2, 5, 8))
+        modelValidation(foldsX, foldsY, foldsXResampled, foldsYResampled, dataset, np.logspace(-2, 5, 8), doResample)
 
 
-def modelValidation( foldsXResampled, foldsYResampled, dataset, range):
+def modelValidation( foldsX, foldsY, foldsXResampled, foldsYResampled, dataset, range, doResample):
 
     scores = ["f1","precision","recall"]
     params = ["C","gamma"]
 
-    [X, Y] = concatenateFolds(foldsXResampled, foldsYResampled,-1)
+    if doResample == 1:
+        [X, Y] = concatenateFolds(foldsXResampled, foldsYResampled,-1)
+    elif doResample == 0:
+        [X, Y] = concatenateFolds(foldsX, foldsY,-1)
+    else:
+        print("\nERROR: Need to set [doResample] as 0 or 1!Closing script!")
+        return
+
+    #Parallelizing type of validation based on what score we are computing. One type of validation for thread
+    threads = []
+    for score in scores:
+        t = threading.Thread(target=validationCurve,kwargs={'X':X,'Y':Y,'dataset':dataset,'range':range,'score':score, 'param':params[0],'fixedParamName':params[1]})
+        t.start()
+        threads.append(t)
+        time.sleep(1)
+
+        #validationCurve( X, Y, dataset, range, score, params[0], params[1])
 
     for score in scores:
-        validationCurve( X, Y, dataset, range, score, params[0], params[1])
+        t = threading.Thread(target=validationCurve,kwargs={'X':X,'Y':Y,'dataset':dataset,'range':range,'score':score, 'param':params[1],'fixedParamName':params[0]})
+        t.start()
+        threads.append(t)
+        time.sleep(1)
+        #validationCurve(X, Y, dataset, range, score, params[1], params[0])
 
-    for score in scores:
-        validationCurve(X, Y, dataset, range, score, params[1], params[0])
+    for thread in threads:
+        thread.join()
 
 
 def validationCurve(X, Y, dataset, range, score, param, fixedParamName):
@@ -167,11 +188,16 @@ def getCommandParams():
     dataset = sys.argv[2]
     C = float(sys.argv[3])
     gamma = float(sys.argv[4])
+    doResample = int(sys.argv[5])
 
-    return [method, dataset, C, gamma]
+    return [method, dataset, C, gamma, doResample]
 def printValidationInfos(Xshape,Yshape,dataset, score, param, fixedParam):
+    date = datetime.datetime.now()
+    timestamp = date.strftime('%Y-%m-%d %H:%M:%S.%f')
+    timestamp = timestamp[:-7]
 
     print("\nStarting validation:")
+    print("Starting time: ",timestamp)
     print(">Dataset: ",dataset)
     print(">X shape: ",Xshape)
     print(">Y shape: ",Yshape)
