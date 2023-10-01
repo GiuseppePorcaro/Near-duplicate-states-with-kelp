@@ -6,7 +6,7 @@ import os
 import time
 import datetime
 import matplotlib.pyplot as plt
-import threading
+from multiprocessing import Process
 from sklearn import svm
 from sklearn import metrics
 from sklearn.model_selection import ValidationCurveDisplay
@@ -28,8 +28,10 @@ def main():
 
 
     if method == "experiment":
+        print("Selected experiment -> doResample will be ignored!") # probabilmente si dovrà implementare un do refactor anche per l'esperimento
         experiment(C,gamma, foldsX, foldsY, foldsXResampled, foldsYResampled, dataset)
     if method == "validation":
+        print("Selected validation -> C and gamma will be ignored!")
         [datasetX,datasetY] = concatenateFolds(foldsXResampled,foldsYResampled, -1)
         modelValidation(foldsX, foldsY, foldsXResampled, foldsYResampled, dataset, np.logspace(-2, 5, 8), doResample)
 
@@ -47,20 +49,22 @@ def modelValidation( foldsX, foldsY, foldsXResampled, foldsYResampled, dataset, 
         print("\nERROR: Need to set [doResample] as 0 or 1!Closing script!")
         return
 
+    #Add a control to check if cpu has at least 6 threads?
+
     #Parallelizing type of validation based on what score we are computing. One type of validation for thread
     threads = []
     for score in scores:
-        t = threading.Thread(target=validationCurve,kwargs={'X':X,'Y':Y,'dataset':dataset,'range':range,'score':score, 'param':params[0],'fixedParamName':params[1]})
-        t.start()
-        threads.append(t)
+        p = Process(target=validationCurve,kwargs={'X':X,'Y':Y,'dataset':dataset,'range':range,'score':score, 'param':params[0],'fixedParamName':params[1]})
+        p.start()
+        threads.append(p)
         time.sleep(1)
 
         #validationCurve( X, Y, dataset, range, score, params[0], params[1])
 
     for score in scores:
-        t = threading.Thread(target=validationCurve,kwargs={'X':X,'Y':Y,'dataset':dataset,'range':range,'score':score, 'param':params[1],'fixedParamName':params[0]})
-        t.start()
-        threads.append(t)
+        p = Process(target=validationCurve,kwargs={'X':X,'Y':Y,'dataset':dataset,'range':range,'score':score, 'param':params[1],'fixedParamName':params[0]})
+        p.start()
+        threads.append(p)
         time.sleep(1)
         #validationCurve(X, Y, dataset, range, score, params[1], params[0])
 
@@ -70,7 +74,7 @@ def modelValidation( foldsX, foldsY, foldsXResampled, foldsYResampled, dataset, 
 
 def validationCurve(X, Y, dataset, range, score, param, fixedParamName):
 
-    printValidationInfos(X.shape,Y.shape, dataset, score, param, fixedParamName)
+    timestamp = printValidationInfos(X.shape,Y.shape, dataset, score, param, fixedParamName)
 
     startTimeTot = time.time()
 
@@ -105,7 +109,7 @@ def validationCurve(X, Y, dataset, range, score, param, fixedParamName):
         i = i+1
         print("Execution time figure("+str(i)+"): ",execTime)
 
-        plt.savefig("/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/plots/Plots_ApplicationSplit/output/ValidationCurve_"+score+"_"+param+"_"+dataset+"_"+fixedParamName+"_"+execTime+".png")
+        plt.savefig("/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/plots/Plots_ApplicationSplit/output/ValidationCurve_"+score+"_"+param+"_"+dataset+"_"+fixedParamName+"_"+execTime+"_"+timestamp+".png")
     print("Execution time tot: ",str(datetime.timedelta(seconds=(time.time()-startTimeTot))))
 
     print("Done!")
@@ -204,6 +208,8 @@ def printValidationInfos(Xshape,Yshape,dataset, score, param, fixedParam):
     print(">Score name: ",score,"\n>Param name: ",param,"\n>Fixed param: ",fixedParam)
     print("\nComputing validation curves...")
     print(sum)
+
+    return timestamp
 
 def concatenateFolds(foldsXResampled,foldsYResampled, indexNotToConcat):
     print(">Concatenating folds to create dataset...")
