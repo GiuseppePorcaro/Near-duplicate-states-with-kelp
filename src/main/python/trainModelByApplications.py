@@ -78,9 +78,9 @@ def validationCurve(X, Y, dataset, range, score, param, fixedParamName):
     startTimeTot = time.time()
 
     if param == "C":
-        clf = svm.SVC(cache_size=1000, C=range, class_weight="balanced")
+        clf = svm.SVC(cache_size=1000, C=range)
     if param == "gamma":
-        clf = svm.SVC(cache_size=1000, gamma=range, class_weight="balanced")
+        clf = svm.SVC(cache_size=1000, gamma=range)
 
 
     i = 1
@@ -132,7 +132,7 @@ def experiment(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, dataset
 
     for i in range(0,len(foldsX)):
         [X_train, y_train] = concatenateFolds(foldXResampled,foldYResampled,i)
-        [f1,precision,recall,accuracy, execTime] = trainModel(X_train, foldXResampled[i], y_train, foldYResampled[i],C, gamma,datasetName, timestamp, i)
+        [f1,precision,recall,accuracy, execTime] = trainModel(X_train, foldsX[i], y_train, foldsY[i],C, gamma,datasetName, timestamp, i)
 
         saveScores(f1, precision, recall,accuracy, execTime,timestamp,datasetName, i, path)
 
