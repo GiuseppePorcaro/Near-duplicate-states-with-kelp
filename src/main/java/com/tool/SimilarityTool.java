@@ -12,6 +12,7 @@ import it.uniroma2.sag.kelp.kernel.tree.deltamatrix.DynamicDeltaMatrix;
 
 import static com.tool.Utils.getDisplayStyle;
 import static com.tool.representations.ManageTreeRepresentation.popolateTree;
+import static com.tool.representations.ManageTreeRepresentation.printTreeDepthFirst;
 
 
 public class SimilarityTool {

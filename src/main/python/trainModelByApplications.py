@@ -32,7 +32,6 @@ def main():
         experiment(C,gamma, foldsX, foldsY, foldsXResampled, foldsYResampled, dataset)
     if method == "validation":
         print("Selected validation -> C and gamma will be ignored!")
-        [datasetX,datasetY] = concatenateFolds(foldsXResampled,foldsYResampled, -1)
         modelValidation(foldsX, foldsY, foldsXResampled, foldsYResampled, dataset, np.logspace(-2, 5, 8), doResample)
 
 
@@ -52,24 +51,24 @@ def modelValidation( foldsX, foldsY, foldsXResampled, foldsYResampled, dataset, 
     #Add a control to check if cpu has at least 6 threads?
 
     #Parallelizing type of validation based on what score we are computing. One type of validation for thread
-    threads = []
+    processes = []
     for score in scores:
         p = Process(target=validationCurve,kwargs={'X':X,'Y':Y,'dataset':dataset,'range':range,'score':score, 'param':params[0],'fixedParamName':params[1]})
         p.start()
-        threads.append(p)
+        processes.append(p)
         time.sleep(1)
-
-        #validationCurve( X, Y, dataset, range, score, params[0], params[1])
+        validationCurve( X, Y, dataset, range, score, params[0], params[1])
 
     for score in scores:
         p = Process(target=validationCurve,kwargs={'X':X,'Y':Y,'dataset':dataset,'range':range,'score':score, 'param':params[1],'fixedParamName':params[0]})
         p.start()
-        threads.append(p)
+        processes.append(p)
         time.sleep(1)
-        #validationCurve(X, Y, dataset, range, score, params[1], params[0])
+        validationCurve(X, Y, dataset, range, score, params[1], params[0])
 
-    for thread in threads:
-        thread.join()
+    for process in processes:
+        process.join()
+
 
 
 def validationCurve(X, Y, dataset, range, score, param, fixedParamName):
@@ -121,7 +120,9 @@ def experiment(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, dataset
     timestamp = date.strftime('%Y-%m-%d %H:%M:%S.%f')
     timestamp = timestamp[:-7]
 
-    path= "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/models/outputModelScores/experiment_"+datasetName+"_"+timestamp+".csv"
+    path= "/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/resources/models/outputModelScores/experiment_"+datasetName+"_"+timestamp+".csv"
+    #path= "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/models/outputModelScores/experiment_"+datasetName+"_"+timestamp+".csv"
+
     fieldnames = ['f1','precision', 'recall', 'accuracy', 'executionTime', 'appTest']
     with open(path, 'a', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=fieldnames)
@@ -240,7 +241,7 @@ def resampleXY(X,Y):
     foldsYResampled = []
 
     for i in range(0,9):
-        [foldsXRes, foldsYRes] = resample(X[i],Y[i], n_samples = 1000, stratify=Y[i])
+        [foldsXRes, foldsYRes] = resample(X[i],Y[i], n_samples = 1000, stratify=Y[i], random_state = 42)
         foldsXResampled.append(np.array(foldsXRes))
         foldsYResampled.append(np.array(foldsYRes))
 
@@ -260,7 +261,8 @@ def getFolds(csv, dataset):
             realStart = 0
         end = appsIndexes[i]
 
-        csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/'+dataset, sep=",", skiprows=realStart, nrows=end)
+        #/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources
+        csv = pd.read_csv('/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/resources/data/'+dataset, sep=",", skiprows=realStart, nrows=end)
         foldsX.append(csv[csv.columns[0:csv.shape[1]-1]].to_numpy())
         foldsY.append(csv[csv.columns[csv.shape[1]-1]].to_numpy())
         
