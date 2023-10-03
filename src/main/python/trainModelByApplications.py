@@ -57,14 +57,14 @@ def modelValidation( foldsX, foldsY, foldsXResampled, foldsYResampled, dataset, 
         p.start()
         processes.append(p)
         time.sleep(1)
-        validationCurve( X, Y, dataset, range, score, params[0], params[1])
+        #validationCurve( X, Y, dataset, range, score, params[0], params[1])
 
     for score in scores:
         p = Process(target=validationCurve,kwargs={'X':X,'Y':Y,'dataset':dataset,'range':range,'score':score, 'param':params[1],'fixedParamName':params[0]})
         p.start()
         processes.append(p)
         time.sleep(1)
-        validationCurve(X, Y, dataset, range, score, params[1], params[0])
+        #validationCurve(X, Y, dataset, range, score, params[1], params[0])
 
     for process in processes:
         process.join()
@@ -120,8 +120,8 @@ def experiment(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, dataset
     timestamp = date.strftime('%Y-%m-%d %H:%M:%S.%f')
     timestamp = timestamp[:-7]
 
-    path= "/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/resources/models/outputModelScores/experiment_"+datasetName+"_"+timestamp+".csv"
-    #path= "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/models/outputModelScores/experiment_"+datasetName+"_"+timestamp+".csv"
+    #path= "/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/resources/models/outputModelScores/experiment_"+datasetName+"_"+timestamp+".csv"
+    path= "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/models/outputModelScores/experiment_"+datasetName+"_"+timestamp+".csv"
 
     fieldnames = ['f1','precision', 'recall', 'accuracy', 'executionTime', 'appTest']
     with open(path, 'a', newline='') as file:
@@ -262,7 +262,7 @@ def getFolds(csv, dataset):
         end = appsIndexes[i]
 
         #/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources
-        csv = pd.read_csv('/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/resources/data/'+dataset, sep=",", skiprows=realStart, nrows=end)
+        csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/'+dataset, sep=",", skiprows=realStart, nrows=end)
         foldsX.append(csv[csv.columns[0:csv.shape[1]-1]].to_numpy())
         foldsY.append(csv[csv.columns[csv.shape[1]-1]].to_numpy())
         
