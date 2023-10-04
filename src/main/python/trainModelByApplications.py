@@ -6,6 +6,7 @@ import os
 import time
 import datetime
 import matplotlib.pyplot as plt
+from configparser import ConfigParser
 from multiprocessing import Process
 from sklearn import svm
 from sklearn import metrics
@@ -16,10 +17,9 @@ from joblib import dump, load
 
 def main():
 
-    #argv[1] = method; argv[2] dataset; argv[3] = C; argv[4] = gamma;
-    #print("Path: ", os.getcwd())
+    configFilePath = os.getcwd()+"/config.csv"
 
-    [method, dataset, C, gamma, doResample] = getCommandParams()
+    [method, datasetPath, outputPath, C, gamma, doResample] = getConfigParams(configFilePath)
 
     print(">Creating folds based on applications...")
     [foldsX,foldsY] = getFolds(csv, dataset) #array in which each fold is an app
@@ -188,14 +188,19 @@ def getScores(y_test, y_pred):
 
     return [accuracy, f1,precision, recall]
 
-def getCommandParams():
-    method = sys.argv[1]
-    dataset = sys.argv[2]
-    C = float(sys.argv[3])
-    gamma = float(sys.argv[4])
-    doResample = int(sys.argv[5])
+def getConfigParams(path):
 
-    return [method, dataset, C, gamma, doResample]
+    config = ConfigParser()
+    config.read(path)
+
+    method = config['config']['method']
+    datasetPath = config['config']['datasetPath']
+    outputPath=config['config']['outputPath']
+    C=config['config']['C']
+    gamma=config['config']['gamma']
+    doResample=config['config']['resampling']
+
+    return [method, datasetPath, outputPath, C, gamma, doResample]
 def printValidationInfos(Xshape,Yshape,dataset, score, param, fixedParam):
     date = datetime.datetime.now()
     timestamp = date.strftime('%Y-%m-%d %H:%M:%S.%f')
