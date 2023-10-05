@@ -22,12 +22,12 @@ import datetime
 def main():
 
     print("Caricamento dataset...")
-    csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset_-1_1_targets.csv', sep=",")
+    csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset_AttributeSim.csv', sep=",")
 
     print("csv shape: ",csv.shape)
 
     datasetX = csv[csv.columns[0:1]].to_numpy()
-    datasetY = csv[csv.columns[9]].to_numpy()
+    datasetY = csv[csv.columns[1]].to_numpy()
 
     printDatasetShape(datasetX,datasetY)
     #[datasetXPreprocessed] = preProcessingX(datasetX)
@@ -42,38 +42,38 @@ def main():
     #trainModel(X_train, X_test, y_train, y_test)
 
     #crossValidation(datasetX,datasetY)
-    validationCurve(X,Y,"dataset_-1_1_targets_AttrsimOnly")
+    validationCurve(X,Y,"dataset_AttrsimOnly")
     #learningCurve(X,Y)
     #validationCurveOnTwoParameters(X, Y)
 
 def validationCurve(X, Y, dataset):
 
-    score = "recall"
-    param = "gamma"
+    score = "precision"
+    param = "C"
     fixedParam = "No fixed param"
 
     printValidationInfos(X.shape, Y.shape, dataset, score, param, fixedParam)
 
     startTime = time.time()
     disp = ValidationCurveDisplay.from_estimator(
-        svm.SVC(cache_size=1000),
+        svm.SVC(cache_size=1000, kernel='linear', class_weight="balanced"),
         X,
         Y,
         param_name=param,
-        param_range=np.logspace(-2, 6, 9),
+        param_range=np.logspace(0, 3, 4),
         score_type="both",
         scoring=score,
         n_jobs=2,
         score_name=score,
-        cv=2,
+        cv=5,
 
     )
     execTime = str(datetime.timedelta(seconds=(time.time()-startTime)))
     print("Execution time: ",execTime)
-    disp.ax_.set_title("Validation Curve (SVM, RBF) - CV split")
+    disp.ax_.set_title("Validation Curve (SVM, linear) - CV split")
     disp.ax_.set_xlabel(param)
     disp.ax_.set_ylim(0.0, 1.1)
-    plt.savefig("/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/plots/Plots_CV_Split/ValidationCurve_"+score+"_"+param+"_"+dataset+"_"+execTime+".png")
+    plt.savefig("/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/output/Validation/ValidationCurve_"+score+"_"+param+"_"+dataset+"_"+execTime+".png")
 
     print("Done!")
 

@@ -26,16 +26,15 @@ def main():
     print(">Resampling folds (stratified)...")
     [foldsXResampled,foldsYResampled] = resampleXY(foldsX,foldsY) #array of resampled folds (1000 sample each stratified)
 
-
     if method == "experiment":
         print("Selected experiment -> doResample will be ignored!") # probabilmente si dovrà implementare un do refactor anche per l'esperimento
         experiment(C,gamma, foldsX, foldsY, foldsXResampled, foldsYResampled, datasetName, outputPath)
     if method == "validation":
         print("Selected validation -> C and gamma will be ignored!")
-        modelValidation(foldsX, foldsY, foldsXResampled, foldsYResampled, dataset, np.logspace(-2, 5, 8), doResample)
+        modelValidation(foldsX, foldsY, foldsXResampled, foldsYResampled, datasetName, np.logspace(0, 2, 3), doResample, outputPath)
 
 
-def modelValidation( foldsX, foldsY, foldsXResampled, foldsYResampled, dataset, range, doResample):
+def modelValidation( foldsX, foldsY, foldsXResampled, foldsYResampled, datasetName, range, doResample, outputPath):
 
     scores = ["f1","precision","recall"]
     params = ["C","gamma"]
@@ -53,38 +52,65 @@ def modelValidation( foldsX, foldsY, foldsXResampled, foldsYResampled, dataset, 
     #Parallelizing type of validation based on what score we are computing. One type of validation for thread
     processes = []
     for score in scores:
-        p = Process(target=validationCurve,kwargs={'X':X,'Y':Y,'dataset':dataset,'range':range,'score':score, 'param':params[0],'fixedParamName':params[1]})
+        p = Process(target=validationCurve,kwargs={'X':X,'Y':Y,'dataset':datasetName,'range':range,'score':score, 'param':params[0],'fixedParamName':params[1], 'outputPath':outputPath})
         p.start()
         processes.append(p)
         time.sleep(1)
         #validationCurve( X, Y, dataset, range, score, params[0], params[1])
 
     for score in scores:
-        p = Process(target=validationCurve,kwargs={'X':X,'Y':Y,'dataset':dataset,'range':range,'score':score, 'param':params[1],'fixedParamName':params[0]})
+        p = Process(target=validationCurve,kwargs={'X':X,'Y':Y,'dataset':datasetName,'range':range,'score':score, 'param':params[1],'fixedParamName':params[0], 'outputPath':outputPath})
         p.start()
         processes.append(p)
         time.sleep(1)
         #validationCurve(X, Y, dataset, range, score, params[1], params[0])
+
 
     for process in processes:
         process.join()
 
 
 
-def validationCurve(X, Y, dataset, range, score, param, fixedParamName):
+def validationCurve(X, Y, dataset, range, score, param, fixedParamName, outputPath):
 
     timestamp = printValidationInfos(X.shape,Y.shape, dataset, score, param, fixedParamName)
 
     startTimeTot = time.time()
 
-    if param == "C":
-        clf = svm.SVC(cache_size=1000, C=range)
-    if param == "gamma":
-        clf = svm.SVC(cache_size=1000, gamma=range)
 
+    '''
+    disp = ValidationCurveDisplay.from_estimator(
+        svm.SVC(cache_size=1000, kernel='linear', random_state=42, class_weight="balanced"),
+        X,
+        Y,
+        param_name=param,
+        param_range=range,
+        score_type="both",
+        scoring=score,
+        n_jobs=2,
+        score_name=score,
+        cv=KFold(n_splits=9, random_state=None, shuffle=False),
 
+    )
+
+    execTime = str(datetime.timedelta(seconds=(time.time()-startTimeTot)))
+    disp.ax_.set_title("Validation Curve (SVM, Linear) - Apps split - resampled (1000) "+dataset)
+    disp.ax_.set_xlabel(param)
+    disp.ax_.set_ylim(0.0, 1.1)
+    #plt.figure(i)
+    #i = i+1
+    print("Execution time figure(0): ",execTime)
+
+    plt.savefig(outputPath+"/ValidationCurve_"+score+"_"+param+"_"+dataset+"_"+fixedParamName+"_"+execTime+"_"+timestamp+".png")
+    '''
     i = 1
     for fixedParam in range:
+
+        if param  == "C":
+            clf = svm.SVC(cache_size=1000, C=range, gamma=fixedParam, kernel='rbf', random_state=42, class_weight="balanced")
+        if param == "gamma":
+            clf = svm.SVC(cache_size=1000, gamma=range, C=fixedParam, kernel='rbf', random_state=42, class_weight="balanced")
+
         startTime = time.time()
         disp = ValidationCurveDisplay.from_estimator(
             clf,
@@ -101,14 +127,14 @@ def validationCurve(X, Y, dataset, range, score, param, fixedParamName):
         )
 
         execTime = str(datetime.timedelta(seconds=(time.time()-startTime)))
-        disp.ax_.set_title("Validation Curve (SVM, RBF) - CV split - "+fixedParamName+": "+str(fixedParam)+" - "+dataset)
+        disp.ax_.set_title("Validation Curve (SVM, rbf) - Apps split - "+fixedParamName+": "+str(fixedParam)+" - "+dataset)
         disp.ax_.set_xlabel(param)
         disp.ax_.set_ylim(0.0, 1.1)
         plt.figure(i)
         i = i+1
         print("Execution time figure("+str(i)+"): ",execTime)
 
-        plt.savefig("/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/plots/Plots_ApplicationSplit/output/ValidationCurve_"+score+"_"+param+"_"+dataset+"_"+fixedParamName+"_"+execTime+"_"+timestamp+".png")
+        plt.savefig(outputPath+"/ValidationCurve_"+score+"_"+param+"_"+dataset+"_"+fixedParamName+"_"+execTime+"_"+timestamp+".png")
     print("Execution time tot: ",str(datetime.timedelta(seconds=(time.time()-startTimeTot))))
 
     print("Done!")
@@ -150,6 +176,10 @@ def experiment(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, dataset
         saveScores(f1Train, precisionTrain, recallTrain,f1Test, precisionTest, recallTest, execTime,timestamp,datasetName, i, path)
 
     pathMean = outputPath+"/experimentMean_"+datasetName+"_"+timestamp+".csv"
+
+    print("Scores mean:")
+    print(">f1Train: ",np.mean(f1TrainArray)," - precisionTrain: ",np.mean(precisionTrainArray)," - recallTrain: ",np.mean(recallTrainArray))
+    print(">f1Test: ",np.mean(f1TestArray)," - precisionTest: ",np.mean(precisionTestArray)," - recallTest: ",np.mean(recallTrainArray)," - Execution time: ",execTime)
     saveScores(np.mean(f1TrainArray),np.mean(precisionTrainArray),np.mean(recallTrainArray),np.mean(f1TestArray),np.mean(precisionTestArray),np.mean(recallTrainArray),execTime,timestamp,datasetName, -1, pathMean)
 
 
@@ -255,7 +285,7 @@ def resampleXY(X,Y):
     foldsYResampled = []
 
     for i in range(0,9):
-        [foldsXRes, foldsYRes] = resample(X[i],Y[i], n_samples = 1000, stratify=Y[i], random_state = 42)
+        [foldsXRes, foldsYRes] = resample(X[i],Y[i], n_samples = 1000, stratify=Y[i], replace=False, random_state = 42)
         foldsXResampled.append(np.array(foldsXRes))
         foldsYResampled.append(np.array(foldsYRes))
 
