@@ -3,7 +3,7 @@ import csv
 
 def main():
 
-    path = '/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/dataset_AttributeSim.csv'
+    path = '/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/output/file__8.csv'
     pathDB = '/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/gs_full_dom_mu01.db'
     pathDBStats  = '/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/gs_stats.db'
     
@@ -18,7 +18,7 @@ def main():
 
         conn = sqlite3.connect(pathDB)
         c = conn.cursor()
-        c.execute("SELECT ATTRIBUTE_SIM, human_classification from nearduplicates where human_classification <> -1 order by appname, crawl, state1, state2;")
+        c.execute("SELECT ATTRIBUTE_SIM, human_classification from nearduplicates where human_classification <> -1 order by appname, crawl, state1, state2  LIMIT 92490,4851;")
 
         connStats = sqlite3.connect(pathDBStats)
         cStats = connStats.cursor()
@@ -32,7 +32,7 @@ def main():
 
             #writer.writerow({'attribute_sim': attributeSim,'numNodes1': numNodes1,'height1' : height1,'degree1' : degree1,'averageBranchingFactor1' : averageBranchingFactor1,'numNodes2' : numNodes2,'height2' : height2,'degre2' : degre2,'averageBranchingFactor2' : averageBranchingFactor2,'human_classification' : humanClassification})
             #writer.writerow({'attribute_sim': attributeSim,'numNodes1': numNodes1,'numNodes2' : numNodes2,'human_classification' : humanClassification})
-            writer.writerow({'Attribute_sim': Attribute_sim,'human_classification' : humanClassification})
+            writer.writerow({'Attribute_sim': round(float(Attribute_sim),13),'human_classification' : int(humanClassification)})
 
             counter = counter + 1
             #print(attributeSim," ",numNodes1," ",height1," ",degree1," ",averageBranchingFactor1," ",numNodes2," ",height2," ",degre2," ",averageBranchingFactor2," ",humanClassification,"\t| "+str(counter))

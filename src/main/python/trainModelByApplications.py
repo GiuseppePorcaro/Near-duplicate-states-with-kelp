@@ -19,17 +19,17 @@ def main():
 
     configFilePath = os.getcwd()+"/config.csv"
 
-    [method, datasetPath, outputPath, C, gamma, doResample] = getConfigParams(configFilePath)
+    [method, datasetPath, datasetName, outputPath, C, gamma, doResample] = getConfigParams(configFilePath)
 
     print(">Creating folds based on applications...")
-    [foldsX,foldsY] = getFolds(csv, dataset) #array in which each fold is an app
+    [foldsX,foldsY] = getFolds(csv, datasetName,datasetPath) #array in which each fold is an app
     print(">Resampling folds (stratified)...")
     [foldsXResampled,foldsYResampled] = resampleXY(foldsX,foldsY) #array of resampled folds (1000 sample each stratified)
 
 
     if method == "experiment":
         print("Selected experiment -> doResample will be ignored!") # probabilmente si dovrà implementare un do refactor anche per l'esperimento
-        experiment(C,gamma, foldsX, foldsY, foldsXResampled, foldsYResampled, dataset)
+        experiment(C,gamma, foldsX, foldsY, foldsXResampled, foldsYResampled, datasetName, outputPath)
     if method == "validation":
         print("Selected validation -> C and gamma will be ignored!")
         modelValidation(foldsX, foldsY, foldsXResampled, foldsYResampled, dataset, np.logspace(-2, 5, 8), doResample)
@@ -114,65 +114,81 @@ def validationCurve(X, Y, dataset, range, score, param, fixedParamName):
     print("Done!")
 
 
-def experiment(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, datasetName):
+def experiment(C, gamma, foldsX, foldsY, foldXResampled, foldYResampled, datasetName,outputPath):
 
     date = datetime.datetime.now()
     timestamp = date.strftime('%Y-%m-%d %H:%M:%S.%f')
     timestamp = timestamp[:-7]
 
     #path= "/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/resources/models/outputModelScores/experiment_"+datasetName+"_"+timestamp+".csv"
-    path= "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/models/outputModelScores/experiment_"+datasetName+"_"+timestamp+".csv"
+    path= outputPath+"/experiment_"+datasetName+"_"+timestamp+".csv"
 
-    fieldnames = ['f1','precision', 'recall', 'accuracy', 'executionTime', 'appTest']
-    with open(path, 'a', newline='') as file:
-        writer = csv.DictWriter(file, fieldnames=fieldnames)
-        writer.writeheader()
+    createCSVToSaveScores(path)
 
-        file.close()
+    f1TrainArray = np.empty((len(foldsX),1))
+    precisionTrainArray = np.empty((len(foldsX),1))
+    recallTrainArray = np.empty((len(foldsX),1))
+    f1TestArray = np.empty((len(foldsX),1))
+    precisionTestArray = np.empty((len(foldsX),1))
+    recallTestArray = np.empty((len(foldsX),1))
 
     for i in range(0,len(foldsX)):
-        [X_train, y_train] = concatenateFolds(foldXResampled,foldYResampled,i)
-        [f1,precision,recall,accuracy, execTime] = trainModel(X_train, foldsX[i], y_train, foldsY[i],C, gamma,datasetName, timestamp, i)
+        [X_train, y_train] = concatenateFolds(foldsX,foldsY,i)
+        print("X_train shape: ",X_train.shape)
+        print("y_train shape: ",y_train.shape)
+        print("foldsX[",i,"] shape: ",foldsX[i].shape)
+        print("foldsY[",i,"] shape: ",foldsY[i].shape)
 
-        saveScores(f1, precision, recall,accuracy, execTime,timestamp,datasetName, i, path)
+        [f1Train,precisionTrain, recallTrain, f1Test,precisionTest, recallTest, execTime] = trainModel(X_train, foldsX[i], y_train, foldsY[i],C, gamma,datasetName, timestamp, i, outputPath)
+        f1TrainArray[i] = f1Train
+        precisionTrainArray[i] = precisionTrain
+        recallTrainArray[i] = recallTrain
+        f1TestArray[i] = f1Test
+        precisionTestArray[i] = precisionTest
+        recallTestArray[i] = recallTest
+
+        saveScores(f1Train, precisionTrain, recallTrain,f1Test, precisionTest, recallTest, execTime,timestamp,datasetName, i, path)
+
+    pathMean = outputPath+"/experimentMean_"+datasetName+"_"+timestamp+".csv"
+    saveScores(np.mean(f1TrainArray),np.mean(precisionTrainArray),np.mean(recallTrainArray),np.mean(f1TestArray),np.mean(precisionTestArray),np.mean(recallTrainArray),execTime,timestamp,datasetName, -1, pathMean)
 
 
-def trainModel(X_train, X_test, y_train, y_test,Cparam, gammaParam,datasetName, timestamp,i):
 
-    print("Dataset:"+datasetName+"\nTraining model with C: ",Cparam," and gamma: ",gammaParam)
+def trainModel(X_train, X_test, y_train, y_test,Cparam, gammaParam,datasetName, timestamp,i, outputPath):
+
+    print("Dataset:"+datasetName+"\nTraining model with kernel Linear - C: ",Cparam)
     startTimeTot = time.time()
 
-    clf = svm.SVC(cache_size=4000, kernel='rbf', C=Cparam, gamma=gammaParam, random_state=42, class_weight="balanced")
+    clf = svm.SVC(cache_size=4000, kernel='linear', C=Cparam, random_state=42, class_weight="balanced")
     clf.fit(X_train, y_train)
-    #print("Complete!")
-    #print("\nTesting model...")
     y_pred = clf.predict(X_test)
+    y_predTrain = clf.predict(X_train)
 
     execTime = str(datetime.timedelta(seconds=(time.time()-startTimeTot)))
 
-    [accuracy, f1,precision, recall] = getScores(y_test,y_pred)
-    print(">f1: ",f1,"\n>Precision: ",precision,"\n>Recall: ",recall,"\n>Accuracy:", accuracy,"\nExecution time: ",execTime)
+    [f1Train,precisionTrain, recallTrain] = getScores(y_train,y_predTrain)
+    [f1Test,precisionTest, recallTest] = getScores(y_test,y_pred)
+    print(">f1Train: ",f1Train," - precisionTrain: ",precisionTrain," - recallTrain: ",recallTrain)
+    print(">f1Test: ",f1Test," - precisionTest: ",precisionTest," - recallTest: ",recallTest," - Execution time: ",execTime)
 
-    path = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/models/output/model_"+datasetName+"_"+timestamp+"_["+str(i)+"].joblib"
+    path = outputPath+"/model_"+datasetName+"_"+timestamp+"_["+str(i)+"].joblib"
     dump(clf, path)
     print("########################################################################")
-    #print("########################################################################")
 
-    return [f1,precision,recall,accuracy, execTime]
+    return [f1Train,precisionTrain, recallTrain, f1Test,precisionTest, recallTest, execTime]
 
-def saveScores(f1, precision, recall,accuracy, execTime,timestamp, datasetName, i, path):
-    fieldnames = ['f1','precision', 'recall', 'accuracy', 'executionTime', 'appTest']
+def saveScores(f1Train, precisionTrain, recallTrain,f1Test, precisionTest, recallTest, execTime,timestamp, datasetName, i, path):
+    fieldnames = ['f1Train','precisionTrain', 'recallTrain', 'f1Test','precisionTest','recallTest', 'executionTime', 'appTest']
 
     with open(path, 'a', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=fieldnames)
 
-        writer.writerow({'f1': f1,'precision' : precision, 'recall':recall, 'accuracy':accuracy,'executionTime':execTime,'appTest':i})
+        writer.writerow({'f1Train': f1Train,'precisionTrain' : precisionTrain, 'recallTrain':recallTrain, 'f1Test':f1Test,'precisionTest':precisionTest,'recallTest':recallTest,'executionTime':execTime,'appTest':i})
 
         file.close()
 
-def createCSVToSaveScores():
-    path= "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/models/outputModelScores/experiment_"+datasetName+"_"+timestamp+".csv"
-    fieldnames = ['f1','precision', 'recall', 'accuracy', 'executionTime', 'appTest']
+def createCSVToSaveScores(path):
+    fieldnames = ['f1Train','precisionTrain', 'recallTrain', 'f1Test','precisionTest','recallTest', 'executionTime', 'appTest']
     with open(path, 'a', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
@@ -181,12 +197,11 @@ def createCSVToSaveScores():
 
 def getScores(y_test, y_pred):
 
-    accuracy = metrics.accuracy_score(y_test, y_pred)
     f1 = metrics.f1_score(y_test,y_pred)
     precision = metrics.precision_score(y_test,y_pred)
     recall = metrics.recall_score(y_test,y_pred)
 
-    return [accuracy, f1,precision, recall]
+    return [f1,precision, recall]
 
 def getConfigParams(path):
 
@@ -196,11 +211,12 @@ def getConfigParams(path):
     method = config['config']['method']
     datasetPath = config['config']['datasetPath']
     outputPath=config['config']['outputPath']
-    C=config['config']['C']
-    gamma=config['config']['gamma']
-    doResample=config['config']['resampling']
+    C=float(config['config']['C'])
+    gamma=float(config['config']['gamma'])
+    doResample=int(config['config']['resampling'])
+    datasetName=config['config']['datasetName']
 
-    return [method, datasetPath, outputPath, C, gamma, doResample]
+    return [method, datasetPath, datasetName, outputPath, C, gamma, doResample]
 def printValidationInfos(Xshape,Yshape,dataset, score, param, fixedParam):
     date = datetime.datetime.now()
     timestamp = date.strftime('%Y-%m-%d %H:%M:%S.%f')
@@ -217,26 +233,19 @@ def printValidationInfos(Xshape,Yshape,dataset, score, param, fixedParam):
 
     return timestamp
 
-def concatenateFolds(foldsXResampled,foldsYResampled, indexNotToConcat):
-    print(">Concatenating folds to create dataset...")
+def concatenateFolds(foldsX, foldsY, indexNotToConcat):
     start = 0
     if indexNotToConcat == 0:
         start = 1
 
-    datasetX = foldsXResampled[start]
-    datasetY = foldsYResampled[start]
+    datasetX = foldsX[start]
+    datasetY = foldsY[start]
 
-    for i in range(start+1,len(foldsXResampled)):
+    for i in range(start+1, len(foldsX)):
         if indexNotToConcat == i:
             continue
-        datasetX = np.concatenate((datasetX,foldsXResampled[i]))
-        datasetY = np.concatenate((datasetY, foldsYResampled[i]))
-
-    #print("Done!\nDataset shapes: ")
-    #print(datasetX.shape)
-    #print(datasetY.shape)
-    #print(datasetX)
-    #print(datasetY)
+        datasetX = np.concatenate((datasetX, foldsX[i]))
+        datasetY = np.concatenate((datasetY, foldsY[i]))
 
     return [datasetX,datasetY]
 
@@ -252,7 +261,7 @@ def resampleXY(X,Y):
 
     return [foldsXResampled,foldsYResampled]
 
-def getFolds(csv, dataset):
+def getFolds(csv, datasetName, datasetPath):
 
     foldsX = []
     foldsY = []
@@ -267,16 +276,33 @@ def getFolds(csv, dataset):
         end = appsIndexes[i]
 
         #/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources
-        csv = pd.read_csv('/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/'+dataset, sep=",", skiprows=realStart, nrows=end)
+        csv = pd.read_csv(datasetPath+"/"+datasetName, sep=",", skiprows=realStart, nrows=end)
         foldsX.append(csv[csv.columns[0:csv.shape[1]-1]].to_numpy())
         foldsY.append(csv[csv.columns[csv.shape[1]-1]].to_numpy())
         
         start = start + appsIndexes[i]
-        realStart = start + 1
+        realStart = start
 
     return [foldsX,foldsY]
 
+def createCSVForEachFold(foldsX, foldsY,outputPath):
+
+    print("Start...")
+    for i in range(0,len(foldsX)):
+        for k in range(0,foldsX[i].shape[0]):
+
+            Attribute_sim = str(foldsX[i][k][0])
+            humanClassification = str(foldsY[i][k])
+            with open(outputPath+"/file_"+str(i)+".csv", 'a', newline='') as file:
+                fieldnames = ['Attribute_sim','human_classification']
+
+                writer = csv.DictWriter(file, fieldnames=fieldnames)
+
+                writer.writerow({'Attribute_sim': round(float(Attribute_sim),13),'human_classification' : humanClassification})
 
 
+
+    print("Done!")
 
 main()
+

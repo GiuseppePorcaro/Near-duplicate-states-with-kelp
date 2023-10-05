@@ -1,7 +1,8 @@
 [config]
 method=experiment
 datasetPath=/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data
-outputPath=/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/plots/Plots_ApplicationSplit/output
-C=10
+datasetName=dataset_AttributeSim.csv
+outputPath=/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/output
+C=100
 gamma=10
 resampling=-1
