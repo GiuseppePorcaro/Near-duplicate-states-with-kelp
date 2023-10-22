@@ -77,9 +77,6 @@ public class ComputeKernelsRunnable implements Runnable{
                     Connection connUpdate = DriverManager.getConnection("jdbc:sqlite:"+folderPath+"/"+ datasetDB);
                     connUpdate.setAutoCommit(true);
 
-                    //QUI FARE L'AGGIORNAMENTO DEL DB USANDO I TRE KERNEL
-                    //BISOGNA AGGIUNGERE PRIMA LE TABELLE AL DB E POI FARE LE OPERAZIONI DI AGGIORNAMENTO USANDO IL CODICE SUBITO SOTTO, MA MODIFICANDO LE
-                    //TABELLE E I KERNEL. MAGARI FARE UN EXTRACT METHOD PER FARE UN PO' DI REFACTORING E CAPIRCI MEGLIO
                     String queryUpdatePartialTreeKernel = "UPDATE nearduplicates SET PARTIAL_TREE_KERNEL=? where appname=? and crawl=? and state1=? and state2=?;";
                     String queryUpdateSubTreeKernel = "UPDATE nearduplicates SET SUB_TREE_KERNEL=? where appname=? and crawl=? and state1=? and state2=?;";
                     String queryUpdateSubSetTreeKernel = "UPDATE nearduplicates SET SUB_SET_TREE_KERNEL=? where appname=? and crawl=? and state1=? and state2=?;";
@@ -92,7 +89,7 @@ public class ComputeKernelsRunnable implements Runnable{
 
                     counter++;
                     String format = "%-40s%s%n";
-                    System.out.printf(format,appName+" "+crawl+" "+state1+" "+state2+" - "+partialTreeKernelResult+" "+ subTreeKernelResult+" "+subSetTreeKernelResult+"| Thread: "+numThread+ " - Pair N°:  "+counter);
+                    System.out.printf(format,appName+" "+crawl+" "+state1+" "+state2+" - "+partialTreeKernelResult+" "+ subTreeKernelResult+" "+subSetTreeKernelResult,"| Thread: "+numThread+ " - Pair N°:  "+counter);
                 }
             }
 
