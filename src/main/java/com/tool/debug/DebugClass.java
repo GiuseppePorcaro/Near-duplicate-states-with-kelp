@@ -1,6 +1,9 @@
 package com.tool.debug;
 
-import com.tool.NormalizationKernel;
+import com.tool.NormalizationKernels.NormalizationKernel;
+import com.tool.NormalizationKernels.NormalizationPartialTreeKernel;
+import com.tool.NormalizationKernels.NormalizationSubSetTreeKernel;
+import com.tool.NormalizationKernels.NormalizationSubTreeKernel;
 import com.tool.SimilarityTool;
 import com.tool.Trees.Tree;
 import com.tool.Trees.TreeFactory;
@@ -14,6 +17,8 @@ import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureEl
 import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
 import it.uniroma2.sag.kelp.kernel.tree.PartialTreeKernel;
 import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
+import it.uniroma2.sag.kelp.kernel.tree.SubSetTreeKernel;
+import it.uniroma2.sag.kelp.kernel.tree.SubTreeKernel;
 
 import static com.tool.representations.ManageTreeRepresentation.*;
 
@@ -50,11 +55,35 @@ public class DebugClass {
         kernelChildBasedNormalized = new NormalizationKernel(new SmoothedPartialTreeKernel(0.4f,0.1f,1,0.01f,childrenBasedJaccardSimilarity,typeTree));
     }
 
-    //Liste di oggetti omogenei ai quali è stato dato un valore di similarità basso:
-    /*
-    * "addressbook/crawl-addressbook-60min/doms/state176.html"
-    * "addressbook/crawl-addressbook-60min/doms/state400.html"
-    * */
+    public void debugKernels() throws Exception {
+        SubTreeKernel subTreeKernel = new SubTreeKernel();
+        SubSetTreeKernel subSetTreeKernel = new SubSetTreeKernel();
+        PartialTreeKernel partialTreeKernel1 = new PartialTreeKernel();
+
+        String dom1 = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testDOMA.html";
+        String dom2 = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testChildrenA.html";
+
+        TreeRepresentation firstTree = popolateTree(TreeFactory.createTree(dom1,typeTree));
+        TreeRepresentation secondTree = popolateTree(TreeFactory.createTree(dom2,typeTree));
+
+        NormalizationSubTreeKernel subTreeKernelNormalizationKernel = new NormalizationSubTreeKernel(subTreeKernel);
+        NormalizationSubSetTreeKernel subSetTreeKernelNormalizationKernel = new NormalizationSubSetTreeKernel(subSetTreeKernel);
+        NormalizationPartialTreeKernel partialTreeKernel1NormalizationKernel = new NormalizationPartialTreeKernel(partialTreeKernel1);
+
+        float subTreeKernelResult = subTreeKernelNormalizationKernel.kernelComputation(firstTree,secondTree);
+        float subSetTreeKernelResult = subSetTreeKernelNormalizationKernel.kernelComputation(firstTree,secondTree);
+        float partialTreeKernelResult = partialTreeKernel1NormalizationKernel.kernelComputation(firstTree,secondTree);
+
+        System.out.println("SubTreeKernel: "+subTreeKernelResult+"\nSubSetTreeKernel: "+subSetTreeKernelResult+"\nPartialTreeKernel: "+partialTreeKernelResult);
+
+
+    }
+
+
+
+
+
+
     public void start() throws Exception {
 
         ManageTreeRepresentation manager = new ManageTreeRepresentation();

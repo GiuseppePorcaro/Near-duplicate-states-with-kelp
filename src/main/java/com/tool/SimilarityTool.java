@@ -1,18 +1,14 @@
 package com.tool;
 
+import com.tool.NormalizationKernels.NormalizationKernel;
 import com.tool.Trees.TreeFactory;
-import it.uniroma2.sag.kelp.data.representation.structure.StructureElement;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureElementSimilarityI;
 import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
-import it.uniroma2.sag.kelp.data.representation.tree.node.TreeNode;
 import it.uniroma2.sag.kelp.kernel.DirectKernel;
-import it.uniroma2.sag.kelp.kernel.cache.DynamicIndexSquaredNormCache;
 import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
 import it.uniroma2.sag.kelp.kernel.tree.deltamatrix.DynamicDeltaMatrix;
 
-import static com.tool.Utils.getDisplayStyle;
 import static com.tool.representations.ManageTreeRepresentation.popolateTree;
-import static com.tool.representations.ManageTreeRepresentation.printTreeDepthFirst;
 
 
 public class SimilarityTool {

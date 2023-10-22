@@ -1,8 +1,0 @@
-[config]
-method=experiment
-datasetPath=/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data
-datasetName=dataset_TreeEditDistance.csv
-outputPath=/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/output/Experiment/treeEditDistance
-C=100
-gamma=10
-resampling=1

@@ -54,6 +54,8 @@ public class DatasetManager {
                 return new ComputeStatisticsRunnable(i,slice,start,folderPath,datasetDB);
             case "similarities":
                 return new ComputeSimilaritiesRunnable(slice,start,folderPath,datasetDB,i);
+            case "kernels":
+                return new ComputeKernelsRunnable(slice, start, folderPath, datasetDB,i);
             default:
                 return null;
         }

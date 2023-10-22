@@ -9,13 +9,13 @@ public class MainClass {
     public static void main(String args[]) throws Exception {
 
         /*Itera sui record del database -> calcola il kernel per ogni coppia -> per ora stampa solo il risultato del kernel*/
-        /*String folderPath = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels";
-        String datasetDB = "gs_full_dom_mu01_preCheck.db";
+        String folderPath = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels";
+        String datasetDB = "gs_full_dom_mu01.db";
         DatasetManager datasetManager = new DatasetManager(folderPath,datasetDB,97490,"similarities");
-        datasetManager.computeDatasetFunction();*/
+        datasetManager.computeDatasetFunction();
 
-        DebugClass debugClass = new DebugClass();
-        debugClass.start();
+        //DebugClass debugClass = new DebugClass();
+        //debugClass.debugKernels();
         //debugClass.debugTrees();
     }
 }
