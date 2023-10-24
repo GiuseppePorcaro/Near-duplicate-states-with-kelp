@@ -42,8 +42,7 @@ public class StaticDeltaMatrix implements DeltaMatrix {
 			} catch (ArrayIndexOutOfBoundsException e) {
 				int maxElementSize = this.matrix.length;
 				int newSize = Math.max(i, j) + 1;
-				logger.warn("Increasing delta matrix size from " + maxElementSize + " to "
-						+ newSize);
+				//logger.warn("Increasing delta matrix size from " + maxElementSize + " to "+ newSize);
 				matrix = resizeArray(matrix, newSize);
 			}
 		} while (true);

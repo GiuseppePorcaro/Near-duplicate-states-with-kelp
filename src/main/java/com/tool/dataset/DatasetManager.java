@@ -38,7 +38,7 @@ public class DatasetManager {
         for(int i = 0; i < numCores; i++){
             start = i*slice;
             Thread t = new Thread(runnableFactory(action,slice, start,i));
-
+            //System.out.println(start+" "+slice);
             t.start();
             threads.add(t);
         }

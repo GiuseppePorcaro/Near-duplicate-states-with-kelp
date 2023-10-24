@@ -19,6 +19,7 @@ public class ComputeKernelsRunnable implements Runnable{
 
     private static Integer counter = 0;
     private final Object lock = new Object();
+    private final Object lockUpdate = new Object();
     private Integer numThread;
     private Integer slice;
     private Integer start;
@@ -29,8 +30,9 @@ public class ComputeKernelsRunnable implements Runnable{
     public void run() {
 
         long startTime = System.currentTimeMillis();
+        System.out.println("Thread: "+numThread+"start: "+start+" - slice: "+slice);
         try {
-            DriverManager.setLoginTimeout(10);
+            DriverManager.setLoginTimeout(300);
             Connection conn = DriverManager.getConnection("jdbc:sqlite:"+folderPath+"/"+ datasetDB);
             Statement stat = conn.createStatement();
 
@@ -66,14 +68,14 @@ public class ComputeKernelsRunnable implements Runnable{
                 float subSetTreeKernelResult = normalizationSubSetTreeKernel.kernelComputation(firstTree,secondTree);
                 float partialTreeKernelResult = normalizationPartialTreeKernel.kernelComputation(firstTree,secondTree);
 
-
-                if(counter % 10 == 0){
-                    long elapsedTime = (System.currentTimeMillis() - startTime)/1000;
-                    System.out.println("Thread: "+numThread+" | seconds: "+elapsedTime);
-                }
-
                 synchronized (lock){
-                    DriverManager.setLoginTimeout(10);
+
+                    if(counter % 100 == 0){
+                        long elapsedTime = (System.currentTimeMillis() - startTime)/1000;
+                        System.out.println("Thread: "+numThread+" | seconds: "+elapsedTime+ " | Pair N°:  "+counter);
+                    }
+
+                    DriverManager.setLoginTimeout(300);
                     Connection connUpdate = DriverManager.getConnection("jdbc:sqlite:"+folderPath+"/"+ datasetDB);
                     connUpdate.setAutoCommit(true);
 
@@ -81,15 +83,15 @@ public class ComputeKernelsRunnable implements Runnable{
                     String queryUpdateSubTreeKernel = "UPDATE nearduplicates SET SUB_TREE_KERNEL=? where appname=? and crawl=? and state1=? and state2=?;";
                     String queryUpdateSubSetTreeKernel = "UPDATE nearduplicates SET SUB_SET_TREE_KERNEL=? where appname=? and crawl=? and state1=? and state2=?;";
 
-                    updateKernelColumn(connUpdate, queryUpdatePartialTreeKernel, appName, crawl, state1, state2,partialTreeKernelResult);
-                    updateKernelColumn(connUpdate, queryUpdateSubTreeKernel, appName, crawl, state1, state2,subTreeKernelResult);
+                    //updateKernelColumn(connUpdate, queryUpdatePartialTreeKernel, appName, crawl, state1, state2,partialTreeKernelResult);
+                    //updateKernelColumn(connUpdate, queryUpdateSubTreeKernel, appName, crawl, state1, state2,subTreeKernelResult);
                     updateKernelColumn(connUpdate, queryUpdateSubSetTreeKernel, appName, crawl, state1, state2,subSetTreeKernelResult);
 
                     connUpdate.close();
 
                     counter++;
                     String format = "%-40s%s%n";
-                    System.out.printf(format,appName+" "+crawl+" "+state1+" "+state2+" - "+partialTreeKernelResult+" "+ subTreeKernelResult+" "+subSetTreeKernelResult,"| Thread: "+numThread+ " - Pair N°:  "+counter);
+                    //System.out.printf(format,appName+" "+crawl+" "+state1+" "+state2+" - "+partialTreeKernelResult+" "+ subTreeKernelResult+" "+subSetTreeKernelResult,"| Thread: "+numThread+ " - Pair N°:  "+counter);
                 }
             }
 
