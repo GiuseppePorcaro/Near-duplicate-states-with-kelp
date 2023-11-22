@@ -7,10 +7,15 @@ import com.tool.NormalizationKernels.NormalizationSubTreeKernel;
 import com.tool.SimilarityTool;
 import com.tool.Trees.Tree;
 import com.tool.Trees.TreeFactory;
+import com.tool.data.dom.io.WebpageReader;
+import com.tool.experiments.data.AnnotatedDataset;
+import com.tool.data.dom.DomRepresentation;
 import com.tool.representations.ManageTreeRepresentation;
 import com.tool.similarity.AllAttributesDiceSorensenSimilarity;
 import com.tool.similarity.AllAttributesJaccardSimilarity;
 import com.tool.similarity.ChildrenBasedJaccardSimilarity;
+import it.uniroma2.sag.kelp.data.example.Example;
+import it.uniroma2.sag.kelp.data.example.SimpleExample;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.ExactMatchingStructureElementSimilarity;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.LexicalStructureElementSimilarity;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureElementSimilarityI;
@@ -20,6 +25,9 @@ import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
 import it.uniroma2.sag.kelp.kernel.tree.SubSetTreeKernel;
 import it.uniroma2.sag.kelp.kernel.tree.SubTreeKernel;
 
+import java.io.File;
+import java.io.IOException;
+
 import static com.tool.representations.ManageTreeRepresentation.*;
 
 public class DebugClass {
@@ -27,15 +35,46 @@ public class DebugClass {
     SmoothedPartialTreeKernel kernelAttributeNotNormalized;
     SmoothedPartialTreeKernel kernelExactMatching;
     NormalizationKernel kernelAttributeNormalized;
-
     SmoothedPartialTreeKernel kernelStandardNotNormalized;
     NormalizationKernel kernelStandardNormalized;
     NormalizationKernel kernelExactMAtchingNormalized;
     private String typeTree = "all";
     private SimilarityTool similarityTool;
-
     PartialTreeKernel partialTreeKernel = new PartialTreeKernel(0.4f,0.4f,1,typeTree);
     NormalizationKernel kernelChildBasedNormalized;
+
+
+    public void debugStarRepresentation() throws IOException {
+        System.out.println("Debug representation...\n");
+
+        Example first  = new SimpleExample(),
+                second = new SimpleExample();
+
+        String pathToGsCrawls  = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/";
+        String pathToDsDataset = "data-input/DS.db";
+
+        AnnotatedDataset dataset = new AnnotatedDataset(pathToDsDataset,pathToGsCrawls);
+        WebpageReader wpReader = new WebpageReader(WebpageReader.REPRESENT_DOM_ONLY_BODY_NO_SCRIPTS);
+
+        File file1 = dataset.getHtmlFile("dimeshift", "crawl-dimeshift-60min", "state10");
+        File file2 = dataset.getHtmlFile("dimeshift", "crawl-dimeshift-60min", "state54");
+
+        DomRepresentation page1 = wpReader.getDOMRepresentationFromFile(file1);
+        DomRepresentation page2 = wpReader.getDOMRepresentationFromFile(file2);
+        first.addRepresentation("DOM-TREE", page1);
+        second.addRepresentation("DOM-TREE", page2);
+
+
+        SmoothedPartialTreeKernel smptk = new SmoothedPartialTreeKernel(0.4f,0.1f,1f,0.01f,new AllAttributesJaccardSimilarity(),"DOM-TREE");
+        it.uniroma2.sag.kelp.kernel.standard.NormalizationKernel nsmptk = new it.uniroma2.sag.kelp.kernel.standard.NormalizationKernel(smptk);
+        float norm = nsmptk.innerProduct(first,second);
+        System.out.println("SMOOTHED PARTIAL TREE KERNEL (mu=0.1,lambda=0.1): "+norm);
+
+        System.out.println(first.getRepresentation("DOM-TREE").getTextFromData());
+        System.out.println(second.getRepresentation("DOM-TREE").getTextFromData());
+
+    }
+
     public DebugClass(){
         StructureElementSimilarityI jaccardSimilarity = new AllAttributesJaccardSimilarity();
         StructureElementSimilarityI diceSorensen = new AllAttributesDiceSorensenSimilarity();

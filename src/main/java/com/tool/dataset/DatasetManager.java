@@ -29,7 +29,7 @@ public class DatasetManager {
 
     public void computeDatasetFunction() throws InterruptedException {
 
-        int numCores = Runtime.getRuntime().availableProcessors();
+        int numCores = /*Runtime.getRuntime().availableProcessors()*/1;
         int slice = round(numRows/numCores) + 1;
         int start = 0;
 
@@ -56,6 +56,10 @@ public class DatasetManager {
                 return new ComputeSimilaritiesRunnable(slice,start,folderPath,datasetDB,i);
             case "kernels":
                 return new ComputeKernelsRunnable(slice, start, folderPath, datasetDB,i);
+            case "kernelsStar":
+                return new ComputeKernelsStarRunnable(slice, start, folderPath, datasetDB,i);
+            case "similaritiesStarDomRepr":
+                return new ComputeAttrSimilarityStarDomReprRunnable(slice, start, folderPath, datasetDB,i);
             default:
                 return null;
         }
