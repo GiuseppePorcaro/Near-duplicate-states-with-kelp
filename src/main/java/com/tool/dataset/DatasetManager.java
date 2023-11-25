@@ -60,6 +60,8 @@ public class DatasetManager {
                 return new ComputeKernelsStarRunnable(slice, start, folderPath, datasetDB,i);
             case "similaritiesStarDomRepr":
                 return new ComputeAttrSimilarityStarDomReprRunnable(slice, start, folderPath, datasetDB,i);
+            case "debugKernels":
+                return new DebugStarKernelRunnable(slice, start, folderPath, datasetDB,i);
             default:
                 return null;
         }
