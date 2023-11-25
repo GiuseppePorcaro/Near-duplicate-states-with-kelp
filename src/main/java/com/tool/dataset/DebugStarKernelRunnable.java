@@ -26,7 +26,7 @@ public class DebugStarKernelRunnable implements Runnable{
     private String folderPath;
     private String datasetDB;
     AnnotatedDataset dataset;
-    WebpageReader wpReader;
+
 
     @Override
     public void run() {
@@ -61,17 +61,17 @@ public class DebugStarKernelRunnable implements Runnable{
                 File file1 = dataset.getHtmlFile(appName, crawl, state1);
                 File file2 = dataset.getHtmlFile(appName, crawl, state2);
 
+                WebpageReader wpReader = new WebpageReader(WebpageReader.REPRESENT_DOM_AS_IS);
                 DomRepresentation page1 = wpReader.getDOMRepresentationFromFile(file1);
                 DomRepresentation page2 = wpReader.getDOMRepresentationFromFile(file2);
                 first.addRepresentation("DOM-TREE", page1);
                 second.addRepresentation("DOM-TREE", page2);
 
                 float subTreeKernelResult = computeSubTreeKernelNorm(first, second);
-                float subSetTreeKernelResult = computeSubSetTreeKernelNorm(first, second);
-                float partialTreeKernelResult = computePartialTreeKernelNorm(first, second);
+                //float subSetTreeKernelResult = computeSubSetTreeKernelNorm(first, second);
+                //float partialTreeKernelResult = computePartialTreeKernelNorm(first, second);
 
-                String format = "%-40s%s%n";
-                System.out.printf(format,appName+" "+crawl+" "+state1+" "+state2+" - "+partialTreeKernelResult+" "+ subTreeKernelResult+" "+subSetTreeKernelResult,"| Thread: "+numThread+ " - Pair N°:  "+counter);
+                System.out.printf(appName+" "+crawl+" "+state1+" "+state2+" - "+subTreeKernelResult+"\n");
 
             }
 
@@ -96,7 +96,7 @@ public class DebugStarKernelRunnable implements Runnable{
 
     private float computePartialTreeKernelNorm(Example first,Example second){
         PartialTreeKernel ptk2 = new PartialTreeKernel("DOM-TREE");
-        ptk2.setMu(0.01F);
+        ptk2.setMu(0.1F);
         NormalizationKernel nptk2 = new NormalizationKernel(ptk2);
         return nptk2.innerProduct(first,second);
     }
@@ -121,8 +121,7 @@ public class DebugStarKernelRunnable implements Runnable{
         this.folderPath = folderPath;
         this.datasetDB = datasetDB;
         this.numThread = numThread;
-        dataset = new AnnotatedDataset(null,folderPath);
-        wpReader = new WebpageReader(WebpageReader.REPRESENT_DOM_ONLY_BODY_NO_SCRIPTS);
+        dataset = new AnnotatedDataset("data-input/DS.db",folderPath);
         try {
             Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException e) {
