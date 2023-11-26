@@ -67,11 +67,11 @@ public class DebugStarKernelRunnable implements Runnable{
                 first.addRepresentation("DOM-TREE", page1);
                 second.addRepresentation("DOM-TREE", page2);
 
-                float subTreeKernelResult = computeSubTreeKernelNorm(first, second);
-                //float subSetTreeKernelResult = computeSubSetTreeKernelNorm(first, second);
+                //float subTreeKernelResult = computeSubTreeKernelNorm(first, second);
+                float subSetTreeKernelResult = computeSubSetTreeKernelNorm(first, second);
                 //float partialTreeKernelResult = computePartialTreeKernelNorm(first, second);
 
-                System.out.printf(appName+" "+crawl+" "+state1+" "+state2+" - "+subTreeKernelResult+"\n");
+                System.out.printf(subSetTreeKernelResult+"\n");
 
             }
 

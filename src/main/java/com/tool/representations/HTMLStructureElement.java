@@ -14,13 +14,10 @@ public class HTMLStructureElement extends StructureElement {
 
         String data = ""+tag;
 
-
         for(String key: attributes.keySet()){
             String value = attributes.get(key);
-
             data = data+"~"+key+"="+value; //Vedere se questo carattere separatore va bene
         }
-
         return data;
     }
 

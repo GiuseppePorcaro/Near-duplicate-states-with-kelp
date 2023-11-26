@@ -8,17 +8,6 @@ import java.util.Set;
 
 import static com.tool.Utils.*;
 
-/*
-*
-* Calculate the similarity between two nodes built ad hoc to represent an HTML DOM node, using the Jaccard similarity index.
-* If the nodes have different tags, they are different (similarity 0).
-* If they have the same id, then the nodes are identical (similarity 1).
-* If they have the same tag but no attributes, then similarity is 1.
-* If they have the same tag but one of the two has no attributes, similarity is 0.
-* If they have the same tag and they have attributes, Jaccard similarity is calculated on the sets formed by the attributes of the nodes.
-*
-* */
-
 public class AllAttributesJaccardSimilarity implements StructureElementSimilarityI {
 
     @Override
@@ -29,7 +18,6 @@ public class AllAttributesJaccardSimilarity implements StructureElementSimilarit
 
         //System.out.println("Tags: "+tagSx+" - "+tagSd);
 
-        /*tag diversi -> nodi diversi*/
         if(!tagSx.equalsIgnoreCase(tagSd.toLowerCase())){
             //System.out.println("Sim: 0\n");
             return 0f;
@@ -48,18 +36,6 @@ public class AllAttributesJaccardSimilarity implements StructureElementSimilarit
         /*Stesso id -> stesso nodo*/
         if( idSx != null && idSd != null ){
             if(idSx.equals(idSd)){
-                //System.out.println("Sim: 1\n");
-                if(attrStyleSd != null && attrStyleSx != null){
-                    /*if((attrStyleSd.contains("block;") && attrStyleSx.contains("none;"))||attrStyleSd.contains("none;") && attrStyleSx.contains("block;")){
-                        System.out.println(attrStyleSd+" --- "+attrStyleSx +" | "+attrStyleSd.contains("block;")+" --- "+attrStyleSx.contains("none;"));
-                        return 0.0f;
-                    }*/
-
-                    /*
-                    * Possibilmente inserire il caso in cui i nodi sono due form, ma con due action diverse -> sim = 0.0f
-                    *
-                    * */
-                }
                 return 1f;
             }
         }
