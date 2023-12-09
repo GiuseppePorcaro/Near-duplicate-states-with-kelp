@@ -12,7 +12,7 @@ import com.tool.experiments.data.AnnotatedDataset;
 import com.tool.data.dom.DomRepresentation;
 import com.tool.representations.ManageTreeRepresentation;
 import com.tool.similarity.AllAttributesDiceSorensenSimilarity;
-import com.tool.similarity.AllAttributesJaccardSimilarity;
+import com.tool.similarity.AttributeSimilarity;
 import com.tool.similarity.ChildrenBasedJaccardSimilarity;
 import it.uniroma2.sag.kelp.data.example.Example;
 import it.uniroma2.sag.kelp.data.example.SimpleExample;
@@ -44,6 +44,12 @@ public class DebugClass {
     NormalizationKernel kernelChildBasedNormalized;
 
 
+    public void debugAttributeSimilarityVariants(){
+        SmoothedPartialTreeKernel attributeSimilarityKernel = new SmoothedPartialTreeKernel(0.4f,0.4f,1f,0.01f,new AttributeSimilarity(),typeTree);
+
+    }
+
+
     public void debugStarRepresentation() throws IOException {
         System.out.println("Debug representation...\n");
 
@@ -64,7 +70,7 @@ public class DebugClass {
         first.addRepresentation("DOM-TREE", page1);
         second.addRepresentation("DOM-TREE", page2);
 
-        SmoothedPartialTreeKernel smptk = new SmoothedPartialTreeKernel(0.4f,0.1f,1f,0.01f,new AllAttributesJaccardSimilarity(),"DOM-TREE");
+        SmoothedPartialTreeKernel smptk = new SmoothedPartialTreeKernel(0.4f,0.1f,1f,0.01f,new AttributeSimilarity(),"DOM-TREE");
         it.uniroma2.sag.kelp.kernel.standard.NormalizationKernel nsmptk = new it.uniroma2.sag.kelp.kernel.standard.NormalizationKernel(smptk);
         float norm = nsmptk.innerProduct(first,second);
         System.out.println("SMOOTHED PARTIAL TREE KERNEL (mu=0.1,lambda=0.1): "+norm);
@@ -75,7 +81,7 @@ public class DebugClass {
     }
 
     public DebugClass(){
-        StructureElementSimilarityI jaccardSimilarity = new AllAttributesJaccardSimilarity();
+        StructureElementSimilarityI jaccardSimilarity = new AttributeSimilarity();
         StructureElementSimilarityI diceSorensen = new AllAttributesDiceSorensenSimilarity();
         StructureElementSimilarityI childrenBasedJaccardSimilarity = new ChildrenBasedJaccardSimilarity();
         StructureElementSimilarityI lexicalStructureElementSimilarity = new LexicalStructureElementSimilarity();

@@ -27,9 +27,6 @@ public class SimilarityTool {
         this.terminalFactor = terminalFactor;
         this.similarityThreshold = similarityThreshold;
         this.representationIdentifier = representationIdentifier;
-
-
-
         this.kernel = new SmoothedPartialTreeKernel(LAMBDA,MU,terminalFactor,similarityThreshold,similarity,representationIdentifier);
         this.kernelNormalized = new NormalizationKernel(kernel);
 

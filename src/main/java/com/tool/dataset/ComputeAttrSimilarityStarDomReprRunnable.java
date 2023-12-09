@@ -3,14 +3,10 @@ package com.tool.dataset;
 import com.tool.data.dom.DomRepresentation;
 import com.tool.data.dom.io.WebpageReader;
 import com.tool.experiments.data.AnnotatedDataset;
-import com.tool.similarity.AllAttributesJaccardSimilarity;
+import com.tool.similarity.AttributeSimilarity;
 import it.uniroma2.sag.kelp.data.example.Example;
 import it.uniroma2.sag.kelp.data.example.SimpleExample;
-import it.uniroma2.sag.kelp.kernel.standard.NormalizationKernel;
-import it.uniroma2.sag.kelp.kernel.tree.PartialTreeKernel;
 import it.uniroma2.sag.kelp.kernel.tree.SmoothedPartialTreeKernel;
-import it.uniroma2.sag.kelp.kernel.tree.SubSetTreeKernel;
-import it.uniroma2.sag.kelp.kernel.tree.SubTreeKernel;
 
 import java.io.File;
 import java.sql.*;
@@ -100,7 +96,7 @@ public class ComputeAttrSimilarityStarDomReprRunnable implements Runnable{
     }
 
     private float computeAttrSim(Example first, Example second){
-        SmoothedPartialTreeKernel smptk = new SmoothedPartialTreeKernel(0.4f,0.1f,1f,0.01f,new AllAttributesJaccardSimilarity(),"DOM-TREE");
+        SmoothedPartialTreeKernel smptk = new SmoothedPartialTreeKernel(0.4f,0.1f,1f,0.01f,new AttributeSimilarity(),"DOM-TREE");
         it.uniroma2.sag.kelp.kernel.standard.NormalizationKernel nsmptk = new it.uniroma2.sag.kelp.kernel.standard.NormalizationKernel(smptk);
         return nsmptk.innerProduct(first,second);
     }

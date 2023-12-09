@@ -8,7 +8,7 @@ import java.util.Set;
 
 import static com.tool.Utils.*;
 
-public class AllAttributesJaccardSimilarity implements StructureElementSimilarityI {
+public class AttributeSimilarity implements StructureElementSimilarityI {
 
     @Override
     public float sim(StructureElement sx, StructureElement sd) {
@@ -29,9 +29,6 @@ public class AllAttributesJaccardSimilarity implements StructureElementSimilarit
         String idSd = getId(attributeSd);
 
         //System.out.println("Ids: "+idSx+" - "+idSd);
-
-        String attrStyleSx = getDisplayStyle(sx.getTextFromData());
-        String attrStyleSd = getDisplayStyle(sd.getTextFromData());
 
         /*Stesso id -> stesso nodo*/
         if( idSx != null && idSd != null ){

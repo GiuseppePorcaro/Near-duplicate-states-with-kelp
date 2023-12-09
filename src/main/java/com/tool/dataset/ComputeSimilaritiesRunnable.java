@@ -1,7 +1,7 @@
 package com.tool.dataset;
 
 import com.tool.SimilarityTool;
-import com.tool.similarity.AllAttributesJaccardSimilarity;
+import com.tool.similarity.AttributeSimilarity;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class ComputeSimilaritiesRunnable implements Runnable{
             conn.close();
 
             for(DatasetRow entity: entities){
-                SimilarityTool similarityTool = new SimilarityTool(new AllAttributesJaccardSimilarity(),0.4f,0.1f,1,0.05f,null);
+                SimilarityTool similarityTool = new SimilarityTool(new AttributeSimilarity(),0.4f,0.1f,1,0.05f,null);
 
                 String appName = entity.getAppname();
                 String crawl = entity.getCrawl();
