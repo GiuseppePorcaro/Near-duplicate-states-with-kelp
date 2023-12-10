@@ -48,8 +48,7 @@ public class WeightedAttributeSimilarity implements StructureElementSimilarityI 
         * 1) Creare due vettori, uno per ciascun StructureElement
         * 2) Ognuno di questi vettori conterrà il peso per ciascun attributo che voglio mettere nel peso
         *   Esempio: se voglio considerare i pesi per classe, nome, href allora avrò  due vettori di dimensione 3 che conterranno i pesi per i tre attributi citati
-        * 3) Creati i vettori applico la formula della weighted Jaccard Similarity
-        * 3.1) Invece di jaccard, potrei provare ad usare la coseno similarity
+        * 3) Uso le formule che ho scritto sul foglio<
         *
         * Potrei scrivere il costruttore in modo tale che prende una mappa di attributi con i loro pesi ed il tipo di similarità (jacccard, coseno, etc.)
         * Creo una factory per la similarità che deve fare il calcolo, presi i due vettori di pesi degli attributi.
@@ -60,7 +59,11 @@ public class WeightedAttributeSimilarity implements StructureElementSimilarityI 
         *
         * Dopodichè vedo come funziona con un debug.
         *
+        * Attributi a cui dare un peso sono: id, class, style, title,
+        *
         * */
+
+
 
 
 
