@@ -14,6 +14,7 @@ import com.tool.representations.ManageTreeRepresentation;
 import com.tool.similarity.AllAttributesDiceSorensenSimilarity;
 import com.tool.similarity.AttributeSimilarity;
 import com.tool.similarity.ChildrenBasedJaccardSimilarity;
+import com.tool.similarity.WeightedAttributeSimilarity;
 import it.uniroma2.sag.kelp.data.example.Example;
 import it.uniroma2.sag.kelp.data.example.SimpleExample;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.ExactMatchingStructureElementSimilarity;
@@ -27,6 +28,8 @@ import it.uniroma2.sag.kelp.kernel.tree.SubTreeKernel;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.tool.representations.ManageTreeRepresentation.*;
 
@@ -44,9 +47,24 @@ public class DebugClass {
     NormalizationKernel kernelChildBasedNormalized;
 
 
-    public void debugAttributeSimilarityVariants(){
-        SmoothedPartialTreeKernel attributeSimilarityKernel = new SmoothedPartialTreeKernel(0.4f,0.4f,1f,0.01f,new AttributeSimilarity(),typeTree);
+    public void debugAttributeSimilarityVariants() throws Exception {
 
+        Map<String, Float> weights = new HashMap<>();
+        weights.put("class",0.5f);
+        weights.put("style",0.2f);
+        weights.put("title",0.1f);
+        weights.put("href",0.1f);
+
+        String dom1 = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testDOMA.html";
+        String dom2 = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testDOMB.html";
+
+        SimilarityTool toolSimAttribute = new SimilarityTool(new AttributeSimilarity(),0.4f,0.1f,1,0.05f,null);
+        SimilarityTool toolWeightedSimAttr= new SimilarityTool(new WeightedAttributeSimilarity(weights,0.1f),0.4f,0.1f,1,0.05f,null);
+
+        //float kernel = toolSimAttribute.computeKernelNormalized(dom1,dom2,"all");
+        float weightedKernel = toolWeightedSimAttr.computeKernelNormalized(dom1,dom2,"all");
+
+        System.out.println("Kernel: "+0+"\nWeighted: "+weightedKernel);
     }
 
 

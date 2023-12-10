@@ -15,7 +15,8 @@ public class MainClass {
         datasetManager.computeDatasetFunction();*/
 
         DebugClass debugClass = new DebugClass();
-        debugClass.debugStarRepresentation();
+        debugClass.debugAttributeSimilarityVariants();
+        //debugClass.debugStarRepresentation();
         //debugClass.debugKernels();
         //debugClass.debugTrees();
     }

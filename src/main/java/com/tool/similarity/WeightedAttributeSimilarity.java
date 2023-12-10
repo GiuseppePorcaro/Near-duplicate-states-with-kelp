@@ -4,95 +4,135 @@ import com.tool.Utils;
 import it.uniroma2.sag.kelp.data.representation.structure.StructureElement;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureElementSimilarityI;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static com.tool.Utils.*;
 
 public class WeightedAttributeSimilarity implements StructureElementSimilarityI {
 
-    private final float ID_WEIGHT;
+    private final Map<String, Float> weightsChoosenAttributes;
+    private final float weightOtherAttrs;
 
-    public WeightedAttributeSimilarity(float idWeight){
-        ID_WEIGHT = idWeight;
+    public WeightedAttributeSimilarity(Map<String, Float> weightsChoosenAttributes, float weightOtherAttrs) throws Exception {
+
+        this.weightsChoosenAttributes = weightsChoosenAttributes;
+        this.weightOtherAttrs = weightOtherAttrs;
+
+        if (!areWeightsLegal(weightsChoosenAttributes.values(),weightOtherAttrs)) {
+            throw new Exception("The sum of weights is not equal to 1!");
+        }
     }
+
     @Override
     public float sim(StructureElement sx, StructureElement sd) {
-
-        String tagSx = Utils.getTag(sx.getTextFromData());
-        String tagSd = Utils.getTag(sd.getTextFromData());
-
-        //System.out.println("Tags: "+tagSx+" - "+tagSd);
-
-        if(!tagSx.equalsIgnoreCase(tagSd.toLowerCase())){
-            //System.out.println("Sim: 0\n");
-            return 0f;
-        }
 
         Set<String> attributesSx = getAttributes(sx.getTextFromData());
         Set<String> attributeSd = getAttributes(sd.getTextFromData());
         String idSx = getId(attributesSx);
         String idSd = getId(attributeSd);
+        String tagSx = Utils.getTag(sx.getTextFromData());
+        String tagSd = Utils.getTag(sd.getTextFromData());
 
-        //System.out.println("Ids: "+idSx+" - "+idSd);
+        System.out.println("Tags: "+tagSx+" - "+tagSd);
+        System.out.println("Attr sx: "+attributesSx+"\nAttr sd: "+attributeSd);
+
+        if(!tagSx.equalsIgnoreCase(tagSd.toLowerCase())){
+            System.out.println("Sim: 0 - Tag diversi\n");
+            return 0f;
+        }
+
+        System.out.println("Ids: "+idSx+" - "+idSd);
 
         /*Same id -> identical nodes*/
         if( idSx != null && idSd != null ){
             if(idSx.equals(idSd)){
+                System.out.println("Sim: 1 - id uguali\n");
                 return 1f;
             }
         }
 
-        /*Per la Weighted Jaccard Similarity dovrei:
-        *
-        * 1) Creare due vettori, uno per ciascun StructureElement
-        * 2) Ognuno di questi vettori conterrà il peso per ciascun attributo che voglio mettere nel peso
-        *   Esempio: se voglio considerare i pesi per classe, nome, href allora avrò  due vettori di dimensione 3 che conterranno i pesi per i tre attributi citati
-        * 3) Uso le formule che ho scritto sul foglio<
-        *
-        * Potrei scrivere il costruttore in modo tale che prende una mappa di attributi con i loro pesi ed il tipo di similarità (jacccard, coseno, etc.)
-        * Creo una factory per la similarità che deve fare il calcolo, presi i due vettori di pesi degli attributi.
-        * Devo costruire i vettori: dalla mappa devo controllare se i due elementi correnti
-        *  contengono gli attributi citati nella mappa stessa, se si allora metto il peso corrispettivo, altrimenti metto 0
-        * Costruiti i vettori li do all'oggetto/interfaccia che fara il calcolo della similarità pesata.
-        *
-        *
-        * Dopodichè vedo come funziona con un debug.
-        *
-        * Attributi a cui dare un peso sono: id, class, style, title,
-        *
-        * */
-
-
-
-
-
-
-        /*
         int sxSize = attributesSx.size();
         int sdSize = attributeSd.size();
 
-        if(sxSize == 0 && sdSize == 0){
-            //System.out.println("Sim: 1\n");
-            return 1f;
-        }
-
         if(sxSize == 0 || sdSize == 0){
-            //System.out.println("Sim: 0\n");
+            System.out.println("Sim: 0 - both no attributes\n");
             return 0f;
         }
 
-        Set<String> union = new HashSet<>(attributesSx);
-        union.addAll(attributeSd);
-        int intersectionCardinality = (sxSize+sdSize) - union.size();
+        Set<String> attributesUnion = new HashSet<>(attributesSx);
+        attributesUnion.addAll(attributeSd);
+        Set<String> attributesNotChosen = new HashSet<>(attributesUnion);
+        attributesNotChosen.retainAll(weightsChoosenAttributes.keySet());
 
-        //System.out.println("Attributes: "+attributesSx+" - "+attributeSd+" Sizes: "+attributesSx.size()+" - "+attributeSd.size()+ " - inters: "+intersectionCardinality+" - union: "+union.size());
+        System.out.println("Union: "+attributesUnion.toString()+"\nNot chosen: "+attributesNotChosen.toString());
+        int dimAllAttrs = attributesUnion.size();
+        int dimWeightsForChosenAttrs = weightsChoosenAttributes.size();
+        int[] attrChosen = new int[dimWeightsForChosenAttrs];
 
-        float sim = 1f * intersectionCardinality/union.size();
-        //float sim = 1f * intersectionCardinality+1/union.size()+1; //Considero anche il tag nell'insieme
+        int dimForNotChosenAttrs = dimAllAttrs-dimWeightsForChosenAttrs;
+        if(dimForNotChosenAttrs < 0){
+            dimForNotChosenAttrs = 0;
+        }
+        int[] attrOthers = new int[dimForNotChosenAttrs];
 
-        //System.out.println("Sim: "+sim+"\n");
-        return sim;*/
-        return 0.0f;
+        //BUG: QUANDO FACCIO SET.CONTAINS(ATTR)) IO STO CERCANDO UN ATTRIBUTO TIPO "CLASS" IN UN INSIEME DI OGGETTI DEL TIPO "CLASS="VALORE"".
+        //QUINDI NON TROVERO' MAI NULLA. DEVO AGGIUSTARE IL BUG PRIMA
+        setAttrArray(attributesSx,attributeSd,weightsChoosenAttributes.keySet(),attrChosen);
+        setAttrArray(attributesSx,attributeSd,attributesNotChosen,attrOthers);
+
+
+
+        System.out.println("AttrChosen: "+printArray(attrChosen)+"\nAttrOthers: "+printArray(attrOthers));
+
+        float sim = computeSim(attrChosen, dimAllAttrs, dimWeightsForChosenAttrs, attrOthers);
+
+        System.out.println("Sim: "+sim+"\n****************************\n\n");
+        return sim;
+    }
+
+    private String printArray(int[] array){
+        List<Integer> list = new ArrayList<>();
+
+        for(int i : array){
+            list.add(i);
+        }
+        return list.toString();
+    }
+
+    private float computeSim(int[] attrChosen, int dimAllAttrs, int dimWeightsForChosenAttrs, int[] attrOthers) {
+        float sim = 0;
+
+        int i =0;
+        for(String attr: weightsChoosenAttributes.keySet()){
+            sim += weightsChoosenAttributes.get(attr) * attrChosen[i];
+            i++;
+        }
+
+        float p = weightOtherAttrs / (dimAllAttrs - dimWeightsForChosenAttrs);
+        for (int a: attrOthers){
+            sim += a * p;
+        }
+        return sim;
+    }
+
+    private void setAttrArray(Set<String> attributesSx ,Set<String> attributeSd,Collection<String> attributes, int[] attrArray){
+        int i = 0;
+        for(String attr: attributes){
+            if(attributesSx.contains(attr)&&attributeSd.contains(attr)){
+                attrArray[i] = 1;
+            }else{
+                attrArray[i] = 0;
+            }i++;
+        }
+    }
+
+    private boolean areWeightsLegal(Collection<Float> weigths, float weightOtherAttrs) {
+
+        float sum = 0;
+        for(float weight: weigths){
+            sum += weight;
+        }
+
+        return sum + weightOtherAttrs == 1;
     }
 }
