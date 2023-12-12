@@ -26,10 +26,11 @@ public class WeightedAttributeSimilarity implements StructureElementSimilarityI 
     @Override
     public float sim(StructureElement sx, StructureElement sd) {
 
-        Set<String> attributesSx = getAttributes(sx.getTextFromData());
-        Set<String> attributeSd = getAttributes(sd.getTextFromData());
-        String idSx = getId(attributesSx);
-        String idSd = getId(attributeSd);
+        Map<String, String> attributesSx = getMapAttribues(sx.getTextFromData());
+        Map<String, String> attributeSd = getMapAttribues(sd.getTextFromData());
+
+        String idSx = attributesSx.get("id");
+        String idSd = attributeSd.get("id");
         String tagSx = Utils.getTag(sx.getTextFromData());
         String tagSd = Utils.getTag(sd.getTextFromData());
 
@@ -48,6 +49,9 @@ public class WeightedAttributeSimilarity implements StructureElementSimilarityI 
             if(idSx.equals(idSd)){
                 System.out.println("Sim: 1 - id uguali\n");
                 return 1f;
+            }else{
+                System.out.println("Sim: 0 - id diversi\n");
+                return 0f;
             }
         }
 
@@ -59,70 +63,81 @@ public class WeightedAttributeSimilarity implements StructureElementSimilarityI 
             return 0f;
         }
 
-        Set<String> attributesUnion = new HashSet<>(attributesSx);
-        attributesUnion.addAll(attributeSd);
-        Set<String> attributesNotChosen = new HashSet<>(attributesUnion);
-        attributesNotChosen.retainAll(weightsChoosenAttributes.keySet());
+        Set<String> attributesChosen = new HashSet<>(weightsChoosenAttributes.keySet());
+        Set<String> attributesNotChosen = getAttributesNotChosen(attributesSx.keySet(),attributeSd.keySet(),attributesChosen);
 
-        System.out.println("Union: "+attributesUnion.toString()+"\nNot chosen: "+attributesNotChosen.toString());
-        int dimAllAttrs = attributesUnion.size();
-        int dimWeightsForChosenAttrs = weightsChoosenAttributes.size();
-        int[] attrChosen = new int[dimWeightsForChosenAttrs];
 
-        int dimForNotChosenAttrs = dimAllAttrs-dimWeightsForChosenAttrs;
-        if(dimForNotChosenAttrs < 0){
-            dimForNotChosenAttrs = 0;
-        }
-        int[] attrOthers = new int[dimForNotChosenAttrs];
+
+        System.out.println("Chosen: "+attributesChosen+"\nNot chosen: "+attributesNotChosen);
+
+        Map<String, Integer> attrChosen = new HashMap<>();
+        Map<String, Integer> attrOthers = new HashMap<>();
 
         //BUG: QUANDO FACCIO SET.CONTAINS(ATTR)) IO STO CERCANDO UN ATTRIBUTO TIPO "CLASS" IN UN INSIEME DI OGGETTI DEL TIPO "CLASS="VALORE"".
         //QUINDI NON TROVERO' MAI NULLA. DEVO AGGIUSTARE IL BUG PRIMA
-        setAttrArray(attributesSx,attributeSd,weightsChoosenAttributes.keySet(),attrChosen);
+        setAttrArray(attributesSx,attributeSd,attributesChosen,attrChosen);
         setAttrArray(attributesSx,attributeSd,attributesNotChosen,attrOthers);
 
 
 
-        System.out.println("AttrChosen: "+printArray(attrChosen)+"\nAttrOthers: "+printArray(attrOthers));
+        System.out.println("AttrChosen: "+attrChosen+"\nAttrOthers: "+attrOthers);
 
-        float sim = computeSim(attrChosen, dimAllAttrs, dimWeightsForChosenAttrs, attrOthers);
+        float sim = computeSim(attrChosen, attrOthers);
 
         System.out.println("Sim: "+sim+"\n****************************\n\n");
         return sim;
     }
 
-    private String printArray(int[] array){
-        List<Integer> list = new ArrayList<>();
 
-        for(int i : array){
-            list.add(i);
+    private Set<String> getAttributesNotChosen(Set<String> attributesSx,Set<String> attributeSd, Set<String> attributes){
+
+        Set<String> attrNotChosen = new HashSet<>();
+
+        for(String attr: attributesSx){
+            if(!attributes.contains(attr)){
+                attrNotChosen.add(attr);
+            }
         }
-        return list.toString();
+
+        for(String attr: attributeSd){
+            if(!attributes.contains(attr)){
+                attrNotChosen.add(attr);
+            }
+        }
+
+        return attrNotChosen;
     }
 
-    private float computeSim(int[] attrChosen, int dimAllAttrs, int dimWeightsForChosenAttrs, int[] attrOthers) {
+    private float computeSim(Map<String, Integer> attrChosen, Map<String,Integer> attrOthers) {
         float sim = 0;
 
-        int i =0;
         for(String attr: weightsChoosenAttributes.keySet()){
-            sim += weightsChoosenAttributes.get(attr) * attrChosen[i];
-            i++;
+            sim += weightsChoosenAttributes.get(attr) * attrChosen.get(attr);
+
         }
 
-        float p = weightOtherAttrs / (dimAllAttrs - dimWeightsForChosenAttrs);
-        for (int a: attrOthers){
-            sim += a * p;
+        float p = weightOtherAttrs / attrOthers.size();
+        for (String attr: attrOthers.keySet()){
+            sim += attrOthers.get(attr) * p;
         }
         return sim;
     }
 
-    private void setAttrArray(Set<String> attributesSx ,Set<String> attributeSd,Collection<String> attributes, int[] attrArray){
-        int i = 0;
+    private void setAttrArray(Map<String, String> attributesSx ,Map<String, String> attributeSd,Set<String> attributes, Map<String, Integer> attrPresence){
+
         for(String attr: attributes){
-            if(attributesSx.contains(attr)&&attributeSd.contains(attr)){
-                attrArray[i] = 1;
+            String valueSx = attributesSx.get(attr);
+            String valueSd = attributeSd.get(attr);
+
+            if(valueSx != null && valueSd != null){
+                if(valueSx.equals(valueSd)){
+                    attrPresence.put(attr,1);
+                }else{
+                    attrPresence.put(attr,0);
+                }
             }else{
-                attrArray[i] = 0;
-            }i++;
+                attrPresence.put(attr,0);
+            }
         }
     }
 

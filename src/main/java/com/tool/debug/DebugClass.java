@@ -11,10 +11,7 @@ import com.tool.data.dom.io.WebpageReader;
 import com.tool.experiments.data.AnnotatedDataset;
 import com.tool.data.dom.DomRepresentation;
 import com.tool.representations.ManageTreeRepresentation;
-import com.tool.similarity.AllAttributesDiceSorensenSimilarity;
-import com.tool.similarity.AttributeSimilarity;
-import com.tool.similarity.ChildrenBasedJaccardSimilarity;
-import com.tool.similarity.WeightedAttributeSimilarity;
+import com.tool.similarity.*;
 import it.uniroma2.sag.kelp.data.example.Example;
 import it.uniroma2.sag.kelp.data.example.SimpleExample;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.ExactMatchingStructureElementSimilarity;
@@ -29,6 +26,7 @@ import it.uniroma2.sag.kelp.kernel.tree.SubTreeKernel;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static com.tool.representations.ManageTreeRepresentation.*;
@@ -55,16 +53,19 @@ public class DebugClass {
         weights.put("title",0.1f);
         weights.put("href",0.1f);
 
-        String dom1 = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testDOMA.html";
-        String dom2 = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testDOMB.html";
+        String dom1 = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/node1.html";
+        String dom2 = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/node2.html";
 
         SimilarityTool toolSimAttribute = new SimilarityTool(new AttributeSimilarity(),0.4f,0.1f,1,0.05f,null);
-        SimilarityTool toolWeightedSimAttr= new SimilarityTool(new WeightedAttributeSimilarity(weights,0.1f),0.4f,0.1f,1,0.05f,null);
+        SimilarityTool toolWeightedSimAttr = new SimilarityTool(new WeightedAttributeSimilarity(weights,0.1f),0.4f,0.1f,1,0.05f,null);
+        SimilarityTool toolSimAttrIDVariant = new SimilarityTool(new AttributeSimliarityDifferentIDVariant(),0.4f,0.1f,1,0.05f,null);
 
-        //float kernel = toolSimAttribute.computeKernelNormalized(dom1,dom2,"all");
+
+        float kernel = toolSimAttribute.computeKernelNormalized(dom1,dom2,"all");
         float weightedKernel = toolWeightedSimAttr.computeKernelNormalized(dom1,dom2,"all");
+        float kernelIDVariant = toolSimAttrIDVariant.computeKernelNormalized(dom1,dom2,"all");
 
-        System.out.println("Kernel: "+0+"\nWeighted: "+weightedKernel);
+        System.out.println("Kernel: "+kernel+"\nWeighted: "+weightedKernel);
     }
 
 

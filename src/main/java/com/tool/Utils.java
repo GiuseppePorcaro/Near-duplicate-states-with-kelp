@@ -55,6 +55,21 @@ public class Utils {
         return attrValues;
     }
 
+    public static Map<String, String> getMapAttribues(String data){
+
+        Map<String, String> map = new HashMap<>();
+        String token [] = data.split("~");
+
+        for(int i = 1 ; i < token.length; i++){
+            if(token[i] != ""){
+                String token2[] = token[i].split("=");
+                map.put(token2[0],token2[1]);
+            }
+        }
+
+        return map;
+    }
+
     public static Set<String> getChildrenData(String data){
         Set<String> childrenData = new HashSet<>();
         String token[] = data.split("~~");
