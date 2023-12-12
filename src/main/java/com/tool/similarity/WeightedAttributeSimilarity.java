@@ -34,23 +34,23 @@ public class WeightedAttributeSimilarity implements StructureElementSimilarityI 
         String tagSx = Utils.getTag(sx.getTextFromData());
         String tagSd = Utils.getTag(sd.getTextFromData());
 
-        System.out.println("Tags: "+tagSx+" - "+tagSd);
-        System.out.println("Attr sx: "+attributesSx+"\nAttr sd: "+attributeSd);
+        //System.out.println("Tags: "+tagSx+" - "+tagSd);
+        //System.out.println("Attr sx: "+attributesSx+"\nAttr sd: "+attributeSd);
 
         if(!tagSx.equalsIgnoreCase(tagSd.toLowerCase())){
-            System.out.println("Sim: 0 - Tag diversi\n");
+            //System.out.println("Sim: 0 - Tag diversi\n");
             return 0f;
         }
 
-        System.out.println("Ids: "+idSx+" - "+idSd);
+        //System.out.println("Ids: "+idSx+" - "+idSd);
 
         /*Same id -> identical nodes*/
         if( idSx != null && idSd != null ){
             if(idSx.equals(idSd)){
-                System.out.println("Sim: 1 - id uguali\n");
+                //System.out.println("Sim: 1 - id uguali\n");
                 return 1f;
             }else{
-                System.out.println("Sim: 0 - id diversi\n");
+                //System.out.println("Sim: 0 - id diversi\n");
                 return 0f;
             }
         }
@@ -59,7 +59,7 @@ public class WeightedAttributeSimilarity implements StructureElementSimilarityI 
         int sdSize = attributeSd.size();
 
         if(sxSize == 0 || sdSize == 0){
-            System.out.println("Sim: 0 - both no attributes\n");
+            //System.out.println("Sim: 0 - both no attributes\n");
             return 0f;
         }
 
@@ -68,23 +68,19 @@ public class WeightedAttributeSimilarity implements StructureElementSimilarityI 
 
 
 
-        System.out.println("Chosen: "+attributesChosen+"\nNot chosen: "+attributesNotChosen);
+        //System.out.println("Chosen: "+attributesChosen+"\nNot chosen: "+attributesNotChosen);
 
         Map<String, Integer> attrChosen = new HashMap<>();
         Map<String, Integer> attrOthers = new HashMap<>();
 
-        //BUG: QUANDO FACCIO SET.CONTAINS(ATTR)) IO STO CERCANDO UN ATTRIBUTO TIPO "CLASS" IN UN INSIEME DI OGGETTI DEL TIPO "CLASS="VALORE"".
-        //QUINDI NON TROVERO' MAI NULLA. DEVO AGGIUSTARE IL BUG PRIMA
         setAttrArray(attributesSx,attributeSd,attributesChosen,attrChosen);
         setAttrArray(attributesSx,attributeSd,attributesNotChosen,attrOthers);
 
-
-
-        System.out.println("AttrChosen: "+attrChosen+"\nAttrOthers: "+attrOthers);
+        //System.out.println("AttrChosen: "+attrChosen+"\nAttrOthers: "+attrOthers);
 
         float sim = computeSim(attrChosen, attrOthers);
 
-        System.out.println("Sim: "+sim+"\n****************************\n\n");
+        //System.out.println("Sim: "+sim+"\n****************************\n\n");
         return sim;
     }
 

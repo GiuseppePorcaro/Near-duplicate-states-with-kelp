@@ -62,8 +62,11 @@ public class Utils {
 
         for(int i = 1 ; i < token.length; i++){
             if(token[i] != ""){
+                token[i] = token[i].replace(" ","");
                 String token2[] = token[i].split("=");
-                map.put(token2[0],token2[1]);
+                if(token2.length > 1){
+                    map.put(token2[0],token2[1]);
+                }
             }
         }
 

@@ -48,24 +48,31 @@ public class DebugClass {
     public void debugAttributeSimilarityVariants() throws Exception {
 
         Map<String, Float> weights = new HashMap<>();
-        weights.put("class",0.5f);
-        weights.put("style",0.2f);
-        weights.put("title",0.1f);
+        weights.put("class",0.4f);
+        weights.put("style",0.1f);
+        weights.put("src",0.1f);
+        weights.put("title",0.2f);
         weights.put("href",0.1f);
 
-        String dom1 = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/node1.html";
-        String dom2 = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/node2.html";
+        //String dom1 = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testChildrenA.html";
+        //String dom2 = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testChildrenB.html";
+
+        String app = "pagekit";
+        String dom1 = app+"/crawl-"+app+"-60min/doms/state238.html";
+        String dom2 = app+"/crawl-"+app+"-60min/doms/state889.html";
+        String folderPath = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"; //"/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"
+
 
         SimilarityTool toolSimAttribute = new SimilarityTool(new AttributeSimilarity(),0.4f,0.1f,1,0.05f,null);
         SimilarityTool toolWeightedSimAttr = new SimilarityTool(new WeightedAttributeSimilarity(weights,0.1f),0.4f,0.1f,1,0.05f,null);
         SimilarityTool toolSimAttrIDVariant = new SimilarityTool(new AttributeSimliarityDifferentIDVariant(),0.4f,0.1f,1,0.05f,null);
 
 
-        float kernel = toolSimAttribute.computeKernelNormalized(dom1,dom2,"all");
-        float weightedKernel = toolWeightedSimAttr.computeKernelNormalized(dom1,dom2,"all");
-        float kernelIDVariant = toolSimAttrIDVariant.computeKernelNormalized(dom1,dom2,"all");
+        float kernel = toolSimAttribute.computeKernelNormalized(folderPath+dom1,folderPath+dom2,"all");
+        float weightedKernel = toolWeightedSimAttr.computeKernelNormalized(folderPath+dom1,folderPath+dom2,"all");
+        float kernelIDVariant = toolSimAttrIDVariant.computeKernelNormalized(folderPath+dom1,folderPath+dom2,"all");
 
-        System.out.println("Kernel: "+kernel+"\nWeighted: "+weightedKernel);
+        System.out.println("Kernel: "+kernel+"\nWeighted: "+weightedKernel+"\nIDVariant: "+kernelIDVariant);
     }
 
 
