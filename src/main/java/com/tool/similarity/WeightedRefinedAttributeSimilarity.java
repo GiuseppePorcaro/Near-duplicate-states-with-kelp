@@ -81,6 +81,7 @@ public class WeightedRefinedAttributeSimilarity implements StructureElementSimil
 
         //System.out.println("AttrChosen: "+attrChosen+"\nAttrOthers: "+attrOthers);
 
+        //System.out.println("attrChosen: "+attrChosen+"\nAttrNotChosen: "+attrOthers+"#############################");
         float sim = computeSim(attrChosen, attrOthers);
 
         //System.out.println("Sim: "+sim+"\n****************************\n\n");
@@ -128,21 +129,28 @@ public class WeightedRefinedAttributeSimilarity implements StructureElementSimil
         Set<String> valuesSd = new HashSet<>();
 
         String tokenValuesSx[] = valuesSxString.split("~~");
+        //System.out.println("Sx-> Values:");
         for(String value: tokenValuesSx){
+            //System.out.println(value+" ");
             valuesSx.add(value);
-        }
+        }//System.out.println("\n");
 
-        String tokenValuesSd[] = valuesSxString.split("~~");
+        String tokenValuesSd[] = valuesSdString.split("~~");
+        //System.out.println("Sd-> Values:");
         for(String value: tokenValuesSd){
+            //System.out.println(value+" ");
             valuesSd.add(value);
-        }
+        }//System.out.println("\n\n");
 
         Set<String> intersection = new HashSet<>(valuesSx);
         intersection.retainAll(valuesSd);
         Set<String> union = new HashSet<>(valuesSx);
         union.addAll(valuesSd);
 
-        return intersection.size()/ union.size();
+        float sim = 1.0f * intersection.size()/ union.size();
+        //System.out.println("Attr sim: "+sim);
+
+        return sim;
     }
 
     private void setAttrArray(Map<String, String> attributesSx ,Map<String, String> attributeSd,Set<String> attributes, Map<String, Float> attrPresence){
@@ -150,6 +158,9 @@ public class WeightedRefinedAttributeSimilarity implements StructureElementSimil
         for(String attr: attributes){
             String valueSx = attributesSx.get(attr);
             String valueSd = attributeSd.get(attr);
+
+            //System.out.println("SX-> Attr: "+attr+" = "+valueSx);
+            //System.out.println("SD-> Attr: "+attr+" = "+valueSd);
 
             if(valueSx != null && valueSd != null){
                 if(valueSx.equals(valueSd)){

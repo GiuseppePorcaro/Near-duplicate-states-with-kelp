@@ -64,6 +64,8 @@ public class DatasetManager {
                 return new DebugStarKernelRunnable(slice, start, folderPath, datasetDB,i);
             case "weightedSimilarity":
                 return new ComputeWeightedSimilarityRunnable(slice, start, folderPath, datasetDB,i);
+            case "weightedRefinedSimilarity":
+                return new ComputeWeightedRefinedSimilarityRunnable(slice, start,folderPath,datasetDB,i);
             default:
                 return null;
         }
