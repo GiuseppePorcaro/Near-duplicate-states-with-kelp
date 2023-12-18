@@ -88,18 +88,30 @@ public class DebugClass {
         AnnotatedDataset dataset = new AnnotatedDataset(pathToDsDataset,pathToGsCrawls);
         WebpageReader wpReader = new WebpageReader(WebpageReader.REPRESENT_DOM_AS_IS);
 
-        File file1 = dataset.getHtmlFile("", "", "testDOMA");
-        File file2 = dataset.getHtmlFile("", "", "testDOMB");
+        File file1 = dataset.getHtmlFile("addressbook", "crawl-addressbook-60min", "index");
+        File file2 = dataset.getHtmlFile("addressbook", "crawl-addressbook-60min", "state5");
+        //index - state33 -> kernel diversi con più esecuzioni
+        //
 
         DomRepresentation page1 = wpReader.getDOMRepresentationFromFile(file1);
         DomRepresentation page2 = wpReader.getDOMRepresentationFromFile(file2);
         first.addRepresentation("DOM-TREE", page1);
         second.addRepresentation("DOM-TREE", page2);
-
+        /*
         SmoothedPartialTreeKernel smptk = new SmoothedPartialTreeKernel(0.4f,0.1f,1f,0.01f,new AttributeSimilarity(),"DOM-TREE");
         it.uniroma2.sag.kelp.kernel.standard.NormalizationKernel nsmptk = new it.uniroma2.sag.kelp.kernel.standard.NormalizationKernel(smptk);
         float norm = nsmptk.innerProduct(first,second);
-        System.out.println("SMOOTHED PARTIAL TREE KERNEL (mu=0.1,lambda=0.1): "+norm);
+        System.out.println("SMOOTHED PARTIAL TREE KERNEL (mu=0.1,lambda=0.1): "+norm);*/
+
+        for(int i = 0; i < 10; i++){
+            PartialTreeKernel ptk2 = new PartialTreeKernel("DOM-TREE");
+            //ptk1.disableCache();
+            ptk2.setMu(0.1F);
+            it.uniroma2.sag.kelp.kernel.standard.NormalizationKernel nptk2 = new it.uniroma2.sag.kelp.kernel.standard.NormalizationKernel(ptk2);
+            float norm = nptk2.innerProduct(first,second);
+            System.out.println("NORMALIZED PARTIAL TREE KERNEL (mu=0.01): "+norm);
+        }
+
 
         System.out.println(first.getRepresentation("DOM-TREE").getTextFromData());
         System.out.println(second.getRepresentation("DOM-TREE").getTextFromData());
