@@ -54,25 +54,28 @@ public class DebugClass {
         weights.put("title",0.2f);
         weights.put("href",0.1f);
 
-        //String dom1 = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testChildrenA.html";
-        //String dom2 = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testChildrenB.html";
-
         String app = "pagekit";
         String dom1 = app+"/crawl-"+app+"-60min/doms/state238.html";
         String dom2 = app+"/crawl-"+app+"-60min/doms/state889.html";
         String folderPath = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"; //"/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"
 
+        String domA = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testChildrenA.html";
+        String domB = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testChildrenB.html";
+        //String domA = folderPath+dom1;
+        //String domB = folderPath+dom2
 
         SimilarityTool toolSimAttribute = new SimilarityTool(new AttributeSimilarity(),0.4f,0.1f,1,0.05f,null);
         SimilarityTool toolWeightedSimAttr = new SimilarityTool(new WeightedAttributeSimilarity(weights,0.1f),0.4f,0.1f,1,0.05f,null);
         SimilarityTool toolSimAttrIDVariant = new SimilarityTool(new AttributeSimliarityDifferentIDVariant(),0.4f,0.1f,1,0.05f,null);
+        SimilarityTool toolSimWeightRefinedSimAttr = new SimilarityTool(new WeightedRefinedAttributeSimilarity(weights,0.1f),0.4f,0.1f,1,0.05f,null);
 
+        //float kernel = toolSimAttribute.computeKernelNormalized(domA,domB,"all");
+        //float weightedKernel = toolWeightedSimAttr.computeKernelNormalized(domA,domB,"all");
+        //float kernelIDVariant = toolSimAttrIDVariant.computeKernelNormalized(domA,domB,"all");
+        float weightedRefinedKernel = toolSimWeightRefinedSimAttr.computeKernelNormalized(domA,domB,"all");
 
-        float kernel = toolSimAttribute.computeKernelNormalized(folderPath+dom1,folderPath+dom2,"all");
-        float weightedKernel = toolWeightedSimAttr.computeKernelNormalized(folderPath+dom1,folderPath+dom2,"all");
-        float kernelIDVariant = toolSimAttrIDVariant.computeKernelNormalized(folderPath+dom1,folderPath+dom2,"all");
-
-        System.out.println("Kernel: "+kernel+"\nWeighted: "+weightedKernel+"\nIDVariant: "+kernelIDVariant);
+        //System.out.println("Kernel: "+kernel+"\nWeighted: "+weightedKernel+"\nIDVariant: "+kernelIDVariant+"\nWeighted Refined kernel: "+weightedRefinedKernel);
+        System.out.println("Weighted Refined kernel: "+weightedRefinedKernel);
     }
 
 

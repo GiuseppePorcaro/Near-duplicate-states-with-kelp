@@ -9,13 +9,13 @@ public class MainClass {
     public static void main(String args[]) throws Exception {
 
         /*Itera sui record del database -> calcola il kernel per ogni coppia -> per ora stampa solo il risultato del kernel*/
-        String folderPath = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels";
+        /*String folderPath = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels";
         String datasetDB = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/data/gs_full_dom_mu01_kernels_StarDomRepresentation_weightedSim_refinedAttr.db";
         DatasetManager datasetManager = new DatasetManager(folderPath,datasetDB,97490,"weightedSimilarity");
-        datasetManager.computeDatasetFunction();
+        datasetManager.computeDatasetFunction();*/
 
-        //DebugClass debugClass = new DebugClass();
-        //debugClass.debugAttributeSimilarityVariants();
+        DebugClass debugClass = new DebugClass();
+        debugClass.debugAttributeSimilarityVariants();
         //debugClass.debugStarRepresentation();
         //debugClass.debugKernels();
         //debugClass.debugTrees();
