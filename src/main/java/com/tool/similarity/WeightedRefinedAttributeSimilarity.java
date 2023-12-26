@@ -13,6 +13,16 @@ import static com.tool.Utils.getMapAttribues;
 * Then updates weights accordling on how much they are similar.
 *
 * */
+
+/*
+* Pesi usati per la weightedAttributeSimilarity e WeightedRefinedAttributeSimilarity
+* weightsDefault.put("class",0.4f);
+        weightsDefault.put("style",0.1f);
+        weightsDefault.put("src",0.1f);
+        weightsDefault.put("title",0.2f);
+        weightsDefault.put("href",0.1f);
+*
+* */
 public class WeightedRefinedAttributeSimilarity implements StructureElementSimilarityI {
 
     private final Map<String, Float> weightsChoosenAttributes;

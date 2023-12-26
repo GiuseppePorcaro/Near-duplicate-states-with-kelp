@@ -46,36 +46,83 @@ public class DebugClass {
 
 
     public void debugAttributeSimilarityVariants() throws Exception {
-
         Map<String, Float> weights = new HashMap<>();
         weights.put("class",0.4f);
         weights.put("style",0.1f);
         weights.put("src",0.1f);
         weights.put("title",0.2f);
         weights.put("href",0.1f);
+        Map<String,Map<String,Float>> mapOfChoosenWeights = createWeights();
+
+        System.out.println("w: "+mapOfChoosenWeights.get("default").values());
 
         String app = "pagekit";
         String dom1 = app+"/crawl-"+app+"-60min/doms/state238.html";
         String dom2 = app+"/crawl-"+app+"-60min/doms/state889.html";
         String folderPath = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"; //"/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"
 
-        //String domA = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testDOMA.html";
-        //String domB = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testDOMB.html";
-        String domA = folderPath+dom1;
-        String domB = folderPath+dom2;
+        String domA = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testDOMA.html";
+        String domB = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testDOMB.html";
+        //String domA = folderPath+dom1;
+        //String domB = folderPath+dom2;
 
         SimilarityTool toolSimAttribute = new SimilarityTool(new AttributeSimilarity(),0.4f,0.1f,1,0.05f,null);
         SimilarityTool toolWeightedSimAttr = new SimilarityTool(new WeightedAttributeSimilarity(weights,0.1f),0.4f,0.1f,1,0.05f,null);
         SimilarityTool toolSimAttrIDVariant = new SimilarityTool(new AttributeSimliarityDifferentIDVariant(),0.4f,0.1f,1,0.05f,null);
         SimilarityTool toolSimWeightRefinedSimAttr = new SimilarityTool(new WeightedRefinedAttributeSimilarity(weights,0.1f),0.4f,0.1f,1,0.05f,null);
+        SimilarityTool toolMultipleWeightRefSimAttr = new SimilarityTool(new MultipleWeightedRefinedAttributeSimilarity(mapOfChoosenWeights,0.1f),0.4f,0.1f,1,0.05f,null);
+
 
         float kernel = toolSimAttribute.computeKernelNormalized(domA,domB,"all");
         float weightedKernel = toolWeightedSimAttr.computeKernelNormalized(domA,domB,"all");
         float kernelIDVariant = toolSimAttrIDVariant.computeKernelNormalized(domA,domB,"all");
         float weightedRefinedKernel = toolSimWeightRefinedSimAttr.computeKernelNormalized(domA,domB,"all");
+        float multipleWeightsKernel = toolMultipleWeightRefSimAttr.computeKernelNormalized(domA,domB,"all");
 
-        System.out.println("Kernel: "+kernel+"\nWeighted: "+weightedKernel+"\nIDVariant: "+kernelIDVariant+"\nWeighted Refined kernel: "+weightedRefinedKernel);
+        System.out.println("Kernel: "+kernel+"\nWeighted: "+weightedKernel+"\nIDVariant: "+kernelIDVariant+"\nWeighted Refined kernel: "+weightedRefinedKernel+"\nMultiple Weights: "+multipleWeightsKernel);
         //System.out.println("Weighted Refined kernel: "+weightedRefinedKernel);
+    }
+
+    private static Map<String,Map<String,Float>> createWeights() {
+        Map<String,Map<String,Float>> mapOfChoosenWeights = new HashMap<>();
+
+        Map<String, Float> weightsDefault = new HashMap<>();
+        weightsDefault.put("class",0.5f);
+        weightsDefault.put("style",0.2f);
+        weightsDefault.put("title",0.2f);
+
+        Map<String, Float> weightAnchor = new HashMap<>();
+        weightAnchor.put("href",0.5f);
+        weightAnchor.put("class",0.2f);
+        weightAnchor.put("target",0.1f);
+        weightAnchor.put("type",0.1f);
+
+        Map<String, Float> weightInput = new HashMap<>();
+        weightInput.put("name",0.4f);
+        weightInput.put("class",0.2f);
+        weightInput.put("type",0.1f);
+        weightInput.put("placeholder",0.2f);
+
+        Map<String, Float> weightImages = new HashMap<>();
+        weightImages.put("src",0.4f);
+        weightImages.put("class",0.3f);
+        weightImages.put("title",0.1f);
+        weightImages.put("alt",0.1f);
+
+        Map<String, Float> weightForm = new HashMap<>();
+        weightForm.put("action",0.5f);
+        weightForm.put("class",0.2f);
+        weightForm.put("name",0.1f);
+        weightForm.put("method",0.1f);
+
+        mapOfChoosenWeights.put("default",weightsDefault);
+        mapOfChoosenWeights.put("a",weightAnchor);
+        mapOfChoosenWeights.put("input",weightInput);
+        mapOfChoosenWeights.put("img",weightImages);
+        mapOfChoosenWeights.put("form",weightForm);
+
+        return mapOfChoosenWeights;
+
     }
 
 
