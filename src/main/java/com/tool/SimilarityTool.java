@@ -1,6 +1,7 @@
 package com.tool;
 
 import com.tool.NormalizationKernels.NormalizationKernel;
+import com.tool.Trees.Tree;
 import com.tool.Trees.TreeFactory;
 import it.uniroma2.sag.kelp.data.representation.structure.similarity.StructureElementSimilarityI;
 import it.uniroma2.sag.kelp.data.representation.tree.TreeRepresentation;
@@ -46,6 +47,18 @@ public class SimilarityTool {
         TreeRepresentation secondTree = popolateTree(TreeFactory.createTree(pathHtml2,treeType));
 
         return kernelNormalized.kernelComputation(firstTree,secondTree);
+    }
+
+    public float computeKernelNormalizedByDOM(String dom1, String dom2, String treeType) throws Exception {
+        Tree tree1 = TreeFactory.createTreeDefaultConstructor(treeType);
+        Tree tree2 = TreeFactory.createTreeDefaultConstructor(treeType);
+        tree1.setTreeDOM(dom1);
+        tree2.setTreeDOM(dom2);
+
+        TreeRepresentation firstTree = popolateTree(tree1);
+        TreeRepresentation secondTree = popolateTree(tree2);
+
+        return kernelNormalized.kernelComputation(firstTree, secondTree);
     }
 
     public DirectKernel<TreeRepresentation> getKernel() {

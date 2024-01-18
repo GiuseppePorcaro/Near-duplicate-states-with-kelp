@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="kelp_test" />
+        <module name="nd_with_kelp" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="kelp_test" target="18" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -7,6 +7,8 @@ import org.jsoup.nodes.Element;
 
 public class TreeNoScript extends Tree{
 
+    public TreeNoScript(){}
+
     public TreeNoScript(String path){
         stringDOM = Utils.getTestDOM(path);
         parseDOM(stringDOM);
@@ -20,5 +22,11 @@ public class TreeNoScript extends Tree{
         for(Element tag: parsedDOM.select("script")){
             tag.remove();
         }
+    }
+
+    @Override
+    public void setTreeDOM(String dom) {
+        stringDOM = dom;
+        parseDOM(stringDOM);
     }
 }

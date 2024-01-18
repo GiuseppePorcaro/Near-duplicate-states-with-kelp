@@ -1,6 +1,5 @@
 package com.tool.Trees;
 
-import it.uniroma2.sag.kelp.data.representation.tree.node.TreeNode;
 import org.jsoup.nodes.Document;
 
 public abstract class Tree {
@@ -14,6 +13,6 @@ public abstract class Tree {
         return parsedDOM;
     }
 
-
+    public abstract void setTreeDOM(String dom);
 
 }

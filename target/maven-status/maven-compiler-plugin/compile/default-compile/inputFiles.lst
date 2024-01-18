@@ -1,256 +1,252 @@
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/standard/RbfKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/FixIndexSquaredNormCache.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/pairs/UncrossedPairwiseSumKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/vector/DenseVector.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/liblinear/solver/LibLinearFeatureNode.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/clustering/ClusterTypeResolver.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/com/tool/debug/DebugClass.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/FileUtils.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/graph/GraphUtils.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/PassiveAggressive.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/Kernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/filter/LexicalStructureElementFilter.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/nodePruner/PruneNodeNumberOfChildren.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/multiclassification/OneVsOneLearning.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/pairs/PairwiseProductKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/SequenceDatasetReader.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/linearization/nystrom/NystromMethod.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/libsvm/BinaryCSvmClassification.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/SameAdditionalInfoStructureElementSimilarity.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/com/tool/Trees/Tree.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/wordspace/WordspaceI.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/model/SupportVector.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/MultiEpochLearning.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/TreeRepresentation.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/liblinear/solver/L2R_L2_SvrFunction.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/tree/deltamatrix/DynamicDeltaMatrix.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/ClassificationOutput.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/evaluation/MulticlassClassificationEvaluator.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/KernelTypeResolver.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/RepresentationTypeResolver.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/JacksonSerializerWrapper.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/TreeNodePruner.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/regression/liblinear/LibLinearRegression.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/KernelMethod.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/exception/NoSuchPerformanceMeasureException.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/EnsembleLearningAlgorithm.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/examplegenerator/SequenceExampleGeneratorKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/PredictionFunction.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/libsvm/solver/LibNuSvmSolver.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/clustering/kernelbasedkmeans/KernelBasedKMeansExample.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/evaluation/Evaluator.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/multiclass/MultiLabelClassificationOutput.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/utils/TreeNodeSelectorAllLeaves.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/nodePruner/package-info.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/perceptron/KernelizedPerceptron.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/selector/FirstExamplesSelector.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/libsvm/solver/LibCSvmSolver.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/wordspace/Wordspace.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/multiclassification/MultiLabelClassificationLearning.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/DatasetWriter.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/model/KernelMachineModel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/model/MulticlassModel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/evaluation/ClusteringEvaluator.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/tree/SmoothedPartialTreeKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/model/Model.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/PosStructureElement.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/multiclass/OneVsAllClassifier.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/multiclassification/OneVsAllLearning.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/liblinear/solver/LibLinearFeature.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/liblinear/solver/TronFunction.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/regression/passiveaggressive/KernelizedPassiveAggressiveRegression.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/StructureElement.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/label/NumericLabel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/compositional/dilation/CompositionalNodeSimilarityDilation.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/Vector.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/com/tool/NormalizationKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/regression/passiveaggressive/PassiveAggressiveRegression.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/KernelCache.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/clustering/ClusterList.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/evaluation/MulticlassSequenceClassificationEvaluator.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/label/Label.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/Manipulator.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/tree/TreeKernelUtils.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/vector/SparseVector.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/dcd/DCDLearningAlgorithm.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/regressionfunction/RegressionFunction.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/nodePruner/NodePruner.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/example/SimpleExample.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/graph/DirectedGraphRepresentation.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/example/ExamplePair.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/compositional/product/CompositionalNodeSimilarityProduct.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/model/SequenceModel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/dcd/DCDLoss.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/evaluation/RegressorEvaluator.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/perceptron/LinearPerceptron.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/SequencePredictionFunction.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/com/tool/Utils.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/tree/deltamatrix/DeltaMatrix.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/graph/ShortestPathKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/OnlineLearningAlgorithm.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/clustering/kernelbasedkmeans/KernelBasedKMeansEngine.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/vector/LinearKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/pairs/PairwiseSumKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/perceptron/Perceptron.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/utils/SelectRepresentationFromExample.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/wordspace/WordspaceTypeResolver.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/NormalizationManipolator.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/com/tool/similarity/ChildrenBasedJaccardSimilarity.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/budgetedAlgorithm/RandomizedBudgetPerceptron.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/LearningAlgorithm.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/label/StringLabel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/regressionfunction/UnivariateKernelMachineRegressionFunction.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/Math.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/compositional/sum/CompositionalNodeSimilaritySum.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/VectorBasedStructureElementSimilarity.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/clustering/ClusterExample.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/filter/TreeNodeFilter.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/regression/passiveaggressive/LinearPassiveAggressiveRegression.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/StructureElementFactory.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/similarity/TreeNodeSimilarity.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/standard/LinearKernelCombination.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/BinaryKernelMachineClassifier.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/sequence/SequenceKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/pairs/PreferenceKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/com/tool/HTMLStructureElement.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/nodePruner/NodeToBePrunedCheckerAbstractClass.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/KernelCacheTypeResolver.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/utils/TreeNodeSelectorAllChildren.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/budgetedAlgorithm/Stoptron.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/example/SequenceExample.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/example/ExampleTypeResolver.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/regressionfunction/UnivariateRegressionOutput.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/com/tool/similarity/AllAttributesJaccardSimilarity.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/scw/SoftConfidenceWeightedClassification.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/examplegenerator/SequenceExampleGeneratorLinear.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/nodePruner/PruneNodeThresholdAndDistanceFromSpecificLabelledNode.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/BinaryLearningAlgorithm.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/liblinear/LibLinearLearningAlgorithm.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/selector/RandomExampleSelector.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/SimpleDynamicKernelCache.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/TreePairRelTagger.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/clustering/Cluster.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/KernelComposition.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/libsvm/solver/LibSvmSolver.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/BinaryMarginClassifierOutput.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/SquaredNormCache.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/BinaryClassifier.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/SimpleDataset.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/DatasetReader.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/StandardizationManipulator.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/com/tool/Trees/TreeNoScript.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/FixSizeKernelCache.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/UntypedStructureElement.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/nodePruner/PruneNodeLowerThanThreshold.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/regressionfunction/RegressionOutput.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/com/tool/DatasetManager.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/multiclass/OneVsAllClassificationOutput.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/tree/PartialTreeKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/clustering/kmeans/LinearKMeansEngine.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/libsvm/OneClassSvmClassification.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/ExperimentUtils.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/LinearMethod.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/com/tool/MainClass.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/clustering/kmeans/LinearKMeansExample.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/utils/TreeIOException.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/DynamicIndexSquaredNormCache.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/PairSimilarityExtractor.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/tree/SubTreeKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/com/tool/SimilarityTool.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/utils/TreeIO.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/com/tool/Trees/FullTree.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/nodePruner/PruneNodeLeafNumber.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/VectorConcatenationManipulator.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/tree/SubSetTreeKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/multiclass/MultiLabelClassifier.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/scw/SCWType.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/example/ExampleFactory.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/example/SequencePath.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/tree/deltamatrix/StaticDeltaMatrix.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/pairs/KernelOnPairs.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/libsvm/solver/SvmSolution.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/StructureElementSimilarityI.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/example/ParsingExampleException.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/multiclass/OneVsOneClassifier.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/utils/TreeNodeSelectorAllDescendants.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/Representation.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/ClassificationLearningAlgorithm.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/multiclass/OneVsOneClassificationOutput.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/selector/ExampleSelector.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/DirectKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/SequenceDataset.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/com/tool/similarity/AllAttributesDiceSorensenSimilarity.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/SequenceDatasetWriter.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/utils/TreeNodeSelector.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/PredictionFunctionTypeResolver.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/TreeAddAdditionalInfoFromArray.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/graph/GraphNode.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/examplegenerator/SequenceExampleGeneratorTypeResolver.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/sequence/SequenceRepresentation.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/linearization/nystrom/NystromMethodEnsemble.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/filter/StructureElementFilter.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/ObjectSerializer.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/vector/exception/VectorOperationException.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/libsvm/BinaryNuSvmClassification.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/KernelCombination.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/SequencePrediction.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/pairs/UncrossedPairwiseProductKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/standard/KernelMultiplication.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/liblinear/solver/Problem.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/SyntacticStructureElement.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/pairs/BestPairwiseAlignmentKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/budgetedAlgorithm/BudgetedLearningAlgorithm.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/standard/PolynomialKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/LexicalStructureElement.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/Classifier.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/Prediction.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/compositional/CompositionalNodeSimilarity.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/regressionfunction/UnivariateLinearRegressionFunction.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/string/StringRepresentation.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/LibsvmDatasetReader.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/DynamicIndexKernelCache.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/linearization/LinearizationFunction.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/LexicalStructureElementSimilarity.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/com/tool/Trees/TreeFactory.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/label/LabelFactory.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/RepresentationFactory.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/com/tool/Trees/TreeForCrawl.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/CompositionalStructureElement.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/Dataset.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/sequence/SequenceElement.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/model/BinaryModel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/graph/NodeDistance.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/similarity/ContentBasedTreeNodeSimilarity.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/LexicalStructureElementManipulator.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/example/Example.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/nodePruner/PruneNodeIfLeaf.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/pegasos/PegasosLearningAlgorithm.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/clustering/ClusteringAlgorithm.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/Normalizable.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/filter/ContentBasedTreeNodeFilter.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/evaluation/BinaryClassificationEvaluator.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/clustering/kmeans/LinearKMeansCluster.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/SquaredNormCacheTypeResolver.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/MetaLearningAlgorithm.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/StructureElementSimilarityTypeResolver.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/standard/NormalizationKernel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/ExactMatchingStructureElementSimilarity.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/BinaryLinearClassifier.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/model/BinaryLinearModel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/TreeNodePairs.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/regression/RegressionLearningAlgorithm.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/regressionfunction/UnivariateRegressionFunction.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/FixIndexKernelCache.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/liblinear/solver/Tron.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/label/LabelTypeResolver.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/regression/libsvm/EpsilonSvmRegression.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/model/BinaryKernelMachineModel.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/clustering/ClusterExampleTypeResolver.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/label/SequenceEmission.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/WLSubtreeMapper.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/LearningAlgorithmTypeResolver.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/CsvDatasetReader.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/liblinear/solver/L2R_L2_SvcFunction.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/examplegenerator/SequenceExampleGenerator.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/StripeKernelCache.java
-/Users/giuseppeporcaro/Desktop/Libri_università/Magistrale/Tesi magistrale/Web Test Generation/Tool Web Testing/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/TreeNode.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/Math.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/RepresentationTypeResolver.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/dataset/ComputeStatisticsRunnable.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/utils/TreeIO.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/data/goldstandard/State.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/representations/HTMLStructureElement.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/evaluation/RegressorEvaluator.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/Kernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/KernelMethod.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/regressionfunction/UnivariateRegressionFunction.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/pairs/PreferenceKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/data/dom/io/WebpageReader.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/utils/SelectRepresentationFromExample.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/Manipulator.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/MainClass.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/graph/NodeDistance.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/model/MulticlassModel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/Trees/TreeNoScript.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/regressionfunction/UnivariateRegressionOutput.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/tree/deltamatrix/DeltaMatrix.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/libsvm/OneClassSvmClassification.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/UntypedStructureElement.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/StructureElementSimilarityI.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/StructureElement.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/evaluation/Evaluator.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/JacksonSerializerWrapper.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/DatasetWriter.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/standard/NormalizationKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/libsvm/solver/LibSvmSolver.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/multiclassification/OneVsAllLearning.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/wordspace/WordspaceI.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/libsvm/BinaryCSvmClassification.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/NormalizationKernels/NormalizationSubTreeKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/ExactMatchingStructureElementSimilarity.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/wordspace/Wordspace.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/WLSubtreeMapper.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/example/SimpleExample.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/data/dom/DomRepresentation.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/example/SequenceExample.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/Vector.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/PairSimilarityExtractor.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/dataset/ComputeAttrSimilarityStarDomReprRunnable.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/CompositionalStructureElement.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/utils/TreeNodeSelector.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/KernelCombination.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/StructureElementSimilarityTypeResolver.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/tree/TreeKernelUtils.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/model/KernelMachineModel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/filter/ContentBasedTreeNodeFilter.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/LexicalStructureElementSimilarity.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/Classifier.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/evaluation/BinaryClassificationEvaluator.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/selector/FirstExamplesSelector.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/VectorConcatenationManipulator.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/filter/StructureElementFilter.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/SimilarityTool.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/model/SupportVector.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/KernelComposition.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/tree/SubTreeKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/label/Label.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/Trees/TreeForCrawl.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/EnsembleLearningAlgorithm.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/nodePruner/NodeToBePrunedCheckerAbstractClass.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/KernelCacheTypeResolver.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/data/dom/DomNode.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/string/StringRepresentation.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/Trees/FullTree.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/libsvm/solver/LibNuSvmSolver.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/TreeRepresentation.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/compositional/dilation/CompositionalNodeSimilarityDilation.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/utils/TreeNodeSelectorAllChildren.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/TreeNode.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/clustering/ClusterTypeResolver.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/model/Model.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/data/ResultsDataset.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/data/SubjectSetDataset.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/clustering/ClusterExample.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/pairs/PairwiseSumKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/PredictionFunction.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/clustering/kmeans/LinearKMeansEngine.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/tree/PartialTreeKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/model/BinaryLinearModel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/CsvDatasetReader.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/selector/ExampleSelector.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/regressionfunction/RegressionFunction.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/example/SequencePath.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/data/goldstandard/Bin.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/compositional/CompositionalNodeSimilarity.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/vector/LinearKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/TreePairRelTagger.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/data/goldstandard/GoldStandardModelReader.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/nodePruner/PruneNodeLeafNumber.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/similarity/WeightedRefinedAttributeSimilarity.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/filter/TreeNodeFilter.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/SameAdditionalInfoStructureElementSimilarity.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/LexicalStructureElement.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/SequenceDatasetReader.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/TreeAddAdditionalInfoFromArray.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/tree/deltamatrix/DynamicDeltaMatrix.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/label/LabelFactory.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/utils/TreeNodeSelectorAllLeaves.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/vector/SparseVector.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/BinaryLinearClassifier.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/NormalizationManipolator.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/dataset/DatasetManager.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/OnlineLearningAlgorithm.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/exception/NoSuchPerformanceMeasureException.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/TreeNodePruner.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/libsvm/BinaryNuSvmClassification.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/data/AnnotatedDataset.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/SquaredNormCacheTypeResolver.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/regressionfunction/UnivariateLinearRegressionFunction.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/clustering/ClusterExampleTypeResolver.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/SimpleDataset.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/sequence/SequenceKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/data/goldstandard/GoldStandardModel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/NormalizationKernels/NormalizationKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/BinaryLearningAlgorithm.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/BinaryKernelMachineClassifier.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/evaluation/MulticlassClassificationEvaluator.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/Prediction.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/RepresentationFactory.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/nodePruner/NodePruner.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/MetaLearningAlgorithm.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/ClassificationOutput.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/Trees/Tree.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/experiments/data/DatasetEntry.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/nodePruner/package-info.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/KernelTypeResolver.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/multiclass/MultiLabelClassificationOutput.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/representations/DomRepresentation.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/StandardizationManipulator.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/compositional/product/CompositionalNodeSimilarityProduct.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/experiments/data/SubjectSetDataset.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/experiments/data/ResultsDataset.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/example/ParsingExampleException.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/standard/LinearKernelCombination.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/ExperimentUtils.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/similarity/WeightedAttributeSimilarity.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/pairs/KernelOnPairs.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/experiments/data/AnnotatedDataset.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/nodePruner/PruneNodeThresholdAndDistanceFromSpecificLabelledNode.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/clustering/Cluster.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/example/ExampleTypeResolver.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/compositional/sum/CompositionalNodeSimilaritySum.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/standard/RbfKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/FixIndexKernelCache.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/dataset/ComputeSimilaritiesRunnable.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/dataset/DatasetRow.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/pairs/UncrossedPairwiseProductKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/multiclass/MultiLabelClassifier.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/Representation.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/regressionfunction/RegressionOutput.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/example/ExamplePair.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/dataset/ComputeKernelsStarRunnable.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/debug/DebugClass.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/BinaryClassifier.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/SequenceDatasetWriter.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/clustering/kmeans/LinearKMeansCluster.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/tree/SubSetTreeKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/DatasetReader.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/dataset/ComputeWeightedRefinedSimilarityRunnable.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/multiclass/OneVsAllClassifier.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/nodePruner/PruneNodeNumberOfChildren.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/ClassificationLearningAlgorithm.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/PredictionFunctionTypeResolver.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/clustering/ClusterList.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/dataset/ComputeKernelsRunnable.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/example/Example.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/regression/libsvm/EpsilonSvmRegression.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/Utils.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/multiclassification/MultiLabelClassificationLearning.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/SequenceDataset.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/sequence/SequenceRepresentation.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/dataset/ComputeMultipleWeightsAttrSimRunnable.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/DynamicIndexSquaredNormCache.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/SquaredNormCache.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/label/StringLabel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/TreeNodePairs.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/utils/TreeIOException.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/wordspace/WordspaceTypeResolver.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/regression/RegressionLearningAlgorithm.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/representations/ManageTreeRepresentation.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/tree/deltamatrix/StaticDeltaMatrix.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/selector/RandomExampleSelector.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/utils/TreeNodeSelectorAllDescendants.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/clustering/kmeans/LinearKMeansExample.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/dataset/DebugStarKernelRunnable.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/SyntacticStructureElement.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/Dataset.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/standard/PolynomialKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/Normalizable.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/example/ExampleFactory.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/data/DatasetEntry.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/PosStructureElement.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/libsvm/solver/SvmSolution.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/graph/DirectedGraphRepresentation.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/multiclassification/OneVsOneLearning.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/sequence/SequenceElement.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/model/BinaryModel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/tree/SmoothedPartialTreeKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/vector/exception/VectorOperationException.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/DirectKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/similarity/ContentBasedTreeNodeSimilarity.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/Trees/TreeFactory.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/graph/ShortestPathKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/dataset/LibsvmDatasetReader.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/similarity/ChildrenBasedJaccardSimilarity.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/regressionfunction/UnivariateKernelMachineRegressionFunction.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/label/NumericLabel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/LearningAlgorithmTypeResolver.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/data/dom/DomElement.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/classification/libsvm/solver/LibCSvmSolver.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/label/LabelTypeResolver.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/LearningAlgorithm.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/clustering/ClusteringAlgorithm.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/vector/DenseVector.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/multiclass/OneVsOneClassifier.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/pairs/PairwiseProductKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/similarity/AllAttributesDiceSorensenSimilarity.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/filter/LexicalStructureElementFilter.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/FixIndexSquaredNormCache.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/nodePruner/PruneNodeIfLeaf.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/learningalgorithm/LinearMethod.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/similarity/AttributeSimliarityDifferentIDVariant.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/graph/GraphUtils.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/BinaryMarginClassifierOutput.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/similarity/TreeNodeSimilarity.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/SimpleDynamicKernelCache.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/StructureElementFactory.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/pairs/BestPairwiseAlignmentKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/graph/GraphNode.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/FileUtils.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/similarity/MultipleWeightedRefinedAttributeSimilarity.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/KernelCache.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/utils/ObjectSerializer.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/DynamicIndexKernelCache.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/FixSizeKernelCache.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/multiclass/OneVsAllClassificationOutput.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/structure/similarity/VectorBasedStructureElementSimilarity.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/label/SequenceEmission.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/dataset/ComputeWeightedSimilarityRunnable.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/manipulator/LexicalStructureElementManipulator.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/similarity/AttributeSimilarity.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/classifier/multiclass/OneVsOneClassificationOutput.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/cache/StripeKernelCache.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/standard/KernelMultiplication.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/kernel/pairs/UncrossedPairwiseSumKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/predictionfunction/model/BinaryKernelMachineModel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/NormalizationKernels/NormalizationPartialTreeKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/com/tool/NormalizationKernels/NormalizationSubSetTreeKernel.java
+/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/java/it/uniroma2/sag/kelp/data/representation/tree/node/nodePruner/PruneNodeLowerThanThreshold.java

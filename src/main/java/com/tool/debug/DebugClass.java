@@ -7,6 +7,7 @@ import com.tool.NormalizationKernels.NormalizationSubTreeKernel;
 import com.tool.SimilarityTool;
 import com.tool.Trees.Tree;
 import com.tool.Trees.TreeFactory;
+import com.tool.Utils;
 import com.tool.data.dom.io.WebpageReader;
 import com.tool.experiments.data.AnnotatedDataset;
 import com.tool.data.dom.DomRepresentation;
@@ -24,6 +25,7 @@ import it.uniroma2.sag.kelp.kernel.tree.SubSetTreeKernel;
 import it.uniroma2.sag.kelp.kernel.tree.SubTreeKernel;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -61,10 +63,16 @@ public class DebugClass {
         String dom2 = app+"/crawl-"+app+"-60min/doms/state889.html";
         String folderPath = "/run/media/giuseppeporcaro/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"; //"/Volumes/SDDPeppe/Università/Libri_università/Magistrale/Tesi_magistrale/Web_Test_Generation/Crawls_complete/GroundTruthModels/"
 
-        String domA = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testDOMA.html";
-        String domB = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testDOMB.html";
-        //String domA = folderPath+dom1;
-        //String domB = folderPath+dom2;
+        //String domA = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testDOMA.html";
+        //String domB = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testDOMB.html";
+        String domA = folderPath+dom1;
+        String domB = folderPath+dom2;
+
+        String domString1 = Utils.getTestDOM(folderPath+dom1);
+        String domString2 = Utils.getTestDOM(folderPath+dom2);
+
+        System.out.println(domString1);
+
 
         SimilarityTool toolSimAttribute = new SimilarityTool(new AttributeSimilarity(),0.4f,0.1f,1,0.05f,null);
         SimilarityTool toolWeightedSimAttr = new SimilarityTool(new WeightedAttributeSimilarity(weights,0.1f),0.4f,0.1f,1,0.05f,null);
@@ -72,16 +80,22 @@ public class DebugClass {
         SimilarityTool toolSimWeightRefinedSimAttr = new SimilarityTool(new WeightedRefinedAttributeSimilarity(weights,0.1f),0.4f,0.1f,1,0.05f,null);
         SimilarityTool toolMultipleWeightRefSimAttr = new SimilarityTool(new MultipleWeightedRefinedAttributeSimilarity(mapOfChoosenWeights,0.1f),0.4f,0.1f,1,0.05f,null);
 
-
         float kernel = toolSimAttribute.computeKernelNormalized(domA,domB,"all");
         float weightedKernel = toolWeightedSimAttr.computeKernelNormalized(domA,domB,"all");
         float kernelIDVariant = toolSimAttrIDVariant.computeKernelNormalized(domA,domB,"all");
         float weightedRefinedKernel = toolSimWeightRefinedSimAttr.computeKernelNormalized(domA,domB,"all");
         float multipleWeightsKernel = toolMultipleWeightRefSimAttr.computeKernelNormalized(domA,domB,"all");
 
-        System.out.println("Kernel: "+kernel+"\nWeighted: "+weightedKernel+"\nIDVariant: "+kernelIDVariant+"\nWeighted Refined kernel: "+weightedRefinedKernel+"\nMultiple Weights: "+multipleWeightsKernel);
+        float kernel2 = toolSimAttribute.computeKernelNormalizedByDOM(domString1, domString2,"all");
+        float weightedKernel2 = toolWeightedSimAttr.computeKernelNormalizedByDOM(domString1, domString2,"all");
+        float weightedRefinedKernel2 = toolSimWeightRefinedSimAttr.computeKernelNormalizedByDOM(domString1, domString2,"all");
+
+        System.out.println("Kernel: "+kernel+"\nWeighted: "+weightedKernel+"\nWeighted Refined kernel: "+weightedRefinedKernel);
+        System.out.println("Kernel2: "+kernel2+"\nWeighted2: "+weightedKernel2+"\nWeighted Refined kernel2: "+weightedRefinedKernel2);
         //System.out.println("Weighted Refined kernel: "+weightedRefinedKernel);
     }
+
+
 
     private static Map<String,Map<String,Float>> createWeights() {
         Map<String,Map<String,Float>> mapOfChoosenWeights = new HashMap<>();
@@ -168,6 +182,16 @@ public class DebugClass {
 
     }
 
+    private void createTmpFile(String name, String dom){
+        try {
+            FileWriter myWriter = new FileWriter("src/main/resources/tmp/"+name);
+            myWriter.write(dom);
+            myWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public DebugClass(){
         StructureElementSimilarityI jaccardSimilarity = new AttributeSimilarity();
         StructureElementSimilarityI diceSorensen = new AllAttributesDiceSorensenSimilarity();
@@ -194,7 +218,6 @@ public class DebugClass {
 
         String dom1 = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testDOMA.html";
         String dom2 = "/home/giuseppeporcaro/Documenti/GitHub/Near-duplicate-states-with-kelp/src/main/resources/testChildrenA.html";
-
         TreeRepresentation firstTree = popolateTree(TreeFactory.createTree(dom1,typeTree));
         TreeRepresentation secondTree = popolateTree(TreeFactory.createTree(dom2,typeTree));
 

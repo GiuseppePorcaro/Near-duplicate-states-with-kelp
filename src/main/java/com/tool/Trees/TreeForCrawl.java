@@ -7,6 +7,9 @@ import org.jsoup.nodes.Node;
 
 public class TreeForCrawl extends Tree {
 
+    public TreeForCrawl(){
+
+    }
     public TreeForCrawl(String path){
         stringDOM = Utils.getTestDOM(path);
         parseDOM(stringDOM);
@@ -34,6 +37,12 @@ public class TreeForCrawl extends Tree {
                 i++;
             }
         }
+    }
+
+    @Override
+    public void setTreeDOM(String dom) {
+        stringDOM = dom;
+        parseDOM(stringDOM);
     }
 
 

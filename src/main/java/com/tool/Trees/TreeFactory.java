@@ -14,4 +14,17 @@ public abstract class TreeFactory {
                 throw new Exception("TreeType not valid! Choose:[all, noScript,treeForCrawl]");
         }
     }
+
+    public static Tree createTreeDefaultConstructor(String typeOfTree) throws Exception {
+        switch (typeOfTree.toLowerCase()){
+            case "all":
+                return new FullTree();
+            case "noscript":
+                return new TreeNoScript();
+            case "treeforcrawl":
+                return new TreeForCrawl();
+            default:
+                throw new Exception("TreeType not valid! Choose:[all, noScript,treeForCrawl]");
+        }
+    }
 }
